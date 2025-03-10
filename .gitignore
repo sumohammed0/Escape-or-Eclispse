@@ -26,6 +26,16 @@
 # Visual Studio cache directory
 .vs/
 
+# Ignore VS Code settings
+.vscode/
+
+# Ignore macOS system files
+.DS_Store
+
+### VisualStudioCode Patch ###
+# Ignore all local history of files
+**/.history
+
 # Gradle cache directory
 .gradle/
 
