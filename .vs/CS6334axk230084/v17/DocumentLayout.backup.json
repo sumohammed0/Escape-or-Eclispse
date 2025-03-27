@@ -1,0 +1,113 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "I:\\Unity Projects\\CS6334axk230084\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{645DD9C3-E7E8-EE6E-04CE-5B15764BB192}|Assembly-CSharp.csproj|I:\\Unity Projects\\CS6334axk230084\\assets\\menuaanditemhanlder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{645DD9C3-E7E8-EE6E-04CE-5B15764BB192}|Assembly-CSharp.csproj|solutionrelative:assets\\menuaanditemhanlder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{645DD9C3-E7E8-EE6E-04CE-5B15764BB192}|Assembly-CSharp.csproj|i:\\unity projects\\cs6334axk230084\\assets\\scripts\\itemmenumanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{645DD9C3-E7E8-EE6E-04CE-5B15764BB192}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\itemmenumanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{645DD9C3-E7E8-EE6E-04CE-5B15764BB192}|Assembly-CSharp.csproj|i:\\unity projects\\cs6334axk230084\\assets\\scripts\\mainmenuuimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{645DD9C3-E7E8-EE6E-04CE-5B15764BB192}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\mainmenuuimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{645DD9C3-E7E8-EE6E-04CE-5B15764BB192}|Assembly-CSharp.csproj|i:\\unity projects\\cs6334axk230084\\assets\\scripts\\inventoryuimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{645DD9C3-E7E8-EE6E-04CE-5B15764BB192}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\inventoryuimanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{645DD9C3-E7E8-EE6E-04CE-5B15764BB192}|Assembly-CSharp.csproj|i:\\unity projects\\cs6334axk230084\\assets\\raycaster.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{645DD9C3-E7E8-EE6E-04CE-5B15764BB192}|Assembly-CSharp.csproj|solutionrelative:assets\\raycaster.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 1,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedHeight": 326,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "itemMenuManager.cs",
+              "DocumentMoniker": "I:\\Unity Projects\\CS6334axk230084\\Assets\\Scripts\\itemMenuManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\itemMenuManager.cs",
+              "ToolTip": "I:\\Unity Projects\\CS6334axk230084\\Assets\\Scripts\\itemMenuManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\itemMenuManager.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAEwC8AAABsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-23T01:03:17.385Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MainMenuUIManager.cs",
+              "DocumentMoniker": "I:\\Unity Projects\\CS6334axk230084\\Assets\\Scripts\\MainMenuUIManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\MainMenuUIManager.cs",
+              "ToolTip": "I:\\Unity Projects\\CS6334axk230084\\Assets\\Scripts\\MainMenuUIManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\MainMenuUIManager.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAQwCMAAABcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-23T00:57:14.913Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "InventoryUIManager.cs",
+              "DocumentMoniker": "I:\\Unity Projects\\CS6334axk230084\\Assets\\Scripts\\InventoryUIManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\InventoryUIManager.cs",
+              "ToolTip": "I:\\Unity Projects\\CS6334axk230084\\Assets\\Scripts\\InventoryUIManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\InventoryUIManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAABUAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-23T00:56:39.865Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Raycaster.cs",
+              "DocumentMoniker": "I:\\Unity Projects\\CS6334axk230084\\Assets\\Raycaster.cs",
+              "RelativeDocumentMoniker": "Assets\\Raycaster.cs",
+              "ToolTip": "I:\\Unity Projects\\CS6334axk230084\\Assets\\Raycaster.cs",
+              "RelativeToolTip": "Assets\\Raycaster.cs",
+              "ViewState": "AgIAADAAAAAAAAAAAAAQwEQAAABOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-23T00:19:46.51Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "MenuaAndItemHanlder.cs",
+              "DocumentMoniker": "I:\\Unity Projects\\CS6334axk230084\\Assets\\MenuaAndItemHanlder.cs",
+              "RelativeDocumentMoniker": "Assets\\MenuaAndItemHanlder.cs",
+              "ToolTip": "I:\\Unity Projects\\CS6334axk230084\\Assets\\MenuaAndItemHanlder.cs",
+              "RelativeToolTip": "Assets\\MenuaAndItemHanlder.cs",
+              "ViewState": "AgIAACUAAAAAAAAAAAAEwD4AAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-23T00:15:43.022Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{004be353-6879-467c-9d1e-9ac23cdf6d49}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

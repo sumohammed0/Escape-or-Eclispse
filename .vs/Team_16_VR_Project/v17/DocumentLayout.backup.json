@@ -1,0 +1,58 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "H:\\Unity Projects\\VR_Project_Spring_2025\\Team_16_VR_Project\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{21F7CFCE-7236-78FF-7166-9A7FD6DCFE67}|Assembly-CSharp.csproj|h:\\unity projects\\vr_project_spring_2025\\team_16_vr_project\\assets\\itemhanlder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{21F7CFCE-7236-78FF-7166-9A7FD6DCFE67}|Assembly-CSharp.csproj|solutionrelative:assets\\itemhanlder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{21F7CFCE-7236-78FF-7166-9A7FD6DCFE67}|Assembly-CSharp.csproj|h:\\unity projects\\vr_project_spring_2025\\team_16_vr_project\\assets\\raycaster.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{21F7CFCE-7236-78FF-7166-9A7FD6DCFE67}|Assembly-CSharp.csproj|solutionrelative:assets\\raycaster.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{004be353-6879-467c-9d1e-9ac23cdf6d49}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Raycaster.cs",
+              "DocumentMoniker": "H:\\Unity Projects\\VR_Project_Spring_2025\\Team_16_VR_Project\\Assets\\Raycaster.cs",
+              "RelativeDocumentMoniker": "Assets\\Raycaster.cs",
+              "ToolTip": "H:\\Unity Projects\\VR_Project_Spring_2025\\Team_16_VR_Project\\Assets\\Raycaster.cs",
+              "RelativeToolTip": "Assets\\Raycaster.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-25T02:16:41.839Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ItemHanlder.cs",
+              "DocumentMoniker": "H:\\Unity Projects\\VR_Project_Spring_2025\\Team_16_VR_Project\\Assets\\ItemHanlder.cs",
+              "RelativeDocumentMoniker": "Assets\\ItemHanlder.cs",
+              "ToolTip": "H:\\Unity Projects\\VR_Project_Spring_2025\\Team_16_VR_Project\\Assets\\ItemHanlder.cs",
+              "RelativeToolTip": "Assets\\ItemHanlder.cs",
+              "ViewState": "AgIAADMAAAAAAAAAAAAewEcAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-25T02:10:31.105Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
