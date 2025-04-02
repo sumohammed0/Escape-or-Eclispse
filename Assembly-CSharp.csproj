@@ -69,6 +69,7 @@
     <Compile Include="Assets/Samples/Google Cardboard XR Plugin for Unity/1.19.0/Hello Cardboard/Scripts/CharacterMovement.cs" />
     <Compile Include="Assets/Samples/Google Cardboard XR Plugin for Unity/1.19.0/Hello Cardboard/Scripts/CameraPointer.cs" />
     <Compile Include="Assets/Samples/Google Cardboard XR Plugin for Unity/1.19.0/Hello Cardboard/Scripts/VrModeController.cs" />
+    <Compile Include="Assets/IntroScreenManager.cs" />
     <Compile Include="Assets/Samples/Google Cardboard XR Plugin for Unity/1.19.0/Hello Cardboard/Scripts/MapBlueToothKey.cs" />
     <Compile Include="Assets/AK/Scripts/Raycaster.cs" />
     <Compile Include="Assets/Samples/Google Cardboard XR Plugin for Unity/1.19.0/Hello Cardboard/Scripts/UnityFloatEvent.cs" />
