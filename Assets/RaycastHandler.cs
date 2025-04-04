@@ -156,6 +156,26 @@ public class RaycastHandler : MonoBehaviour
                 PickUpRaygun(hit.collider.transform);
             }
         }
+        else if (hit.collider.CompareTag("DrawerObject"))
+        {
+            HighlightObject(hit.collider.transform);
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                Transform parentDrawer = hit.collider.transform.parent;
+                DrawerController drawerController = parentDrawer?.GetComponent<DrawerController>();
+                if (drawerController != null && drawerController.isOpen)
+                {
+                    Rigidbody rb = hit.collider.GetComponent<Rigidbody>();
+                    if (rb != null)
+                    {
+                        rb.isKinematic = false; // Uncheck Is Kinematic
+                    }
+                    hit.collider.transform.SetParent(null); // Detach from the drawer
+                    GrabObject(hit.collider.transform);
+                }
+            }
+        }
         else
         {
             RemoveHighlight();
@@ -170,6 +190,25 @@ public class RaycastHandler : MonoBehaviour
 
     void ReleaseObject()
     {
+        if (grabbedObject != null)
+        {
+            Rigidbody rb = grabbedObject.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.isKinematic = false; // Ensure Is Kinematic is unchecked
+            }
+            grabbedObject.SetParent(null); // Detach from any parent
+
+            if (grabbedObject.CompareTag("DrawerObject")) // Only realign box collider for DrawerObject
+            {
+                BoxCollider boxCollider = grabbedObject.GetComponent<BoxCollider>();
+                if (boxCollider != null)
+                {
+                    boxCollider.center = grabbedObject.InverseTransformPoint(grabbedObject.position); // Realign the box collider
+                }
+                grabbedObject.tag = "Interactable"; // Change tag to Interactable
+            }
+        }
         grabbedObject = null;
         isGrabbing = false;
     }

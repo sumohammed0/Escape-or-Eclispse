@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Pickup
   - Ground
+  - Interactable
+  - Drawer
+  - Raygun
+  - DrawerObject
   layers:
   - Default
   - TransparentFX

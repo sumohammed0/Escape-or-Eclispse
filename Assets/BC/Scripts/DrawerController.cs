@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class DrawerController : MonoBehaviour
 {
-    private bool isOpen = false;
+    public bool isOpen { get; private set; } // Expose isOpen as a public property
     private Vector3 closedPosition;
     private Vector3 openPosition;
 
