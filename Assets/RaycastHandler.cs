@@ -60,9 +60,10 @@ public class RaycastHandler : MonoBehaviour
         {
             lineRenderer.SetPosition(1, hit.point);
 
-            if (hit.collider.CompareTag("Ground") && Input.GetKeyDown(KeyCode.Y))
+            if (Input.GetKeyDown(KeyCode.Y) && hit.collider.CompareTag("Ground"))
             {
-                transform.position = new Vector3(hit.point.x, hit.point.y + 1f, hit.point.z); // Teleport to the hit point
+                // Debug.Log("Teleporting to: " + hit.point); // Debug log to confirm the teleportation
+                this.transform.position = new Vector3(hit.point.x, hit.point.y + 1f, hit.point.z); // Teleport to the hit point
             }
         }
         else
@@ -131,14 +132,15 @@ public class RaycastHandler : MonoBehaviour
         {
             HighlightObject(hit.collider.transform);
 
-            if (Input.GetKeyDown(KeyCode.E) && !isGrabbing)
+            if (Input.GetKeyDown(KeyCode.B) && !isGrabbing)
                 GrabObject(hit.collider.transform);
         }
         else if (hit.collider.CompareTag("Drawer"))
         {
+            // Debug.Log("Drawer hit"); // Debug log to confirm the hit
             HighlightObject(hit.collider.transform);
 
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.B))
             {
                 DrawerController drawerController = hit.collider.GetComponent<DrawerController>();
                 if (drawerController != null)
@@ -151,7 +153,7 @@ public class RaycastHandler : MonoBehaviour
         {
             HighlightObject(hit.collider.transform);
 
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.B))
             {
                 PickUpRaygun(hit.collider.transform);
             }
