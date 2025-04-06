@@ -1,6 +1,9 @@
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
+using System.Collections;
 
-public class RaycastHandler : MonoBehaviour
+public class RaycastHandler : MonoBehaviourPunCallbacks
 {
     [Header("Raycast Settings")]
     public float rayLength = 5f;
@@ -14,8 +17,13 @@ public class RaycastHandler : MonoBehaviour
     private bool isGrabbing;
     private Transform raygunObject;
     private bool isHoldingRaygun = false;
+    private PhotonView view;
 
-    void Start() => SetupLineRenderer();
+    void Start()
+    {
+        view = GetComponent<PhotonView>();
+        SetupLineRenderer();
+    }
 
     void SetupLineRenderer()
     {
@@ -27,20 +35,23 @@ public class RaycastHandler : MonoBehaviour
 
     void Update()
     {
-        if (!cameraTransform) return;
-
-        if (isHoldingRaygun)
+        if (view.IsMine)
         {
-            HandleRaygunState(); // Handle raygun-specific logic
-        }
-        else
-        {
-            Vector3 rayOrigin = cameraTransform.position - cameraTransform.up * 0.3f;
-            Ray ray = new Ray(rayOrigin, cameraTransform.forward);
-            lineRenderer.SetPosition(0, rayOrigin);
+            if (!cameraTransform) return;
 
-            if (isGrabbing) HandleGrabbedState();
-            else HandleDefaultState(ray, rayOrigin);
+            if (isHoldingRaygun)
+            {
+                HandleRaygunState();
+            }
+            else
+            {
+                Vector3 rayOrigin = cameraTransform.position - cameraTransform.up * 0.3f;
+                Ray ray = new Ray(rayOrigin, cameraTransform.forward);
+                lineRenderer.SetPosition(0, rayOrigin);
+
+                if (isGrabbing) HandleGrabbedState();
+                else HandleDefaultState(ray, rayOrigin);
+            }
         }
     }
 
@@ -48,10 +59,10 @@ public class RaycastHandler : MonoBehaviour
     {
         if (!raygunObject) return;
 
-        raygunObject.position = cameraTransform.position + cameraTransform.right * 0.1f + cameraTransform.forward * 0.3f; // Position the raygun to the side
-        raygunObject.rotation = cameraTransform.rotation; // Align the raygun with the camera's rotation
+        raygunObject.position = cameraTransform.position + cameraTransform.right * 0.1f + cameraTransform.forward * 0.3f;
+        raygunObject.rotation = cameraTransform.rotation;
 
-        Vector3 rayOrigin = cameraTransform.position - cameraTransform.up * 0.3f; // Keep the raycast centered
+        Vector3 rayOrigin = cameraTransform.position - cameraTransform.up * 0.3f;
         Ray ray = new Ray(rayOrigin, cameraTransform.forward);
         lineRenderer.SetPosition(0, rayOrigin);
 
@@ -62,7 +73,7 @@ public class RaycastHandler : MonoBehaviour
 
             if (hit.collider.CompareTag("Ground") && Input.GetKeyDown(KeyCode.Y))
             {
-                transform.position = new Vector3(hit.point.x, hit.point.y + 1f, hit.point.z); // Teleport to the hit point
+                transform.position = new Vector3(hit.point.x, hit.point.y + 1f, hit.point.z);
             }
         }
         else
@@ -75,38 +86,23 @@ public class RaycastHandler : MonoBehaviour
 
     void HandleGrabbedState()
     {
-        if (isHoldingRaygun && raygunObject)
+        if (grabbedObject != null)
         {
-            raygunObject.position = cameraTransform.position + cameraTransform.forward * 0.5f; // Position the raygun in front of the camera
-            raygunObject.rotation = cameraTransform.rotation; // Align the raygun with the camera's rotation
+            Vector3 newPosition = cameraTransform.position + cameraTransform.forward * 1f;
+            grabbedObject.position = newPosition;
+            lineRenderer.SetPosition(1, newPosition);
 
-            Vector3 rayOrigin = raygunObject.position;
-            Ray ray = new Ray(rayOrigin, raygunObject.forward);
-            lineRenderer.SetPosition(0, rayOrigin);
-
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit, rayLength, interactableLayer))
+            PhotonView pv = grabbedObject.GetComponent<PhotonView>();
+            if (pv != null && pv.IsMine)
             {
-                lineRenderer.SetPosition(1, hit.point);
-
-                if (hit.collider.CompareTag("Ground") && Input.GetKeyDown(KeyCode.Y))
-                {
-                    transform.position = new Vector3(hit.point.x, hit.point.y + 1f, hit.point.z); // Teleport to the hit point
-                }
-            }
-            else
-            {
-                lineRenderer.SetPosition(1, rayOrigin + raygunObject.forward * rayLength);
+                // Continuously sync position
+                pv.RPC("SyncGrabbedPosition", RpcTarget.Others, newPosition, grabbedObject.rotation);
             }
 
-            if (Input.GetKeyDown(KeyCode.Q)) ReleaseRaygun();
-        }
-        else if (grabbedObject)
-        {
-            grabbedObject.position = cameraTransform.position + cameraTransform.forward * 1f; // Hold closer to the user
-            lineRenderer.SetPosition(1, grabbedObject.position);
-
-            if (Input.GetKeyDown(KeyCode.Q)) ReleaseObject();
+            if (Input.GetKeyDown(KeyCode.Q)) 
+            {
+                ReleaseObject();
+            }
         }
     }
 
@@ -131,14 +127,15 @@ public class RaycastHandler : MonoBehaviour
         {
             HighlightObject(hit.collider.transform);
 
-            if (Input.GetKeyDown(KeyCode.E) && !isGrabbing)
+            if (Input.GetKeyDown(KeyCode.B) && !isGrabbing)
                 GrabObject(hit.collider.transform);
         }
         else if (hit.collider.CompareTag("Drawer"))
         {
+            // Debug.Log("Drawer hit"); // Debug log to confirm the hit
             HighlightObject(hit.collider.transform);
 
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.B))
             {
                 DrawerController drawerController = hit.collider.GetComponent<DrawerController>();
                 if (drawerController != null)
@@ -151,29 +148,9 @@ public class RaycastHandler : MonoBehaviour
         {
             HighlightObject(hit.collider.transform);
 
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.B))
             {
                 PickUpRaygun(hit.collider.transform);
-            }
-        }
-        else if (hit.collider.CompareTag("DrawerObject"))
-        {
-            HighlightObject(hit.collider.transform);
-
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                Transform parentDrawer = hit.collider.transform.parent;
-                DrawerController drawerController = parentDrawer?.GetComponent<DrawerController>();
-                if (drawerController != null && drawerController.isOpen)
-                {
-                    Rigidbody rb = hit.collider.GetComponent<Rigidbody>();
-                    if (rb != null)
-                    {
-                        rb.isKinematic = false; // Uncheck Is Kinematic
-                    }
-                    hit.collider.transform.SetParent(null); // Detach from the drawer
-                    GrabObject(hit.collider.transform);
-                }
             }
         }
         else
@@ -184,31 +161,60 @@ public class RaycastHandler : MonoBehaviour
 
     void GrabObject(Transform obj)
     {
-        grabbedObject = obj;
-        isGrabbing = true;
+        PhotonView objectPhotonView = obj.GetComponent<PhotonView>();
+        if (objectPhotonView != null)
+        {
+            // Handle objects with PhotonView
+            objectPhotonView.TransferOwnership(PhotonNetwork.LocalPlayer);
+
+            grabbedObject = obj;
+            isGrabbing = true;
+
+            Rigidbody rb = obj.GetComponent<Rigidbody>();
+            if (rb != null)
+            {
+                rb.isKinematic = true;
+                rb.linearVelocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
+            }
+
+            obj.SetParent(cameraTransform);
+
+            objectPhotonView.RPC("SyncInitialGrab", RpcTarget.OthersBuffered, 
+                obj.position,
+                obj.rotation,
+                view.ViewID);
+        }
+        else
+        {
+            // Handle objects without PhotonView
+            grabbedObject = obj;
+            isGrabbing = true;
+        }
     }
 
     void ReleaseObject()
     {
-        if (grabbedObject != null)
+        if (grabbedObject == null) return;
+
+        PhotonView pv = grabbedObject.GetComponent<PhotonView>();
+        if (pv != null)
         {
+            // Handle objects with PhotonView
+            pv.RPC("SyncRelease", RpcTarget.AllBuffered, 
+                grabbedObject.position,
+                grabbedObject.rotation);
+
             Rigidbody rb = grabbedObject.GetComponent<Rigidbody>();
             if (rb != null)
             {
-                rb.isKinematic = false; // Ensure Is Kinematic is unchecked
+                rb.isKinematic = false;
             }
-            grabbedObject.SetParent(null); // Detach from any parent
 
-            if (grabbedObject.CompareTag("DrawerObject")) // Only realign box collider for DrawerObject
-            {
-                BoxCollider boxCollider = grabbedObject.GetComponent<BoxCollider>();
-                if (boxCollider != null)
-                {
-                    boxCollider.center = grabbedObject.InverseTransformPoint(grabbedObject.position); // Realign the box collider
-                }
-                grabbedObject.tag = "Interactable"; // Change tag to Interactable
-            }
+            grabbedObject.SetParent(null);
         }
+
+        // Handle objects without PhotonView
         grabbedObject = null;
         isGrabbing = false;
     }
@@ -236,18 +242,24 @@ public class RaycastHandler : MonoBehaviour
     {
         raygunObject = raygun;
         isHoldingRaygun = true;
-        raygunObject.SetParent(cameraTransform); // Parent the raygun to the camera
-        raygunObject.localPosition = new Vector3(0.5f, -0.2f, 0.3f); // Adjust position to the side relative to the camera
-        raygunObject.localRotation = Quaternion.identity; // Reset rotation
+        raygunObject.SetParent(cameraTransform);
+        raygunObject.localPosition = new Vector3(0.5f, -0.2f, 0.3f);
+        raygunObject.localRotation = Quaternion.identity;
     }
 
     void ReleaseRaygun()
     {
         if (raygunObject)
         {
-            raygunObject.SetParent(null); // Detach the raygun from the camera
+            raygunObject.SetParent(null);
             raygunObject = null;
         }
         isHoldingRaygun = false;
+    }
+
+    public void HandleOwnershipRequest(PhotonView targetView, Player requestingPlayer)
+    {
+        // Auto-approve all ownership requests
+        targetView.TransferOwnership(requestingPlayer);
     }
 }

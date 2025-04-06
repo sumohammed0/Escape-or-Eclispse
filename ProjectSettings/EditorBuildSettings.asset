@@ -14,9 +14,18 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Packages_/MiLabCardboardExtension/Scenes/Map Bluetooth Key.unity
     guid: 1eb807ac90408844da5fd17e087fea1e
-  - enabled: 1
+  - enabled: 0
     path: Assets/AK/Scenes/Scene00.unity
     guid: 13d62f0dac4cd224093cb3ea481fffc0
+  - enabled: 1
+    path: Assets/BC/Scenes/LoadingScene.unity
+    guid: 9c8bdcfdb680745e197131c178ad6572
+  - enabled: 1
+    path: Assets/BC/Scenes/LobbyScene.unity
+    guid: 9acd17759bd8e0d41ae877313650df27
+  - enabled: 1
+    path: Assets/BC/Scenes/BC_Scene.unity
+    guid: 8c47ab0bd0042af489742e8293aa574f
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 4132eea62144dee489d9a7cf73c16bbb, type: 2}
