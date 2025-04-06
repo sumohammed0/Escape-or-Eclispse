@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Pickup
   - Ground
+  - Interactable
+  - Raygun
+  - Drawer
+  - hourglass
   layers:
   - Default
   - TransparentFX

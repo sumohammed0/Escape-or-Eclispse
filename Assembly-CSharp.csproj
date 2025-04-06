@@ -112,6 +112,7 @@
     <None Include="Assets/Packages_/TextMesh Pro/Shaders/TMPro_Properties.cginc" />
     <None Include="Assets/Packages_/QuickOutline/Readme.txt" />
     <None Include="Assets/Packages_/TextMesh Pro/Shaders/TMPro_Surface.cginc" />
+    <None Include="Assets/SM/Stylized Fences Free/Redme.txt" />
     <None Include="Assets/Packages_/TextMesh Pro/Resources/LineBreaking Following Characters.txt" />
     <None Include="Assets/Packages_/TextMesh Pro/Shaders/TMP_SDF-Mobile Masking.shader" />
     <None Include="Assets/Packages_/TextMesh Pro/Shaders/TMP_SDF Overlay.shader" />
