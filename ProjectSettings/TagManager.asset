@@ -10,6 +10,9 @@ TagManager:
   - Raygun
   - Drawer
   - hourglass
+  - introMenuButton
+  - door
+  - settingButton
   layers:
   - Default
   - TransparentFX

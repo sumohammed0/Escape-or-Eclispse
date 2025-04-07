@@ -1,4 +1,5 @@
 using UnityEngine;
+using DoorScript; 
 
 public class RaycastHandler : MonoBehaviour
 {
@@ -156,6 +157,16 @@ public class RaycastHandler : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.B))
             {
                 PickUpRaygun(hit.collider.transform);
+            }
+        }
+        else if (hit.collider.CompareTag("door"))
+        {
+            HighlightObject(hit.collider.transform);
+
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                Debug.Log("Door hit"); // Debug log to confirm the hit
+                hit.collider.GetComponent<Door>().OpenDoor();
             }
         }
         else

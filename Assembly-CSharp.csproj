@@ -85,6 +85,7 @@
     <Compile Include="Assets/Samples/Google Cardboard XR Plugin for Unity/1.19.0/Hello Cardboard/Scripts/GraphicsAPITextController.cs" />
     <Compile Include="Assets/Samples/Google Cardboard XR Plugin for Unity/1.19.0/Hello Cardboard/Scripts/XRCardboard/XRCardboardStartup.cs" />
     <Compile Include="Assets/SM/Free Wood Door Pack/Script/CameraOpenDoor.cs" />
+    <Compile Include="Assets/SettingMenuManager.cs" />
     <Compile Include="Assets/Samples/Google Cardboard XR Plugin for Unity/1.19.0/Hello Cardboard/Scripts/XRCardboard/XRCardboardController.cs" />
     <Compile Include="Assets/Samples/Google Cardboard XR Plugin for Unity/1.19.0/Hello Cardboard/Scripts/XRCardboard/XRCardboardInputModule.cs" />
     <Compile Include="Assets/SM/Free Wood Door Pack/Script/FPSController.cs" />
