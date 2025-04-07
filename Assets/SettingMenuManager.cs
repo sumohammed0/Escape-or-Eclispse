@@ -8,6 +8,7 @@ public class SettingMenuManager : MonoBehaviour
     public GameObject settingFirstSelected;
     public GameObject introCanvas;
     GameObject[] settingButtons;
+    public GameObject inventoryCanvas;
     int selectedIndex;    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -61,6 +62,7 @@ public class SettingMenuManager : MonoBehaviour
 
     public void OpenInventory() {
         Debug.Log("Inventory button pressed");
-        // Open the inventory UI here
+        inventoryCanvas.SetActive(true);
+        this.gameObject.SetActive(false);
     }
 }

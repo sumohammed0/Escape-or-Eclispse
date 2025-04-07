@@ -69,6 +69,7 @@
     <Compile Include="Assets/Packages_/QuickOutline/Scripts/Outline.cs" />
     <Compile Include="Assets/AK/Scripts/ItemHanlder.cs" />
     <Compile Include="Assets/Samples/Google Cardboard XR Plugin for Unity/1.19.0/Hello Cardboard/Scripts/CharacterMovement.cs" />
+    <Compile Include="Assets/InventoryManager.cs" />
     <Compile Include="Assets/Samples/Google Cardboard XR Plugin for Unity/1.19.0/Hello Cardboard/Scripts/CameraPointer.cs" />
     <Compile Include="Assets/Samples/Google Cardboard XR Plugin for Unity/1.19.0/Hello Cardboard/Scripts/VrModeController.cs" />
     <Compile Include="Assets/AK/Scripts/AK_DrawerInteraction.cs" />

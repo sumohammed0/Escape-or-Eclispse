@@ -175,13 +175,13 @@ public class RaycastHandler : MonoBehaviour
         }
     }
 
-    void GrabObject(Transform obj)
+    public void GrabObject(Transform obj)
     {
         grabbedObject = obj;
         isGrabbing = true;
     }
 
-    void ReleaseObject()
+    public void ReleaseObject()
     {
         grabbedObject = null;
         isGrabbing = false;

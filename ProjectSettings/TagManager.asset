@@ -13,6 +13,7 @@ TagManager:
   - introMenuButton
   - door
   - settingButton
+  - inventoryButton
   layers:
   - Default
   - TransparentFX
