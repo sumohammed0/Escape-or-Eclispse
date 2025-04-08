@@ -14,6 +14,7 @@ public class DrawerController : MonoBehaviour
 
     public void ToggleDrawer()
     {
+        Debug.Log("Drawer toggled"); // Debug log to confirm the method is called
         transform.localPosition = isOpen ? closedPosition : openPosition;
         isOpen = !isOpen;
     }

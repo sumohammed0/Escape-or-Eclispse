@@ -7,6 +7,14 @@ TagManager:
   - Pickup
   - Ground
   - Interactable
+  - Raygun
+  - Drawer
+  - hourglass
+  - introMenuButton
+  - door
+  - settingButton
+  - inventoryButton
+  - Interactable
   - Drawer
   - Raygun
   - DrawerObject

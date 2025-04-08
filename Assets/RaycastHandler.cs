@@ -2,6 +2,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
+using DoorScript; 
 
 public class RaycastHandler : MonoBehaviourPunCallbacks
 {
@@ -71,9 +72,10 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
         {
             lineRenderer.SetPosition(1, hit.point);
 
-            if (hit.collider.CompareTag("Ground") && Input.GetKeyDown(KeyCode.Y))
+            if (Input.GetKeyDown(KeyCode.Y) && hit.collider.CompareTag("Ground"))
             {
-                transform.position = new Vector3(hit.point.x, hit.point.y + 1f, hit.point.z);
+                // Debug.Log("Teleporting to: " + hit.point); // Debug log to confirm the teleportation
+                this.transform.position = new Vector3(hit.point.x, hit.point.y + 1f, hit.point.z);
             }
         }
         else
@@ -153,13 +155,23 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
                 PickUpRaygun(hit.collider.transform);
             }
         }
+        else if (hit.collider.CompareTag("door"))
+        {
+            HighlightObject(hit.collider.transform);
+
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                Debug.Log("Door hit"); // Debug log to confirm the hit
+                hit.collider.GetComponent<Door>().OpenDoor();
+            }
+        }
         else
         {
             RemoveHighlight();
         }
     }
 
-    void GrabObject(Transform obj)
+    public void GrabObject(Transform obj)
     {
         PhotonView objectPhotonView = obj.GetComponent<PhotonView>();
         if (objectPhotonView != null)
@@ -193,7 +205,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
         }
     }
 
-    void ReleaseObject()
+    public void ReleaseObject()
     {
         if (grabbedObject == null) return;
 

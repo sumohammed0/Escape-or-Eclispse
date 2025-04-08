@@ -73,6 +73,7 @@
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\ChannelSelector.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\FriendItem.cs" />
     <Compile Include="Assets\Samples\Google Cardboard XR Plugin for Unity\1.19.0\Hello Cardboard\Scripts\CharacterMovement.cs" />
+    <Compile Include="Assets/InventoryManager.cs" />
     <Compile Include="Assets\Samples\Google Cardboard XR Plugin for Unity\1.19.0\Hello Cardboard\Scripts\CameraPointer.cs" />
     <Compile Include="Assets\SpawnPlayers.cs" />
     <Compile Include="Assets\ConnectToServer.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="Assets\Samples\Google Cardboard XR Plugin for Unity\1.19.0\Hello Cardboard\Scripts\GraphicsAPITextController.cs" />
     <Compile Include="Assets\Samples\Google Cardboard XR Plugin for Unity\1.19.0\Hello Cardboard\Scripts\XRCardboard\XRCardboardStartup.cs" />
     <Compile Include="Assets\SM\Free Wood Door Pack\Script\CameraOpenDoor.cs" />
+    <Compile Include="Assets/SettingMenuManager.cs" />
     <Compile Include="Assets\BC\Scripts\EnhancedPhotonRigidbodySync.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\Common\OnStartDelete.cs" />
     <Compile Include="Assets\Samples\Google Cardboard XR Plugin for Unity\1.19.0\Hello Cardboard\Scripts\XRCardboard\XRCardboardController.cs" />
@@ -133,6 +135,7 @@
     <None Include="Assets\Packages_\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
     <None Include="Assets\Packages_\QuickOutline\Readme.txt" />
     <None Include="Assets\Packages_\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
+    <None Include="Assets/SM/Stylized Fences Free/Redme.txt" />
     <None Include="Assets\Photon\PhotonUnityNetworking\readme.txt" />
     <None Include="Assets\Photon\PhotonChat\Demos\DemoChat\Files\eurof_tt.txt" />
     <None Include="Assets\Photon\PhotonLibs\netstandard2.0\Photon3Unity3D.dll" />
