@@ -165,7 +165,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.4
   androidMinAspectRatio: 1
   applicationIdentifier:
-    Android: com.DefaultCompany.CS6334axk230084
+    Android: com.DefaultCompany.EscapERooM
     Standalone: com.DefaultCompany.EscapE-RooM
   buildNumber:
     Standalone: 0
