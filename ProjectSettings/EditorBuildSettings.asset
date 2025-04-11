@@ -26,6 +26,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/BC/Scenes/BC_Scene.unity
     guid: 8c47ab0bd0042af489742e8293aa574f
+  - enabled: 1
+    path: Assets/SM/Scenes/Puzzle2Scene.unity
+    guid: 942deee946f0945c18d9b855a290f0f8
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 4132eea62144dee489d9a7cf73c16bbb, type: 2}
