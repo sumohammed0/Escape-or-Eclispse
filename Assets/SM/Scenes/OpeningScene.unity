@@ -591,7 +591,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   cameraTransform: {fileID: 225579534}
+  isGrabbing: 0
+  raygunObj: {fileID: 0}
+  isHoldingRaygun: 0
   inventoryManagerScript: {fileID: 0}
+  inventoryCanvas: {fileID: 0}
+  puzzle1Solved: 1
 --- !u!54 &139374572
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5795,6 +5800,10 @@ PrefabInstance:
     - target: {fileID: 1726949797274147878, guid: d6071f4abfd634f8a8f6c6e64dae9eee, type: 3}
       propertyPath: m_Name
       value: InventoryCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 1726949797274147878, guid: d6071f4abfd634f8a8f6c6e64dae9eee, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7508219735572190847, guid: d6071f4abfd634f8a8f6c6e64dae9eee, type: 3}
       propertyPath: m_Pivot.x

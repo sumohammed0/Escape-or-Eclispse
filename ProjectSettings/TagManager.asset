@@ -23,6 +23,7 @@ TagManager:
   - inventoryItem
   - Moonstone
   - Engraving
+  - glowingOrb
   layers:
   - Default
   - TransparentFX
