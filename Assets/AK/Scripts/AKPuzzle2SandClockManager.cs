@@ -22,11 +22,6 @@ public class AKPuzzle2SandClockManager : MonoBehaviour
             Debug.Log(" Puzzle 2 sandclock clue revealed");
             IsSolved = true;
             ClueManager.StartFadeSequence();
-            gameObject.SetActive(false);
-        }
-        else
-        {
-            Debug.Log(" Puzzle 2 sandclock clue not revealed");
         }
     }
     public void FlipSandClock()
