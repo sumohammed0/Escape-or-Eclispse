@@ -108,11 +108,13 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
         }
     }
 
+
     void HandleDefaultState(Ray ray, Vector3 rayOrigin)
     {
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, rayLength, interactableLayer))
         {
+            HandleLocker1Interactions(hit);
             HandleInteractableHit(hit);
         }
         else
@@ -121,6 +123,22 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
             RemoveHighlight();
         }
     }
+    void HandleLocker1Interactions(RaycastHit hit)
+    {
+        if (isGrabbing) return;
+        if (hit.collider.CompareTag("Locker1"))
+        {
+            Outline outline = hit.collider.GetComponent<Outline>();
+            outline.enabled = true;
+            AKDigitButton button = hit.collider.GetComponent<AKDigitButton>();
+            if (button != null && Input.GetKeyDown(KeyCode.E))
+            {
+                button.Interact();
+            }
+            outline.enabled = false;
+        }
+    }
+
 
     void HandleInteractableHit(RaycastHit hit)
     {
@@ -168,6 +186,20 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
         else
         {
             RemoveHighlight();
+            RemoveOutline();
+        }
+    }
+
+
+    private void RemoveOutline()
+    {
+        if (lastHighlightedObject)
+        {
+            Outline outline = lastHighlightedObject.GetComponent<Outline>();
+            if (outline != null)
+            {
+                outline.enabled = false;
+            }
         }
     }
 
