@@ -65,6 +65,7 @@
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\AppSettingsExtensions.cs" />
     <Compile Include="Assets\AK\Scripts\AK_Drawer.cs" />
     <Compile Include="Assets\Packages_\QuickOutline\Scripts\Outline.cs" />
+    <Compile Include="Assets\AK\Scripts\AKDirectionalLightDimmer.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\ChannelSelector.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\FriendItem.cs" />
     <Compile Include="Assets\Samples\Google Cardboard XR Plugin for Unity\1.19.0\Hello Cardboard\Scripts\CharacterMovement.cs" />
@@ -75,6 +76,7 @@
     <Compile Include="Assets\Samples\Google Cardboard XR Plugin for Unity\1.19.0\Hello Cardboard\Scripts\VrModeController.cs" />
     <Compile Include="Assets\CreateAndJoinRooms.cs" />
     <Compile Include="Assets\Photon\PhotonRealtime\Demos\DemoLoadBalancing\ConnectAndJoinRandomLb.cs" />
+    <Compile Include="Assets\AKUIFadeInController.cs" />
     <Compile Include="Assets\AK\Scripts\AKPuzzle2DialsInitializer.cs" />
     <Compile Include="Assets\AK\Scripts\AKDialCreater.cs" />
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\ChatGui.cs" />
@@ -86,6 +88,7 @@
     <Compile Include="Assets\Photon\PhotonChat\Demos\DemoChat\NamePickGui.cs" />
     <Compile Include="Assets\RaycastHandler.cs" />
     <Compile Include="Assets\Samples\Google Cardboard XR Plugin for Unity\1.19.0\Hello Cardboard\Scripts\UnityFloatEvent.cs" />
+    <Compile Include="Assets\AK\Scripts\AKFlashLight.cs" />
     <Compile Include="Assets\AKPuzzle2Manager.cs" />
     <Compile Include="Assets\Samples\Google Cardboard XR Plugin for Unity\1.19.0\Hello Cardboard\Scripts\XRCardboard\XRCardboardReticle.cs" />
     <Compile Include="Assets\AK\Scripts\AKPuzzleOneLockerManager.cs" />
