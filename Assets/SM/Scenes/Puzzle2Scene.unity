@@ -2540,6 +2540,7 @@ GameObject:
   - component: {fileID: 597578667}
   - component: {fileID: 597578671}
   - component: {fileID: 597578672}
+  - component: {fileID: 597578673}
   m_Layer: 9
   m_Name: SunEngraving
   m_TagString: Engraving
@@ -2629,12 +2630,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 597578666}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
-  m_LocalPosition: {x: -1.831, y: 5.092, z: -5.98}
+  m_LocalRotation: {x: -0, y: -0, z: 1, w: 0}
+  m_LocalPosition: {x: -6.3389997, y: -0.019000053, z: -1.6279998}
   m_LocalScale: {x: -0.53712857, y: 0.46067083, z: -0.0088}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 2031167921}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!54 &597578671
 Rigidbody:
@@ -2685,6 +2686,19 @@ MonoBehaviour:
   sceneViewId: 4
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &597578673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 597578666}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fad221a6f0f64d4881727f48b4ce4c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moon_identifier: 0
 --- !u!1 &613627498 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7815985229603118886, guid: 48f149f77027bea45ab6b8d00db66cec, type: 3}
@@ -4255,6 +4269,7 @@ GameObject:
   - component: {fileID: 756550906}
   - component: {fileID: 756550905}
   - component: {fileID: 756550909}
+  - component: {fileID: 756550910}
   m_Layer: 9
   m_Name: MoonEngraving
   m_TagString: Engraving
@@ -4344,12 +4359,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 756550904}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
-  m_LocalPosition: {x: -0.138, y: 5.087, z: -5.979}
+  m_LocalRotation: {x: -0, y: -0, z: 1, w: 0}
+  m_LocalPosition: {x: -4.646, y: -0.024000168, z: -1.6269999}
   m_LocalScale: {x: -0.53712857, y: 0.46067083, z: -0.0088}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 2031167921}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!114 &756550909
 MonoBehaviour:
@@ -4373,6 +4388,19 @@ MonoBehaviour:
   sceneViewId: 7
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &756550910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 756550904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fad221a6f0f64d4881727f48b4ce4c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moon_identifier: 1
 --- !u!1 &764647922
 GameObject:
   m_ObjectHideFlags: 0
@@ -5432,8 +5460,9 @@ GameObject:
   - component: {fileID: 866953455}
   - component: {fileID: 866953454}
   - component: {fileID: 866953456}
+  - component: {fileID: 866953457}
   m_Layer: 3
-  m_Name: moonstone2
+  m_Name: SunStone
   m_TagString: Moonstone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5483,7 +5512,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5413119257361104097, guid: 1b8bec8707620f8efb70e424307eb41d, type: 3}
+  - {fileID: 2100000, guid: 54c20978bd2313f4399d1e5fac0f2b2a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5522,11 +5551,11 @@ Transform:
   m_GameObject: {fileID: 866953448}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.546, y: 5.12, z: -3.981}
+  m_LocalPosition: {x: 0.038000107, y: 0.0089998245, z: 0.3710003}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 2031167921}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &866953454
 Rigidbody:
@@ -5590,6 +5619,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e79d13ba9a0784a438d9e9297653ffe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &866953457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 866953448}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fad221a6f0f64d4881727f48b4ce4c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moon_identifier: 1
 --- !u!1 &882328562
 GameObject:
   m_ObjectHideFlags: 0
@@ -5605,8 +5647,9 @@ GameObject:
   - component: {fileID: 882328569}
   - component: {fileID: 882328568}
   - component: {fileID: 882328570}
+  - component: {fileID: 882328571}
   m_Layer: 3
-  m_Name: moonstone1
+  m_Name: moonStone
   m_TagString: Moonstone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5695,11 +5738,11 @@ Transform:
   m_GameObject: {fileID: 882328562}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 4.508, y: 5.111, z: -4.352}
+  m_LocalPosition: {x: 0, y: 0.005, z: -0.008}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 2031167921}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &882328568
 Rigidbody:
@@ -5763,6 +5806,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e79d13ba9a0784a438d9e9297653ffe5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &882328571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 882328562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fad221a6f0f64d4881727f48b4ce4c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moon_identifier: 0
 --- !u!1 &888387153
 GameObject:
   m_ObjectHideFlags: 0
@@ -14116,6 +14172,41 @@ Transform:
   - {fileID: 1529176064}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2031167920
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2031167921}
+  m_Layer: 0
+  m_Name: Puzzle4MoonStonesEngraving
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2031167921
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2031167920}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 4.508, y: 5.111, z: -4.352}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 756550908}
+  - {fileID: 597578670}
+  - {fileID: 866953452}
+  - {fileID: 882328566}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2049082197 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: b78edbf06425eeb408751b05d9d4fd9c, type: 3}
@@ -14956,8 +15047,7 @@ SceneRoots:
   - {fileID: 1763545289}
   - {fileID: 888387157}
   - {fileID: 75360606}
-  - {fileID: 756550908}
-  - {fileID: 597578670}
+  - {fileID: 2031167921}
   - {fileID: 1117672730}
   - {fileID: 735382150}
   - {fileID: 1283721635}
@@ -14969,10 +15059,8 @@ SceneRoots:
   - {fileID: 977631870}
   - {fileID: 1581442777}
   - {fileID: 713471510}
-  - {fileID: 882328566}
   - {fileID: 252461653}
   - {fileID: 1529431140}
   - {fileID: 959980885045061339}
   - {fileID: 1306150205}
   - {fileID: 625278468}
-  - {fileID: 866953452}

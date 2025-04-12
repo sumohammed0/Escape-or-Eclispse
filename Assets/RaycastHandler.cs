@@ -331,7 +331,9 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
 
             if (grabbedObject.CompareTag("Moonstone"))
             {
-                Transform closestEngraving = FindNearbyEngraving(grabbedObject.position, 0.5f);
+                AKengravingIdentifier StonIdentifier = grabbedObject.GetComponent<AKengravingIdentifier>();
+                if (!StonIdentifier) throw new System.Exception("Plesae Assign the engraving identifier to the moonstone object.");
+                Transform closestEngraving = FindNearbyEngraving(grabbedObject.position, 0.5f, StonIdentifier.moon_identifier);
                 if (closestEngraving != null)
                 {
                     // Use nearbyEngraving directly
@@ -429,14 +431,19 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
         targetView.TransferOwnership(requestingPlayer);
     }
 
-    Transform FindNearbyEngraving(Vector3 position, float maxDistance)
+    Transform FindNearbyEngraving(Vector3 position, float maxDistance, int stoneIdentifier)
     {
         Collider[] colliders = Physics.OverlapSphere(position, maxDistance);
         foreach (var col in colliders)
         {
             if (col.CompareTag("Engraving"))
             {
-                return col.transform;
+                AKengravingIdentifier engravingIdentifier = col.GetComponent<AKengravingIdentifier>();
+                if (!engravingIdentifier) return nukll;
+                if ((stoneIdentifier +  engravingIdentifier.moon_identifier == 1))
+                {
+                    return col.transform;
+                }
             }
         }
         return null;
