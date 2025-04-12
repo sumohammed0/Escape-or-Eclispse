@@ -8584,13 +8584,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: PuzzleOne
       objectReference: {fileID: 0}
+    - target: {fileID: 3281762032401350868, guid: 216d8d1ce1cd1e545bc0c7b9c2ebda7d, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 035f4fa54ea1840feb8e9a5b501ee84e, type: 2}
+    - target: {fileID: 3366520157906689318, guid: 216d8d1ce1cd1e545bc0c7b9c2ebda7d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.15666792
+      objectReference: {fileID: 0}
+    - target: {fileID: 3366520157906689318, guid: 216d8d1ce1cd1e545bc0c7b9c2ebda7d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.111051984
+      objectReference: {fileID: 0}
     - target: {fileID: 3366520157906689318, guid: 216d8d1ce1cd1e545bc0c7b9c2ebda7d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.96
+      value: 0.9586
       objectReference: {fileID: 0}
     - target: {fileID: 3366520157906689318, guid: 216d8d1ce1cd1e545bc0c7b9c2ebda7d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.099
+      value: 0.0407
       objectReference: {fileID: 0}
     - target: {fileID: 3366520157906689318, guid: 216d8d1ce1cd1e545bc0c7b9c2ebda7d, type: 3}
       propertyPath: m_LocalPosition.z
@@ -9163,7 +9175,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1607500582923434340, guid: 00e5c0945f7a8b0439135711f7f02840, type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1607500582923434340, guid: 00e5c0945f7a8b0439135711f7f02840, type: 3}
       propertyPath: m_TagString
@@ -9175,7 +9187,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1917785883183148513, guid: 00e5c0945f7a8b0439135711f7f02840, type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1917785883183148513, guid: 00e5c0945f7a8b0439135711f7f02840, type: 3}
       propertyPath: m_TagString
@@ -9187,7 +9199,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3198309350071241817, guid: 00e5c0945f7a8b0439135711f7f02840, type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3198309350071241817, guid: 00e5c0945f7a8b0439135711f7f02840, type: 3}
       propertyPath: m_TagString
@@ -9199,7 +9211,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3228625968231078565, guid: 00e5c0945f7a8b0439135711f7f02840, type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3228625968231078565, guid: 00e5c0945f7a8b0439135711f7f02840, type: 3}
       propertyPath: m_TagString
@@ -9211,7 +9223,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3407158751094800890, guid: 00e5c0945f7a8b0439135711f7f02840, type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3407158751094800890, guid: 00e5c0945f7a8b0439135711f7f02840, type: 3}
       propertyPath: m_TagString
@@ -9223,7 +9235,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5751172565674398101, guid: 00e5c0945f7a8b0439135711f7f02840, type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5751172565674398101, guid: 00e5c0945f7a8b0439135711f7f02840, type: 3}
       propertyPath: m_TagString
