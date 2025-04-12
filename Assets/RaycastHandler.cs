@@ -128,14 +128,22 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
         if (isGrabbing) return;
         if (hit.collider.CompareTag("Locker1"))
         {
-            Outline outline = hit.collider.GetComponent<Outline>();
-            outline.enabled = true;
-            AKDigitButton button = hit.collider.GetComponent<AKDigitButton>();
-            if (button != null && Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                button.Interact();
+                if (hit.collider.name == "Puzzle1DrawerLocker")
+                {
+                    hit.collider.GetComponent<AKPuzzelOneStart>().startPuzzleOne();
+                    return;
+                }
+                Outline outline = hit.collider.GetComponent<Outline>();
+                outline.enabled = true;
+                AKDigitButton button = hit.collider.GetComponent<AKDigitButton>();
+                if (button != null)
+                {
+                    button.Interact();
+                }
+                outline.enabled = false;
             }
-            outline.enabled = false;
         }
     }
     

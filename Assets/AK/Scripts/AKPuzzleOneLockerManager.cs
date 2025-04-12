@@ -8,6 +8,8 @@ public class AKPuzzleOneLockerManager : MonoBehaviour
     private string currentInput = ""; // Stores the current input string
     [SerializeField] private  TMP_Text displayText; // Base class for both UI and 3D text
     [SerializeField] private AudioSource pressAudioSource;
+    [SerializeField] private GameObject DrawerOneLocker;
+    [SerializeField] private GameObject DialPad;
 
     public void Start()
     {
@@ -24,6 +26,11 @@ public class AKPuzzleOneLockerManager : MonoBehaviour
 
     public void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Backspace)){
+            DrawerOneLocker.SetActive(true);
+            DialPad.SetActive(false);
+        }
+
         currentInput = displayText.text; // Update the input sequence from the GUItextmeshpro
         CheckSequence(currentInput);
     }
@@ -73,6 +80,7 @@ public class AKPuzzleOneLockerManager : MonoBehaviour
 
     System.Collections.IEnumerator Unlock()
     {
+        DrawerOneLocker.SetActive(false);
         Debug.Log("Correct sequence entered. Unlocking...");
         if (lockedObject != null)
             lockedObject.SetActive(false); // Example action
