@@ -20,6 +20,7 @@ TagManager:
   - DrawerObject
   - Locker1
   - Puzzle2
+  - inventoryItem
   layers:
   - Default
   - TransparentFX
