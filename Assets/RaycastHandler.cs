@@ -439,7 +439,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
             if (col.CompareTag("Engraving"))
             {
                 AKengravingIdentifier engravingIdentifier = col.GetComponent<AKengravingIdentifier>();
-                if (!engravingIdentifier) return nukll;
+                if (!engravingIdentifier) return null;
                 if ((stoneIdentifier +  engravingIdentifier.moon_identifier == 1))
                 {
                     return col.transform;

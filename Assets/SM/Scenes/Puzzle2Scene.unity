@@ -2542,7 +2542,7 @@ GameObject:
   - component: {fileID: 597578672}
   - component: {fileID: 597578673}
   m_Layer: 9
-  m_Name: SunEngraving
+  m_Name: SunIndicator
   m_TagString: Engraving
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2634,7 +2634,8 @@ Transform:
   m_LocalPosition: {x: -6.3389997, y: -0.019000053, z: -1.6279998}
   m_LocalScale: {x: -0.53712857, y: 0.46067083, z: -0.0088}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 982479766}
   m_Father: {fileID: 2031167921}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!54 &597578671
@@ -4271,7 +4272,7 @@ GameObject:
   - component: {fileID: 756550909}
   - component: {fileID: 756550910}
   m_Layer: 9
-  m_Name: MoonEngraving
+  m_Name: MoonIndicator
   m_TagString: Engraving
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4294,7 +4295,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 1, y: 0.9999996, z: 2.2767622}
   m_Center: {x: 0, y: 0, z: -0.6383792}
@@ -4360,11 +4361,11 @@ Transform:
   m_GameObject: {fileID: 756550904}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 1, w: 0}
-  m_LocalPosition: {x: -4.646, y: -0.024000168, z: -1.6269999}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: -0.53712857, y: 0.46067083, z: -0.0088}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2031167921}
+  m_Father: {fileID: 1088083494}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
 --- !u!114 &756550909
 MonoBehaviour:
@@ -6475,6 +6476,37 @@ MonoBehaviour:
   sceneViewId: 5
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!1 &982479765
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 982479766}
+  m_Layer: 9
+  m_Name: SunEngraving
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &982479766
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 982479765}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 597578670}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &985761228 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9104538023853686427, guid: 255e79009c0081f4b90ea3205cc262c1, type: 3}
@@ -7397,6 +7429,60 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1425051404}
   m_SourcePrefab: {fileID: 100100000, guid: e0a309163f5d1ef4e81367371dba0804, type: 3}
+--- !u!1 &1088083493
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1088083494}
+  - component: {fileID: 1088083495}
+  m_Layer: 0
+  m_Name: MoonEngraving
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1088083494
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1088083493}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -4.646, y: -0.024000168, z: -1.6269999}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 756550908}
+  m_Father: {fileID: 2031167921}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1088083495
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1088083493}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.56, y: 0.41, z: 0.11}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1089222773
 GameObject:
   m_ObjectHideFlags: 0
@@ -14201,7 +14287,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 756550908}
+  - {fileID: 1088083494}
   - {fileID: 597578670}
   - {fileID: 866953452}
   - {fileID: 882328566}
