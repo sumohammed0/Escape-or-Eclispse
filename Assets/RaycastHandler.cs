@@ -115,6 +115,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
         if (Physics.Raycast(ray, out hit, rayLength, interactableLayer))
         {
             HandleLocker1Interactions(hit);
+            handlePuzzle2(hit);
             HandleInteractableHit(hit);
         }
         else
@@ -123,6 +124,27 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
             RemoveHighlight();
         }
     }
+
+    void handlePuzzle2(RaycastHit hit)
+    {
+        if (hit.collider.CompareTag("Puzzle2"))
+        {
+            HighlightObject(hit.collider.transform);
+            if (hit.collider.name == "glass_holder")
+            {
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    AKPuzzle2SandClockManager sandClockManager = hit.collider.GetComponent<AKPuzzle2SandClockManager>();
+                    if (sandClockManager != null)
+                        sandClockManager.FlipSandClock();
+                }
+            }
+        }
+        else
+            RemoveHighlight();
+    }
+
+
     void HandleLocker1Interactions(RaycastHit hit)
     {
         if (isGrabbing) return;
