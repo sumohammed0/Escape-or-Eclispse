@@ -147,7 +147,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
             HighlightObject(hit.collider.transform);
             if (hit.collider.name == "glass_holder")
             {
-                if (Input.GetKeyDown(KeyCode.E))
+                if (Input.GetKeyDown(KeyCode.B))
                 {
                     AKPuzzle2SandClockManager sandClockManager = hit.collider.GetComponent<AKPuzzle2SandClockManager>();
                     if (sandClockManager != null)
@@ -165,7 +165,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
         if (isGrabbing) return;
         if (hit.collider.CompareTag("Locker1"))
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.B))
             {
                 if (hit.collider.name == "Puzzle1DrawerLocker")
                 {
