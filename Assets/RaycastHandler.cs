@@ -130,6 +130,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
         if (Physics.Raycast(ray, out hit, rayLength, interactableLayer))
         {
             HandleLocker1Interactions(hit);
+            handlePuzzle2(hit);
             HandleInteractableHit(hit);
         }
         else
@@ -138,19 +139,48 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
             RemoveHighlight();
         }
     }
+
+    void handlePuzzle2(RaycastHit hit)
+    {
+        if (hit.collider.CompareTag("Puzzle2"))
+        {
+            HighlightObject(hit.collider.transform);
+            if (hit.collider.name == "glass_holder")
+            {
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    AKPuzzle2SandClockManager sandClockManager = hit.collider.GetComponent<AKPuzzle2SandClockManager>();
+                    if (sandClockManager != null)
+                        sandClockManager.FlipSandClock();
+                }
+            }
+        }
+        else
+            RemoveHighlight();
+    }
+
+
     void HandleLocker1Interactions(RaycastHit hit)
     {
         if (isGrabbing) return;
         if (hit.collider.CompareTag("Locker1"))
         {
-            Outline outline = hit.collider.GetComponent<Outline>();
-            outline.enabled = true;
-            AKDigitButton button = hit.collider.GetComponent<AKDigitButton>();
-            if (button != null && Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                button.Interact();
+                if (hit.collider.name == "Puzzle1DrawerLocker")
+                {
+                    hit.collider.GetComponent<AKPuzzelOneStart>().startPuzzleOne();
+                    return;
+                }
+                Outline outline = hit.collider.GetComponent<Outline>();
+                outline.enabled = true;
+                AKDigitButton button = hit.collider.GetComponent<AKDigitButton>();
+                if (button != null)
+                {
+                    button.Interact();
+                }
+                outline.enabled = false;
             }
-            outline.enabled = false;
         }
     }
     
