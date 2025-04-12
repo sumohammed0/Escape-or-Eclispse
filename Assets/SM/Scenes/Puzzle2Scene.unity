@@ -3880,7 +3880,7 @@ MonoBehaviour:
   OwnershipTransfer: 1
   observableSearch: 2
   ObservedComponents: []
-  sceneViewId: 1
+  sceneViewId: 7
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!1 &764647922
@@ -14374,7 +14374,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 2627032154218774748, guid: 761f086b8ea3d3b498c848051eb930a8, type: 3}
-<<<<<<< HEAD
 --- !u!1001 &2142481239
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14397,7 +14396,7 @@ PrefabInstance:
       objectReference: {fileID: 778598621}
     - target: {fileID: 4950759512395528804, guid: ccad23e97f419ce458a240f9e441fb92, type: 3}
       propertyPath: sceneViewId
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6102715551374009398, guid: ccad23e97f419ce458a240f9e441fb92, type: 3}
       propertyPath: m_IsActive
@@ -14457,8 +14456,6 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 6102715551374009389, guid: ccad23e97f419ce458a240f9e441fb92, type: 3}
   m_PrefabInstance: {fileID: 2142481239}
   m_PrefabAsset: {fileID: 0}
-=======
->>>>>>> 3675ea560cc5a23d7c52e28e1a67ec02df623a6f
 --- !u!1001 &2147257660
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14730,12 +14727,10 @@ SceneRoots:
   - {fileID: 1930334364}
   - {fileID: 977631870}
   - {fileID: 1581442777}
-<<<<<<< HEAD
   - {fileID: 778598620}
   - {fileID: 713471510}
   - {fileID: 8380339748716385523}
-=======
   - {fileID: 882328566}
   - {fileID: 866953452}
   - {fileID: 1529431140}
->>>>>>> 3675ea560cc5a23d7c52e28e1a67ec02df623a6f
+  - {fileID: 2142481239}

@@ -150,6 +150,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   cameraTransform: {fileID: 6102715551374009388}
+  isGrabbing: 0
+  raygunObj: {fileID: 0}
+  isHoldingRaygun: 0
+  inventoryManagerScript: {fileID: 0}
+  inventoryCanvas: {fileID: 0}
+  puzzle1Solved: 1
 --- !u!95 &5801524416129600761
 Animator:
   serializedVersion: 7

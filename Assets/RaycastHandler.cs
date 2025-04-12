@@ -2,13 +2,10 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
-<<<<<<< HEAD
 using DoorScript; 
 using UnityEngine.UI;
 using System.Collections.Generic;
-=======
 using DoorScript;
->>>>>>> 3675ea560cc5a23d7c52e28e1a67ec02df623a6f
 
 public class RaycastHandler : MonoBehaviourPunCallbacks
 {
@@ -19,26 +16,20 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
     public Transform cameraTransform;
     private LineRenderer lineRenderer;
     private Transform lastHighlightedObject, grabbedObject;
-<<<<<<< HEAD
     private Color originalObjectColor;
     public bool isGrabbing;
-=======
-    private bool isGrabbing;
->>>>>>> 3675ea560cc5a23d7c52e28e1a67ec02df623a6f
+    // private bool isGrabbing;
     private Transform raygunObject;
     public Transform raygunObj;
     public bool isHoldingRaygun = false;
     private PhotonView view;
-<<<<<<< HEAD
     // public List<GameObject> inventoryItems = new List<GameObject>(); // keep track of the items in the inventory
     public InventoryManager inventoryManagerScript; // Reference to the inventory manager script
     public GameObject inventoryCanvas; // Reference to the inventory canvas
     public bool puzzle1Solved = true;
     bool puzzle2Solved = false;
     bool puzzle4Solved = false;
-=======
     private Transform nearbyEngraving; // Tracks the nearby Engraver object
->>>>>>> 3675ea560cc5a23d7c52e28e1a67ec02df623a6f
 
     void Start()
     {
