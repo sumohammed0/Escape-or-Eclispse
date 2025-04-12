@@ -1,10 +1,6 @@
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
-using System.Collections;
-using DoorScript; 
-using UnityEngine.UI;
-using System.Collections.Generic;
 using DoorScript;
 
 public class RaycastHandler : MonoBehaviourPunCallbacks
