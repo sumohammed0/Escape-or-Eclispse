@@ -168,7 +168,9 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
                 if (Input.GetKeyDown(KeyCode.B))
                 {
                     AKPuzzle2SandClockManager sandClockManager = hit.collider.GetComponent<AKPuzzle2SandClockManager>();
-                    if (sandClockManager != null)
+                    if (sandClockManager.IsSolved && !sandClockManager.ClueManager.isFadeIn) 
+                        sandClockManager.ClueManager.StartFadeSequence(2);
+                    else if  (sandClockManager != null)
                         sandClockManager.FlipSandClock();
                 }
             }
