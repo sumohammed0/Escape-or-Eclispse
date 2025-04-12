@@ -77,4 +77,4 @@ crashlytics-build.properties
 .vscode
 
 *_BackUpThisFolder_*
-UserSettings/Layouts/
+UserSettings/*

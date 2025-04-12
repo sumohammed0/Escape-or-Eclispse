@@ -5,13 +5,14 @@ public class AKPuzzle2SandClockManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     [SerializeField] Light RoomLight;
     [SerializeField] AKFlashLight flashLigth;
-    [SerializeField] AKPuz2SandClockClueUIManager ClueManager;
+    public AKPuz2SandClockClueUIManager ClueManager;
     private float rotationDuration = 1f; // Duration of the flip in seconds
     bool Fliped = false;
-    bool IsSolved = false;
+    public bool IsSolved = false;
 
     void Start()
     {
+        ClueManager.canvas.SetActive(false);
         if (!RoomLight)
             throw new System.Exception("Plesae Assign the light related to puzzle 2 to RoomLight.");
     }
@@ -21,8 +22,7 @@ public class AKPuzzle2SandClockManager : MonoBehaviour
         {
             Debug.Log(" Puzzle 2 sandclock clue revealed");
             IsSolved = true;
-            ClueManager.StartFadeSequence();
-            gameObject.SetActive(false);
+            ClueManager.StartFadeSequence(4);
         }
         else
         {

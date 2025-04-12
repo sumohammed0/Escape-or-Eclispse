@@ -7,15 +7,17 @@ public class AKPuz2SandClockClueUIManager : MonoBehaviour
     public GameObject canvas;
     public Image[] images;
     public float fadeDuration = 1f;
-    public float waitDuration = 4f;
+    //public float waitDuration = 4f;
+    public bool isFadeIn = false;
 
-    public void StartFadeSequence()
+    public void StartFadeSequence(float waitDuration)
     {
-        StartCoroutine(FadeSequence());
+        StartCoroutine(FadeSequence(waitDuration));
     }
 
-    private IEnumerator FadeSequence()
+    private IEnumerator FadeSequence(float waitDuration)
     {
+        isFadeIn = true;
         // Enable canvas
         canvas.SetActive(true);
 
@@ -30,7 +32,9 @@ public class AKPuz2SandClockClueUIManager : MonoBehaviour
 
         // Optionally disable canvas
         canvas.SetActive(false);
+        isFadeIn = false;
     }
+
 
     private IEnumerator FadeImages(float startAlpha, float endAlpha, float duration)
     {
