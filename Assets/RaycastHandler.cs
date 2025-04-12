@@ -251,7 +251,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
                 Transform closestEngraving = FindNearbyEngraving(grabbedObject.position, 0.5f);
                 if (closestEngraving != null)
                 {
-                    // Reverted logic to use nearbyEngraving directly
+                    // Use nearbyEngraving directly
                     grabbedObject.SetParent(closestEngraving);
                     grabbedObject.position = closestEngraving.position;
                     grabbedObject.rotation = closestEngraving.rotation;
@@ -267,7 +267,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
                     }
 
                     // Notify the door via RPC
-                    Door door = FindObjectOfType<Door>();
+                    Door door = FindFirstObjectByType<Door>();
                     if (door != null)
                     {
                         door.photonView.RPC("RPC_NotifyMoonstonePlaced", RpcTarget.AllBuffered);

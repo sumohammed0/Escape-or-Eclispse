@@ -11,15 +11,18 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
     public void CreateRoom()
     {
         PhotonNetwork.CreateRoom(createInput.text); // Create a new room with the specified name and options
+        Debug.Log("Creating room: " + createInput.text); // Log the name of the room being created
     }
 
     public void JoinRoom()
     {
         PhotonNetwork.JoinRoom(joinInput.text); // Join an existing room with the specified name
+        Debug.Log("Joining room: " + joinInput.text); // Log the name of the room being joined
     }
 
     public override void OnJoinedRoom()
     {
         PhotonNetwork.LoadLevel("Puzzle2Scene"); // Load the game scene after successfully joining a room
+        Debug.Log("Joined room: " + PhotonNetwork.CurrentRoom.Name); // Log the name of the joined room
     }
 }
