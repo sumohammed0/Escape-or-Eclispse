@@ -18,6 +18,8 @@ TagManager:
   - Drawer
   - Raygun
   - DrawerObject
+  - Moonstone
+  - Engraving
   layers:
   - Default
   - TransparentFX

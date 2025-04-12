@@ -1,44 +1,73 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 namespace DoorScript
 {
-	[RequireComponent(typeof(AudioSource))]
+    [RequireComponent(typeof(AudioSource))]
+    public class Door : MonoBehaviourPun
+    {
+        public bool open;
+        public float smooth = 1.0f;
+        float DoorOpenAngle = -90.0f;
+        float DoorCloseAngle = 0.0f;
+        public AudioSource asource;
+        public AudioClip openDoor, closeDoor;
 
+        private static int placedMoonstones = 0; // Reverted to static
+        private static bool isInteractable = false; // Reverted to static
 
-public class Door : MonoBehaviour {
-	public bool open;
-	public float smooth = 1.0f;
-	float DoorOpenAngle = -90.0f;
-    float DoorCloseAngle = 0.0f;
-	public AudioSource asource;
-	public AudioClip openDoor,closeDoor;
-	// Use this for initialization
-	void Start () {
-		asource = GetComponent<AudioSource> ();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		if (open)
-		{
-            var target = Quaternion.Euler (0, DoorOpenAngle, 0);
-            transform.localRotation = Quaternion.Slerp(transform.localRotation, target, Time.deltaTime * 5 * smooth);
-	
-		}
-		else
-		{
-            var target1= Quaternion.Euler (0, DoorCloseAngle, 0);
-            transform.localRotation = Quaternion.Slerp(transform.localRotation, target1, Time.deltaTime * 5 * smooth);
-	
-		}  
-	}
+        private new PhotonView photonView;
 
-	public void OpenDoor(){
-		open =!open;
-		asource.clip = open?openDoor:closeDoor;
-		asource.Play ();
-	}
-}
+        void Start()
+        {
+            photonView = GetComponent<PhotonView>();
+            asource = GetComponent<AudioSource>();
+        }
+
+        void Update()
+        {
+            if (open)
+            {
+                var target = Quaternion.Euler(0, DoorOpenAngle, 0);
+                transform.localRotation = Quaternion.Slerp(transform.localRotation, target, Time.deltaTime * 5 * smooth);
+            }
+            else
+            {
+                var target1 = Quaternion.Euler(0, DoorCloseAngle, 0);
+                transform.localRotation = Quaternion.Slerp(transform.localRotation, target1, Time.deltaTime * 5 * smooth);
+            }
+        }
+
+        [PunRPC]
+        public void RPC_NotifyMoonstonePlaced()
+        {
+            placedMoonstones++;
+            Debug.Log($"RPC Received! Moonstones: {placedMoonstones} (IsMine: {photonView.IsMine})");
+
+            if (placedMoonstones >= 2 && !isInteractable)
+            {
+                isInteractable = true;
+                Debug.Log("Door is now interactable!");
+            }
+        }
+
+        public void NotifyMoonstonePlaced()
+        {
+            photonView.RPC("RPC_NotifyMoonstonePlaced", RpcTarget.AllBuffered);
+        }
+
+        public int PlacedMoonstonesCount => placedMoonstones; // Getter for placedMoonstones count
+
+        public void OpenDoor()
+        {
+            if (isInteractable)
+            {
+                open = !open;
+                asource.clip = open ? openDoor : closeDoor;
+                asource.Play();
+            }
+        }
+    }
 }

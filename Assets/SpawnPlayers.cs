@@ -20,8 +20,9 @@ public class SpawnPlayers : MonoBehaviour
             Random.Range(minZ, maxZ)
         );
 
-        // Instantiate the player prefab over the network
-        GameObject player = PhotonNetwork.Instantiate(playerPrefab.name, randomPosition, Quaternion.identity);
+        // Instantiate the player prefab over the network with a 180-degree rotation in the Y direction
+        Quaternion rotation = Quaternion.Euler(0, 180, 0);
+        GameObject player = PhotonNetwork.Instantiate(playerPrefab.name, randomPosition, rotation);
 
         // Search for the camera in the prefab hierarchy explicitly
         Transform cameraTransform = player.transform.Find("XRCardboardRig/HeightOffset/Main Camera");

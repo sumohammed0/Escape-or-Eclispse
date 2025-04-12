@@ -48,6 +48,8 @@ MonoBehaviour:
   - SyncReleasedState
   - SyncInitialGrab
   - SyncRelease
+  - SyncPlacement
+  - RPC_NotifyMoonstonePlaced
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

@@ -20,6 +20,6 @@ public class CreateAndJoinRooms : MonoBehaviourPunCallbacks
 
     public override void OnJoinedRoom()
     {
-        PhotonNetwork.LoadLevel("BC_Scene"); // Load the game scene after successfully joining a room
+        PhotonNetwork.LoadLevel("Puzzle2Scene"); // Load the game scene after successfully joining a room
     }
 }
