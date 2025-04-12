@@ -31,23 +31,10 @@ public class AKPuzzleOneLockerManager : MonoBehaviour
     public void CheckSequence(string enteredSequence)
     {
         if (enteredSequence == correctSequence)
-        {
-            Unlock();
-        }
-        else
-        {
-            Debug.Log("Incorrect sequence. Try again.");
-        }
+             StartCoroutine(Unlock());
     }
 
-    private void Unlock()
-    {
-        Debug.Log("Correct sequence entered. Unlocking...");
-        if (lockedObject != null)
-        {
-            lockedObject.SetActive(false); // Example action
-        }
-    }
+
 
     public void DeleteLastDigit()
     {
@@ -74,51 +61,22 @@ public class AKPuzzleOneLockerManager : MonoBehaviour
         {
             currentInput += digit.ToString();
             UpdateDisplay();
-
-            // Animate the parent of the parent (button-cube) of the button
-            Transform buttonCube = transform.parent?.parent;
-            if (buttonCube != null)
-            {
-                StartCoroutine(AnimateButtonPress(buttonCube));
-            }
-
-            // Play press audio if available
-            if (pressAudioSource != null)
-            {
+            if (pressAudioSource)
                 pressAudioSource.Play();
-            }
         }
         else
         {
             Debug.Log("Maximum input length reached.");
         }
 
-
-     System.Collections.IEnumerator AnimateButtonPress(Transform buttonCube)
-    {
-        Vector3 originalPosition = buttonCube.localPosition;
-        Vector3 pressedPosition = originalPosition + new Vector3(0, -0.1f, 0); // Adjust the offset as needed
-        float animationDuration = 0.1f; // Duration of the press animation
-
-        // Move to pressed position
-        float elapsedTime = 0;
-        while (elapsedTime < animationDuration)
-        {
-            buttonCube.localPosition = Vector3.Lerp(originalPosition, pressedPosition, (elapsedTime / animationDuration));
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-        buttonCube.localPosition = pressedPosition;
-
-        // Move back to original position
-        elapsedTime = 0;
-        while (elapsedTime < animationDuration)
-        {
-            buttonCube.localPosition = Vector3.Lerp(pressedPosition, originalPosition, (elapsedTime / animationDuration));
-            elapsedTime += Time.deltaTime;
-            yield return null;
-        }
-        buttonCube.localPosition = originalPosition;
     }
-}
+
+    System.Collections.IEnumerator Unlock()
+    {
+        Debug.Log("Correct sequence entered. Unlocking...");
+        if (lockedObject != null)
+            lockedObject.SetActive(false); // Example action
+        yield return new WaitForSeconds(1f);
+        gameObject.SetActive(false);
+    }
 }
