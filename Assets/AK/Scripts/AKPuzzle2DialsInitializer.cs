@@ -10,7 +10,7 @@ public class AKPuzzle2DialsInitializer : MonoBehaviour
     public void Start()
     {
         InstanciateSpritesMap();
-        //AssignSpritesRandomToDialsImageComponent();
+        AssignSpritesRandomToDialsImageComponent();
     }
     private void InstanciateSpritesMap()
     {

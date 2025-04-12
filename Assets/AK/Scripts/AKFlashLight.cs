@@ -3,7 +3,7 @@ using UnityEngine;
 public class AKFlashLight : MonoBehaviour
 { 
     [SerializeField] private Light flashlightSpot; // Assign the spotlight here
-    [SerializeField] private bool isOn = true;
+    public bool isOn = true;
     [SerializeField] private KeyCode toggleKey = KeyCode.F;
 
     [Header("Light Settings")]

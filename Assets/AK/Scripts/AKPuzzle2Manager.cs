@@ -55,11 +55,11 @@ public class AKPuzzle2Manager : MonoBehaviour
         {
             if (Dials[i].dialCodes[Dials[i].currentIndex] != LockCode[i])
             {
-                Debug.Log("Not Unlocked");
                 return;
             }
         }
         Debug.Log("Unlocked");
+        StartCoroutine(Unlock());
     }
     void RotateDialSmooth(int direction)
     {
@@ -68,7 +68,7 @@ public class AKPuzzle2Manager : MonoBehaviour
             activeDial.currentIndex = (activeDial.currentIndex + 1) % length_;
         else if (direction == -1)
             activeDial.currentIndex = (activeDial.currentIndex - 1 + length_) % length_;
-        float targetAngle = (360f / length_) * direction;
+        float targetAngle = (360f / length_) * -direction;
         StartCoroutine(RotateOverTime(activeDial.transform, targetAngle));
     }
 
@@ -89,5 +89,12 @@ public class AKPuzzle2Manager : MonoBehaviour
 
         dialTransform.localRotation = endRotation;
         isRotating = false;
+    }
+
+    System.Collections.IEnumerator Unlock()
+    {
+        Debug.Log("Correct sequence entered. Unlocking...");
+        yield return new WaitForSeconds(1f);
+        gameObject.SetActive(false);
     }
 }

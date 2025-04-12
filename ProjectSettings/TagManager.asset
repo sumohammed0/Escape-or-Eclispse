@@ -18,6 +18,8 @@ TagManager:
   - Drawer
   - Raygun
   - DrawerObject
+  - Locker1
+  - Puzzle2
   layers:
   - Default
   - TransparentFX

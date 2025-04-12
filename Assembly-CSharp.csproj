@@ -107,6 +107,7 @@
     <Compile Include="Assets\Samples\Google Cardboard XR Plugin for Unity\1.19.0\Hello Cardboard\Scripts\XRCardboard\XRCardboardController.cs" />
     <Compile Include="Assets\AK\Scripts\AKDigitButton.cs" />
     <Compile Include="Assets\AK\Scripts\AKPuzzelOneStart.cs" />
+    <Compile Include="Assets\AK\Scripts\Puzzle2SandClockManager.cs" />
     <Compile Include="Assets\Samples\Google Cardboard XR Plugin for Unity\1.19.0\Hello Cardboard\Scripts\XRCardboard\XRCardboardInputModule.cs" />
     <Compile Include="Assets\SM\Free Wood Door Pack\Script\FPSController.cs" />
     <Compile Include="Assets\BC\Scripts\ThirdPersonCamera.cs" />
