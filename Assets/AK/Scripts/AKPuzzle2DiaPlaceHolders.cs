@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using static UnityEditor.ShaderData;
+// using static UnityEditor.ShaderData;
 
 public class AKPuzzle2DiaPlaceHolders : MonoBehaviour
 {

@@ -12,6 +12,7 @@ public class InventoryManager : MonoBehaviour
     int selectedIndex; 
     public RaycastHandler raycastHandlerScript;
     public GameObject player;
+    // public SpawnPlayers spawnPlayersScript; 
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -22,20 +23,32 @@ public class InventoryManager : MonoBehaviour
 
     void OnEnable()
     {
+        //player = GameObject.FindGameObjectWithTag("Player"); // find the player object
         //player.GetComponent<RaycastHandler>().enabled = false; // Enable the raycast handler script
         player.GetComponent<CharacterMovement>().enabled = false; // Disable the intro screen manager script
         EventSystem.current.SetSelectedGameObject(inventoryFirstSelected); // highlight first selected button
         inventoryButtons = GameObject.FindGameObjectsWithTag("inventoryButton"); // get all buttons for inventory
+        Debug.Log("Inventory opened");
         
         if (raycastHandlerScript.puzzle1Solved) {
             AddItemToInventory(raycastHandlerScript.raygunObj.gameObject); // add the raygun to the inventory index = 0
         }
 
+        Debug.Log("Inventory here");
+
 
         selectedIndex = 0;
         // for every item in the inventory put its image inside of the inventory
         foreach (GameObject item in inventoryItems) {
+            if(inventoryButtons[selectedIndex].transform.GetChild(0) == null) {
+                Debug.Log("No button child found");
+            }
+            if (item.transform.parent.GetComponent<Image>() == null) {
+                Debug.Log("No image found");
+            }
+
             inventoryButtons[selectedIndex].transform.GetChild(0).GetComponent<Image>().sprite = item.transform.parent.GetComponent<Image>().sprite;
+
             selectedIndex++;
         }
 
@@ -56,16 +69,18 @@ public class InventoryManager : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow)) {
+            Debug.Log("left arrow pressed");
         //if (Input.GetAxis("Vertical") > 0) {
-            selectedIndex--;
+            selectedIndex =  (selectedIndex - 1 + inventoryButtons.Length) % inventoryButtons.Length;
             if (selectedIndex < 0) {
                 selectedIndex = inventoryButtons.Length - 1;
             }
             EventSystem.current.SetSelectedGameObject(inventoryButtons[selectedIndex]);
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow)) {
+            Debug.Log("right arrow pressed");
         //else if (Input.GetAxis("Vertical") < 0) {
-            selectedIndex++;
+            selectedIndex = (selectedIndex + 1) % inventoryButtons.Length;
             if (selectedIndex > inventoryButtons.Length - 1) {
                 selectedIndex = 0;
             }
@@ -93,7 +108,12 @@ public class InventoryManager : MonoBehaviour
         }
 
         item.SetActive(false);
-        raycastHandlerScript.ReleaseObject();
+        if (item.CompareTag("Raygun")) {
+            raycastHandlerScript.ReleaseRaygun();
+        }
+        else {
+            raycastHandlerScript.ReleaseObject();
+        }
         inventoryItems.Add(item);
         Debug.Log("Item added to inventory: " + item.name);
     }

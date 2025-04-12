@@ -30,7 +30,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
     bool puzzle2Solved = false;
     bool puzzle4Solved = false;
     private Transform nearbyEngraving; // Tracks the nearby Engraver object
-
+    private Transform raygunParent; // Store the grabbed object GameObject
     void Start()
     {
         view = GetComponent<PhotonView>();
@@ -403,6 +403,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
         Debug.Log("Raygun picked up"); // Debug log to confirm the raygun is picked up
         raygunObject = raygun;
         isHoldingRaygun = true;
+        raygunParent = raygun.transform.parent.transform; // Store the parent GameObject of the raygun
         raygunObject.SetParent(cameraTransform);
         raygunObject.localPosition = new Vector3(0.5f, -0.2f, 0.3f);
         raygunObject.localRotation = Quaternion.identity;
@@ -412,7 +413,8 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
     {
         if (raygunObject)
         {
-            raygunObject.SetParent(null);
+            raygunObject.SetParent(raygunParent);
+            //raygunObject.SetParent(null);
             raygunObject.gameObject.SetActive(false); // should be stored in the inventory so set inactive until selected again
             raygunObject = null;
         }

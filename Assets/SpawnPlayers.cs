@@ -10,6 +10,7 @@ public class SpawnPlayers : MonoBehaviour
     public float maxY;
     public float minZ;
     public float maxZ;
+    // public GameObject player;
 
     private void Start()
     {
