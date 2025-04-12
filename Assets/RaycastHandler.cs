@@ -3,6 +3,8 @@ using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
 using DoorScript; 
+using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class RaycastHandler : MonoBehaviourPunCallbacks
 {
@@ -11,14 +13,20 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
     public Color rayColor = Color.green;
     public LayerMask interactableLayer;
     public Transform cameraTransform;
-
     private LineRenderer lineRenderer;
     private Transform lastHighlightedObject, grabbedObject;
     private Color originalObjectColor;
-    private bool isGrabbing;
+    public bool isGrabbing;
     private Transform raygunObject;
-    private bool isHoldingRaygun = false;
+    public Transform raygunObj;
+    public bool isHoldingRaygun = false;
     private PhotonView view;
+    // public List<GameObject> inventoryItems = new List<GameObject>(); // keep track of the items in the inventory
+    public InventoryManager inventoryManagerScript; // Reference to the inventory manager script
+    public GameObject inventoryCanvas; // Reference to the inventory canvas
+    public bool puzzle1Solved = true;
+    bool puzzle2Solved = false;
+    bool puzzle4Solved = false;
 
     void Start()
     {
@@ -52,6 +60,13 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
 
                 if (isGrabbing) HandleGrabbedState();
                 else HandleDefaultState(ray, rayOrigin);
+            }
+            // if (puzzle2Solved) {
+            //     Debug.Log("Puzzle 2 solved"); // Debug log to confirm the puzzle is solved
+            // }
+            if (Input.GetKeyDown(KeyCode.M)) {
+                Debug.Log("open inventory: m clicked");
+                inventoryCanvas.SetActive(true); // open the inventory
             }
         }
     }
@@ -146,15 +161,15 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
                 }
             }
         }
-        else if (hit.collider.CompareTag("Raygun"))
-        {
-            HighlightObject(hit.collider.transform);
+        // else if (hit.collider.CompareTag("Raygun"))
+        // {
+        //     HighlightObject(hit.collider.transform);
 
-            if (Input.GetKeyDown(KeyCode.B))
-            {
-                PickUpRaygun(hit.collider.transform);
-            }
-        }
+        //     if (Input.GetKeyDown(KeyCode.B))
+        //     {
+        //         PickUpRaygun(hit.collider.transform);
+        //     }
+        // }
         else if (hit.collider.CompareTag("door"))
         {
             HighlightObject(hit.collider.transform);
@@ -250,8 +265,9 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
         lastHighlightedObject = null;
     }
 
-    void PickUpRaygun(Transform raygun)
+    public void PickUpRaygun(Transform raygun)
     {
+        Debug.Log("Raygun picked up"); // Debug log to confirm the raygun is picked up
         raygunObject = raygun;
         isHoldingRaygun = true;
         raygunObject.SetParent(cameraTransform);
@@ -259,11 +275,12 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
         raygunObject.localRotation = Quaternion.identity;
     }
 
-    void ReleaseRaygun()
+    public void ReleaseRaygun()
     {
         if (raygunObject)
         {
             raygunObject.SetParent(null);
+            raygunObject.gameObject.SetActive(false); // should be stored in the inventory so set inactive until selected again
             raygunObject = null;
         }
         isHoldingRaygun = false;

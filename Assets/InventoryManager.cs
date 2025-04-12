@@ -22,12 +22,34 @@ public class InventoryManager : MonoBehaviour
 
     void OnEnable()
     {
-        EventSystem.current.SetSelectedGameObject(inventoryFirstSelected);
-        inventoryButtons = GameObject.FindGameObjectsWithTag("inventoryButton");
+        //player.GetComponent<RaycastHandler>().enabled = false; // Enable the raycast handler script
+        player.GetComponent<CharacterMovement>().enabled = false; // Disable the intro screen manager script
+        EventSystem.current.SetSelectedGameObject(inventoryFirstSelected); // highlight first selected button
+        inventoryButtons = GameObject.FindGameObjectsWithTag("inventoryButton"); // get all buttons for inventory
+        
+        if (raycastHandlerScript.puzzle1Solved) {
+            AddItemToInventory(raycastHandlerScript.raygunObj.gameObject); // add the raygun to the inventory index = 0
+        }
+
+
         selectedIndex = 0;
-        // foreach (GameObject item in inventoryItems) {
-        //     inventoryButtons[selectedIndex].transform.GetChild(0).GetComponent<Image>().sprite = item.GetComponent<Actions>().itemSprite;
-        // }
+        // for every item in the inventory put its image inside of the inventory
+        foreach (GameObject item in inventoryItems) {
+            inventoryButtons[selectedIndex].transform.GetChild(0).GetComponent<Image>().sprite = item.transform.parent.GetComponent<Image>().sprite;
+            selectedIndex++;
+        }
+
+        selectedIndex = 0; // reset selected index to 0
+
+        if (raycastHandlerScript.isGrabbing && raycastHandlerScript.isHoldingRaygun) {
+            Debug.Log("Raygun is currently being held so highlighting this button");
+            selectedIndex = 0;
+            EventSystem.current.SetSelectedGameObject(inventoryButtons[selectedIndex]);
+        }
+    }
+    
+    void OnDisable() {
+        inventoryItems.Clear(); // clear the inventory items when the inventory is closed
     }
 
     // Update is called once per frame
@@ -50,6 +72,7 @@ public class InventoryManager : MonoBehaviour
             EventSystem.current.SetSelectedGameObject(inventoryButtons[selectedIndex]);
         }
 
+
         if (Input.GetKeyDown(KeyCode.B)) {
             Debug.Log("button pressed B");
         //if (Input.GetButtonDown("js1")) {
@@ -58,6 +81,7 @@ public class InventoryManager : MonoBehaviour
         }
 
         if (Input.GetKeyDown(KeyCode.M)) {
+            Debug.Log("close inventory: m clicked");
             CloseInventory();
         }
     }
@@ -74,12 +98,20 @@ public class InventoryManager : MonoBehaviour
         Debug.Log("Item added to inventory: " + item.name);
     }
 
-    public void ChooseObject() {
-        Debug.Log("Object chosen");
-        raycastHandlerScript.GrabObject(inventoryItems[selectedIndex].transform);
+    public void SelectObject() {
+        Debug.Log("Object selected from inventory");
+        GameObject selectedObj = inventoryItems[selectedIndex];
         inventoryItems.RemoveAt(selectedIndex);
+
+        if (selectedObj.CompareTag("Raygun")) {
+            Debug.Log("Raygun selected from inventory");
+            selectedObj.SetActive(true);
+            raycastHandlerScript.PickUpRaygun(selectedObj.transform); // pick up the raygun if raygun selected from inventory
+        }
+
         CloseInventory();
     }
+
     public void CloseInventory() {
         player.GetComponent<RaycastHandler>().enabled = true; // Enable the raycast handler script
         player.GetComponent<CharacterMovement>().enabled = true; // Disable the intro screen manager script

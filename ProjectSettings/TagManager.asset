@@ -18,6 +18,7 @@ TagManager:
   - Drawer
   - Raygun
   - DrawerObject
+  - inventoryItem
   layers:
   - Default
   - TransparentFX
