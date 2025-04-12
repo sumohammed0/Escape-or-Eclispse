@@ -11,7 +11,6 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
     public Color rayColor = Color.green;
     public LayerMask interactableLayer;
     public Transform cameraTransform;
-
     private LineRenderer lineRenderer;
     private Transform lastHighlightedObject, grabbedObject;
     private Color originalObjectColor;
@@ -236,17 +235,28 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
         if (lastHighlightedObject == obj) return;
         RemoveHighlight();
         lastHighlightedObject = obj;
-        var renderer = obj.GetComponent<Renderer>();
-        if (!renderer) return;
-        originalObjectColor = renderer.material.color;
-        renderer.material.color = Color.yellow;
+
+        // Add or enable the Outline component
+        var outline = obj.GetComponent<Outline>();
+        if (!outline)
+        {
+            outline = obj.gameObject.AddComponent<Outline>();
+            outline.OutlineColor = Color.white;
+            outline.OutlineWidth = 5f;
+        }
+        outline.enabled = true;
     }
 
     void RemoveHighlight()
     {
         if (!lastHighlightedObject) return;
-        var renderer = lastHighlightedObject.GetComponent<Renderer>();
-        if (renderer) renderer.material.color = originalObjectColor;
+
+        // Disable the Outline component
+        var outline = lastHighlightedObject.GetComponent<Outline>();
+        if (outline)
+        {
+            outline.enabled = false;
+        }
         lastHighlightedObject = null;
     }
 
