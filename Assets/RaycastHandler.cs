@@ -2,9 +2,13 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
+<<<<<<< HEAD
 using DoorScript; 
 using UnityEngine.UI;
 using System.Collections.Generic;
+=======
+using DoorScript;
+>>>>>>> 3675ea560cc5a23d7c52e28e1a67ec02df623a6f
 
 public class RaycastHandler : MonoBehaviourPunCallbacks
 {
@@ -15,18 +19,26 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
     public Transform cameraTransform;
     private LineRenderer lineRenderer;
     private Transform lastHighlightedObject, grabbedObject;
+<<<<<<< HEAD
     private Color originalObjectColor;
     public bool isGrabbing;
+=======
+    private bool isGrabbing;
+>>>>>>> 3675ea560cc5a23d7c52e28e1a67ec02df623a6f
     private Transform raygunObject;
     public Transform raygunObj;
     public bool isHoldingRaygun = false;
     private PhotonView view;
+<<<<<<< HEAD
     // public List<GameObject> inventoryItems = new List<GameObject>(); // keep track of the items in the inventory
     public InventoryManager inventoryManagerScript; // Reference to the inventory manager script
     public GameObject inventoryCanvas; // Reference to the inventory canvas
     public bool puzzle1Solved = true;
     bool puzzle2Solved = false;
     bool puzzle4Solved = false;
+=======
+    private Transform nearbyEngraving; // Tracks the nearby Engraver object
+>>>>>>> 3675ea560cc5a23d7c52e28e1a67ec02df623a6f
 
     void Start()
     {
@@ -114,6 +126,21 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
             {
                 // Continuously sync position
                 pv.RPC("SyncGrabbedPosition", RpcTarget.Others, newPosition, grabbedObject.rotation);
+            }
+
+            // Detect Engraving under the Moonstone
+            Ray detectBelow = new Ray(grabbedObject.position, Vector3.down);
+            RaycastHit engravingHit;
+            if (Physics.Raycast(detectBelow, out engravingHit, 1f))
+            {
+                if (engravingHit.collider.CompareTag("Engraving"))
+                {
+                    nearbyEngraving = engravingHit.transform;
+                }
+                else
+                {
+                    nearbyEngraving = null;
+                }
             }
 
             if (Input.GetKeyDown(KeyCode.Q)) 
@@ -225,7 +252,20 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
             if (Input.GetKeyDown(KeyCode.B))
             {
                 Debug.Log("Door hit"); // Debug log to confirm the hit
-                hit.collider.GetComponent<Door>().OpenDoor();
+                Door door = hit.collider.GetComponent<Door>();
+                if (door != null)
+                {
+                    door.OpenDoor();
+                }
+            }
+        }
+        else if (hit.collider.CompareTag("Moonstone"))
+        {
+            HighlightObject(hit.collider.transform);
+
+            if (Input.GetKeyDown(KeyCode.B) && !isGrabbing)
+            {
+                GrabObject(hit.collider.transform);
             }
         }
         else
@@ -267,6 +307,9 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
                 rb.angularVelocity = Vector3.zero;
             }
 
+            Collider col = obj.GetComponent<Collider>();
+            if (col != null) col.enabled = false;
+
             obj.SetParent(cameraTransform);
 
             objectPhotonView.RPC("SyncInitialGrab", RpcTarget.OthersBuffered, 
@@ -287,23 +330,49 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
         if (grabbedObject == null) return;
 
         PhotonView pv = grabbedObject.GetComponent<PhotonView>();
+
         if (pv != null)
         {
-            // Handle objects with PhotonView
-            pv.RPC("SyncRelease", RpcTarget.AllBuffered, 
-                grabbedObject.position,
-                grabbedObject.rotation);
-
+            Collider col = grabbedObject.GetComponent<Collider>();
             Rigidbody rb = grabbedObject.GetComponent<Rigidbody>();
-            if (rb != null)
-            {
-                rb.isKinematic = false;
-            }
 
-            grabbedObject.SetParent(null);
+            if (grabbedObject.CompareTag("Moonstone"))
+            {
+                Transform closestEngraving = FindNearbyEngraving(grabbedObject.position, 0.5f);
+                if (closestEngraving != null)
+                {
+                    // Use nearbyEngraving directly
+                    grabbedObject.SetParent(closestEngraving);
+                    grabbedObject.position = closestEngraving.position;
+                    grabbedObject.rotation = closestEngraving.rotation;
+
+                    MoonstoneScript ms = grabbedObject.GetComponent<MoonstoneScript>();
+                    if (ms != null)
+                    {
+                        ms.photonView.RPC("SyncPlacement", RpcTarget.AllBuffered,
+                            closestEngraving.position,
+                            closestEngraving.rotation,
+                            closestEngraving.GetComponent<PhotonView>().ViewID
+                        );
+                    }
+
+                    // Notify the door via RPC
+                    Door door = FindFirstObjectByType<Door>();
+                    if (door != null)
+                    {
+                        door.photonView.RPC("RPC_NotifyMoonstonePlaced", RpcTarget.AllBuffered);
+                    }
+                }
+            }
+            else
+            {
+                // Default release for non-Moonstone objects
+                if (rb) rb.isKinematic = false;
+                if (col) col.enabled = true;
+                grabbedObject.SetParent(null);
+            }
         }
 
-        // Handle objects without PhotonView
         grabbedObject = null;
         isGrabbing = false;
     }
@@ -313,17 +382,28 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
         if (lastHighlightedObject == obj) return;
         RemoveHighlight();
         lastHighlightedObject = obj;
-        var renderer = obj.GetComponent<Renderer>();
-        if (!renderer) return;
-        originalObjectColor = renderer.material.color;
-        renderer.material.color = Color.yellow;
+
+        // Add or enable the Outline component
+        var outline = obj.GetComponent<Outline>();
+        if (!outline)
+        {
+            outline = obj.gameObject.AddComponent<Outline>();
+            outline.OutlineColor = Color.white;
+            outline.OutlineWidth = 5f;
+        }
+        outline.enabled = true;
     }
 
     void RemoveHighlight()
     {
         if (!lastHighlightedObject) return;
-        var renderer = lastHighlightedObject.GetComponent<Renderer>();
-        if (renderer) renderer.material.color = originalObjectColor;
+
+        // Disable the Outline component
+        var outline = lastHighlightedObject.GetComponent<Outline>();
+        if (outline)
+        {
+            outline.enabled = false;
+        }
         lastHighlightedObject = null;
     }
 
@@ -352,5 +432,18 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
     {
         // Auto-approve all ownership requests
         targetView.TransferOwnership(requestingPlayer);
+    }
+
+    Transform FindNearbyEngraving(Vector3 position, float maxDistance)
+    {
+        Collider[] colliders = Physics.OverlapSphere(position, maxDistance);
+        foreach (var col in colliders)
+        {
+            if (col.CompareTag("Engraving"))
+            {
+                return col.transform;
+            }
+        }
+        return null;
     }
 }

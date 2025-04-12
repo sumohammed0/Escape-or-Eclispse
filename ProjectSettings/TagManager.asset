@@ -21,6 +21,8 @@ TagManager:
   - Locker1
   - Puzzle2
   - inventoryItem
+  - Moonstone
+  - Engraving
   layers:
   - Default
   - TransparentFX
