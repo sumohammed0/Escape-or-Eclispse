@@ -16894,12 +16894,12 @@ GameObject:
   - component: {fileID: 6709236032583929223}
   - component: {fileID: 4602020261745044391}
   m_Layer: 0
-  m_Name: PuzzleOne 1
+  m_Name: Puzzle1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!223 &7793204087288627814
 Canvas:
   m_ObjectHideFlags: 0
