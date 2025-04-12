@@ -10233,6 +10233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RoomLight: {fileID: 179840410}
   flashLigth: {fileID: 2586458557885294857}
+  ClueManager: {fileID: 2027328462}
 --- !u!4 &1346642315199809784
 Transform:
   m_ObjectHideFlags: 0
