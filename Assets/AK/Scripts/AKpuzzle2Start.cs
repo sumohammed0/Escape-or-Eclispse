@@ -5,7 +5,7 @@ public class AKpuzzle2Start : MonoBehaviour
     public GameObject puzzlelocker;// Reference to the locker manager object
     public AKPuzzle2Manager puzzle2Manager;
     [SerializeField] CharacterMovement characterMovement;
-
+    [SerializeField] TextMeshProUGUI ButtonDescriptionss;
     void Start()
     {
         puzzlelocker.SetActive(false);// Disable the locker manager at the start
@@ -13,12 +13,15 @@ public class AKpuzzle2Start : MonoBehaviour
     private void Update()
     {
         if (puzzle2Manager.isplaingPuzzle2 && Input.GetKeyDown(KeyCode.L))
+            ButtonDescriptionss.text = "";
             stopPuzzle();
-    }
+    }}
     public void startPuzzle()
     {
 
         characterMovement.enabled = false;// Disable character movement
+        ButtonDescriptionss.text = "";
+
         AnimateLocker1Drawer();
         puzzle2Manager.isplaingPuzzle2 = true;// Set the puzzle manager to playing state
         puzzlelocker.SetActive(true);// Enable the locker manager
