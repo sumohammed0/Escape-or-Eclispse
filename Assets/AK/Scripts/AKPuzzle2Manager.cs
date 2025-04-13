@@ -10,10 +10,13 @@ public class AKPuzzle2Manager : MonoBehaviour
     private AKPuzzle2DiaPlaceHolders activeDial;
     private int currentDial;
     private bool isRotating = false;
-
-
+    public bool isplaingPuzzle2 = false;
+    [SerializeField] GameObject moonstone;
+    [SerializeField] GameObject sunstone;
     public void Start()
     {
+        moonstone.SetActive(false);
+        sunstone.SetActive(false);
         currentDial =  0;
         activeDial = Dials[currentDial];
         Vector3 tempPos = activeDial.transform.position;
@@ -21,6 +24,7 @@ public class AKPuzzle2Manager : MonoBehaviour
     }
     void Update()
     {
+        if (!isplaingPuzzle2) return;
         isUnlocked();
         handleInput();
 
@@ -59,6 +63,7 @@ public class AKPuzzle2Manager : MonoBehaviour
             }
         }
         Debug.Log("Unlocked");
+
         StartCoroutine(Unlock());
     }
     void RotateDialSmooth(int direction)
@@ -95,6 +100,12 @@ public class AKPuzzle2Manager : MonoBehaviour
     {
         Debug.Log("Correct sequence entered. Unlocking...");
         yield return new WaitForSeconds(1f);
+        moonstone.SetActive(true);
+        sunstone.SetActive(true);
+        gameObject.SetActive(false);
+    }
+    public void puzzl2Resume()
+    {
         gameObject.SetActive(false);
     }
 }

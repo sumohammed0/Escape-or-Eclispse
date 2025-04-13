@@ -130,7 +130,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.Q)) 
+            if (Input.GetKeyDown(KeyCode.Q))
             {
                 ReleaseObject();
             }
@@ -146,10 +146,27 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
             HandleLocker1Interactions(hit);
             handlePuzzle2(hit);
             HandleInteractableHit(hit);
+            handleLightSwitch(hit);
         }
         else
         {
             lineRenderer.SetPosition(1, rayOrigin + cameraTransform.forward * rayLength);
+            RemoveHighlight();
+        }
+    }
+    void handleLightSwitch(RaycastHit hit)
+    {
+        if (hit.collider.CompareTag("LightSwitch"))
+        {
+            HighlightObject(hit.collider.transform);
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                AKLightSwitch lightSwitch = hit.collider.GetComponent<AKLightSwitch>();
+                lightSwitch?.interact();
+            }
+        }
+        else
+        {
             RemoveHighlight();
         }
     }
@@ -159,25 +176,39 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
         if (hit.collider.CompareTag("Puzzle2"))
         {
             HighlightObject(hit.collider.transform);
+
             if (hit.collider.name == "glass_holder")
-            {
-                if (Input.GetKeyDown(KeyCode.B))
-                {
-                    AKPuzzle2SandClockManager sandClockManager = hit.collider.GetComponent<AKPuzzle2SandClockManager>();
-                    if (sandClockManager.IsSolved && !sandClockManager.ClueManager.isFadeIn) 
-                        sandClockManager.ClueManager.StartFadeSequence(2);
-                    else if  (sandClockManager != null)
-                        sandClockManager.FlipSandClock();
-                }
-            }
+                handleSandClock(hit);
+            else if (hit.collider.name == "drawerluck2")
+                handlepuzzle2Drawerlock(hit);
         }
         else
             RemoveHighlight();
     }
 
-
-    void HandleLocker1Interactions(RaycastHit hit)
-    {
+    private void handlepuzzle2Drawerlock(RaycastHit hit) {
+    if (isGrabbing) return;
+        AKpuzzle2Start puzzle1StartLocker = hit.collider.GetComponent<AKpuzzle2Start>();
+        if (Input.GetKeyDown(KeyCode.B))
+            puzzle1StartLocker?.startPuzzle();
+    }
+    
+    private void handleSandClock(RaycastHit hit) {
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            if (isGrabbing) return;
+            {
+                AKPuzzle2SandClockManager sandClockManager = hit.collider.GetComponent<AKPuzzle2SandClockManager>();
+                if (sandClockManager.IsSolved && !sandClockManager.ClueManager.isFadeIn)
+                    sandClockManager.ClueManager.StartFadeSequence(2);
+                else if (sandClockManager != null)
+                    sandClockManager.FlipSandClock();
+            }
+        }
+    }
+    
+    private void HandleLocker1Interactions(RaycastHit hit)
+     { 
         if (isGrabbing) return;
         if (hit.collider.CompareTag("Locker1"))
         {
@@ -185,7 +216,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
             {
                 if (hit.collider.name == "Puzzle1DrawerLocker")
                 {
-                    hit.collider.GetComponent<AKPuzzelOneStart>().startPuzzleOne();
+                    hit.collider.GetComponent<AKPuzzelOneStart>().startPuzzle();
                     return;
                 }
                 Outline outline = hit.collider.GetComponent<Outline>();

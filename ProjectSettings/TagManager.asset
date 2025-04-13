@@ -23,6 +23,7 @@ TagManager:
   - inventoryItem
   - Moonstone
   - Engraving
+  - LightSwitch
   layers:
   - Default
   - TransparentFX
