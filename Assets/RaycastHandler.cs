@@ -19,8 +19,11 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
     public bool isGrabbing;
     // private bool isGrabbing;
     private Transform raygunObject;
+    private Transform flashlightObject;
+
     public Transform raygunObj;
     public bool isHoldingRaygun = false;
+    public bool isHoldingFlashlight = false;
     private PhotonView view;
     // public List<GameObject> inventoryItems = new List<GameObject>(); // keep track of the items in the inventory
     public InventoryManager inventoryManagerScript; // Reference to the inventory manager script
@@ -30,6 +33,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
     bool puzzle4Solved = false;
     private Transform nearbyEngraving; // Tracks the nearby Engraver object
     private Transform raygunParent; // Store the grabbed object GameObject
+    private Transform flashlightParent; // Store the grabbed flashlight GameObject
     void Start()
     {
         view = GetComponent<PhotonView>();
@@ -53,6 +57,10 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
             if (isHoldingRaygun)
             {
                 HandleRaygunState();
+            }
+            else if (isHoldingFlashlight)
+            {
+                HandleFlashlightState();
             }
             else
             {
@@ -101,6 +109,36 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
         }
 
         if (Input.GetKeyDown(KeyCode.Q)) ReleaseRaygun();
+    }
+
+    void HandleFlashlightState()
+    {
+        if (!flashlightObject) return;
+
+        flashlightObject.position = cameraTransform.position + cameraTransform.right * 0.1f + cameraTransform.forward * 0.3f;
+        flashlightObject.rotation = cameraTransform.rotation;
+
+        Vector3 rayOrigin = cameraTransform.position - cameraTransform.up * 0.3f;
+        Ray ray = new Ray(rayOrigin, cameraTransform.forward);
+        lineRenderer.SetPosition(0, rayOrigin);
+
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, rayLength, interactableLayer))
+        {
+            lineRenderer.SetPosition(1, hit.point);
+
+            // if (Input.GetKeyDown(KeyCode.Y) && hit.collider.CompareTag("Ground"))
+            // {
+            //     // Debug.Log("Teleporting to: " + hit.point); // Debug log to confirm the teleportation
+            //     this.transform.position = new Vector3(hit.point.x, hit.point.y + 1f, hit.point.z);
+            // }
+        }
+        else
+        {
+            lineRenderer.SetPosition(1, rayOrigin + cameraTransform.forward * rayLength);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q)) ReleaseFlashlight();
     }
 
     void HandleGrabbedState()
@@ -414,6 +452,17 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
         raygunObject.localRotation = Quaternion.identity;
     }
 
+    public void PickUpFlashlight(Transform flashlight)
+    {
+        Debug.Log("flashlight picked up"); // Debug log to confirm the raygun is picked up
+        flashlightObject = flashlight;
+        isHoldingFlashlight = true;
+        flashlightParent = flashlight.transform.parent.transform; // Store the parent GameObject of the raygun
+        flashlightObject.SetParent(cameraTransform);
+        flashlightObject.localPosition = new Vector3(0.5f, -0.2f, 0.3f);
+        flashlightObject.localRotation = Quaternion.identity;
+    }
+
     public void ReleaseRaygun()
     {
         if (raygunObject)
@@ -424,6 +473,18 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
             raygunObject = null;
         }
         isHoldingRaygun = false;
+    }
+
+    public void ReleaseFlashlight()
+    {
+        if (flashlightObject)
+        {
+            flashlightObject.SetParent(flashlightParent);
+            //raygunObject.SetParent(null);
+            flashlightObject.gameObject.SetActive(false); // should be stored in the inventory so set inactive until selected again
+            flashlightObject = null;
+        }
+        isHoldingFlashlight = false;
     }
 
     public void HandleOwnershipRequest(PhotonView targetView, Player requestingPlayer)

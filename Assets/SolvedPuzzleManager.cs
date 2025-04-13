@@ -2,14 +2,14 @@ using UnityEngine;
 
 public class SolvedPuzzleManager : MonoBehaviour
 {
-    public bool puzzle1Solved = false;
+    public bool puzzle1Solved = true;
     public bool puzzle2Solved = false;
     public bool puzzle4Solved = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        puzzle1Solved = true;
     }
 
     // Update is called once per frame

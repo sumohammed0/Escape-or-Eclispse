@@ -24,6 +24,8 @@ TagManager:
   - Moonstone
   - Engraving
   - glowingOrb
+  - flashlight
+  - SolveManager
   layers:
   - Default
   - TransparentFX
