@@ -10,6 +10,10 @@ public class AKPuzzleOneLockerManager : MonoBehaviour
     [SerializeField] private AudioSource pressAudioSource;
     [SerializeField] private GameObject DrawerOneLocker;
     [SerializeField] private GameObject DialPad;
+    [SerializeField] CharacterMovement characterMovement;
+    private void OnDisable()
+    {
+        //characterMovement.enabled = true; // Enable character movement when the script is disabled
 
     public void Start()
     {

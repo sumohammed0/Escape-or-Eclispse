@@ -216,9 +216,34 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
             RemoveHighlight();
     }
 
-
-    void HandleLocker1Interactions(RaycastHit hit)
-    {
+    private void handlepuzzle2Drawerlock(RaycastHit hit) {
+    if (isGrabbing) return;
+        AKpuzzle2Start puzzle1StartLocker = hit.collider.GetComponent<AKpuzzle2Start>();
+        if (Input.GetKeyDown(KeyCode.B))
+            puzzle1StartLocker?.startPuzzle();
+    }
+    
+    private void handleSandClock(RaycastHit hit) {
+            if (isGrabbing) return;
+        AKPuzzle2SandClockManager sandClockManager = hit.collider.GetComponent<AKPuzzle2SandClockManager>();
+        if (sandClockManager.IsSolved)
+            ButtonDescriptionss.text = " \t B: show Combonation";
+        else
+            ButtonDescriptionss.text = " \t B: Flip SandClock";
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            if (sandClockManager.IsSolved && !sandClockManager.ClueManager.isFadeIn)
+            {
+                sandClockManager.ClueManager.StartFadeSequence(2);
+                ButtonDescriptionss.text = "";
+            }
+            else if (sandClockManager != null)
+                sandClockManager.FlipSandClock();
+        }
+        }
+    
+    private void HandleLocker1Interactions(RaycastHit hit)
+     { 
         if (isGrabbing) return;
         if (hit.collider.CompareTag("Locker1"))
         {
