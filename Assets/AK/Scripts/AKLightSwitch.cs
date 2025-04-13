@@ -9,6 +9,21 @@ public class AKLightSwitch : MonoBehaviour
 
     private bool isOn = true;          // Current state of the light
 
+    void Start()
+    {
+        if (lightToToggle != null)
+        {
+            lightToToggle.enabled = true; // Ensure the light is explicitly turned on at the start
+        }
+    }
+
+    void Update()
+    {
+        if (Input.GetButtonDown("js2")) // X button on the joystick
+        {
+            interact(); // Call the interact method to toggle the light
+        }
+    }
 
     // Call this to toggle light and push the switch
     public void interact()

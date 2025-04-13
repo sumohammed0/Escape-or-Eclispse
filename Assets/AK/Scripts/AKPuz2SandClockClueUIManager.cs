@@ -11,6 +11,13 @@ public class AKPuz2SandClockClueUIManager : MonoBehaviour
     public bool isFadeIn = false;
     public bool IsHoldingFlashLigth = false;
 
+    private void Start()
+    {
+        if (canvas != null)
+        {
+            canvas.SetActive(false); // Ensure the canvas is disabled initially
+        }
+    }
 
     public void StartFadeSequence(float waitDuration)
     {
@@ -36,7 +43,6 @@ public class AKPuz2SandClockClueUIManager : MonoBehaviour
         canvas.SetActive(false);
         isFadeIn = false;
     }
-
 
     private IEnumerator FadeImages(float startAlpha, float endAlpha, float duration)
     {

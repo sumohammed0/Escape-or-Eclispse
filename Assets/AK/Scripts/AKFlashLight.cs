@@ -22,7 +22,7 @@ public class AKFlashLight : MonoBehaviour
 
         void Update()
         {
-            if (Input.GetKeyDown(toggleKey))
+            if (Input.GetButtonDown("js7")) // OK button on the joystick
                 ToggleFlashlight();
             ApplySettings();
         }
@@ -30,6 +30,7 @@ public class AKFlashLight : MonoBehaviour
     public void ToggleFlashlight()
     {
         isOn = !isOn;
+        flashlightSpot.enabled = isOn; // Ensure flashlight toggling is independent of room lights
     }
 
     public void SetIntensity(float newIntensity)
@@ -48,7 +49,7 @@ public class AKFlashLight : MonoBehaviour
     {
         flashlightSpot.intensity = intensity;
         flashlightSpot.range = range;
-        flashlightSpot.enabled = isOn;
+        flashlightSpot.enabled = isOn; // Ensure flashlight toggling is independent of other interactions
     }
 
 

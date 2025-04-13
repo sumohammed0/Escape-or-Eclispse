@@ -17,8 +17,10 @@ public class AKUIFadeInController : MonoBehaviour
 
     private void Start()
     {
-        // Set initial alpha to 0 (completely transparent)
-        SetAlpha(0f);
+        if (blackOverlay != null && messageText != null)
+        {
+            SetAlpha(0f); // Ensure UI elements are fully transparent initially
+        }
         EndGameCanvas.enabled = false; // Disable the canvas at the start
         // Start the fade trigger timer
         StartCoroutine(FadeInAfterDelay());

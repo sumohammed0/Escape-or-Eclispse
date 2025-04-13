@@ -39,25 +39,20 @@ public class AKPuzzle2Manager : MonoBehaviour
     private void handleInput()
     {
         if (isRotating) return;
-        if (Input.GetKeyDown(KeyCode.Keypad2))
+        if (Input.GetButtonDown("js7")) // OK button on the joystick
         {
             RotateDialSmooth(1);
         }
-        if (Input.GetKeyDown(KeyCode.Keypad8))
-        {
-            RotateDialSmooth(-1);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Keypad6))
+        if (Input.GetButtonDown("js3")) // Y button on the joystick
         {
             currentDial = (currentDial + 1) % totalNumberOfDials;
             activeDial = Dials[currentDial];
         }
-        if (Input.GetKeyDown(KeyCode.Keypad4))
-        {
-            currentDial = (currentDial - 1 + totalNumberOfDials) % totalNumberOfDials;
-            activeDial = Dials[currentDial];
-        }
+        // if (Input.GetButtonDown("js3")) // Y button on the joystick
+        // {
+        //     currentDial = (currentDial - 1 + totalNumberOfDials) % totalNumberOfDials;
+        //     activeDial = Dials[currentDial];
+        // }
         CuberIndicator.transform.position = activeDial.transform.position;
     }
     private void isUnlocked()

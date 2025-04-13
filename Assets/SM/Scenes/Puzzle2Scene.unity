@@ -1949,7 +1949,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a7e5198a790645cfa6b432c9a439668, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  puzzle1Solved: 0
+  puzzle1Solved: 1
   puzzle2Solved: 0
   puzzle4Solved: 0
 --- !u!4 &318765263

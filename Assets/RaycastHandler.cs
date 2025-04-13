@@ -78,8 +78,8 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
             // if (puzzle2Solved) {
             //     Debug.Log("Puzzle 2 solved"); // Debug log to confirm the puzzle is solved
             // }
-            if (Input.GetKeyDown(KeyCode.M)) {
-                Debug.Log("open inventory: m clicked");
+            if (Input.GetButtonDown("js5")) { // B button on the joystick
+                Debug.Log("open inventory: B button pressed");
                 inventoryCanvas.SetActive(true); // open the inventory
             }
         }
@@ -101,9 +101,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
         {
             lineRenderer.SetPosition(1, hit.point);
 
-            if (Input.GetKeyDown(KeyCode.Y) && hit.collider.CompareTag("Ground"))
-            {
-                // Debug.Log("Teleporting to: " + hit.point); // Debug log to confirm the teleportation
+            if (Input.GetButtonDown("js3") && hit.collider.CompareTag("Ground")) { // Y button on the joystick
                 this.transform.position = new Vector3(hit.point.x, hit.point.y + 1f, hit.point.z);
             }
         }
@@ -112,7 +110,9 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
             lineRenderer.SetPosition(1, rayOrigin + cameraTransform.forward * rayLength);
         }
 
-        if (Input.GetKeyDown(KeyCode.Q)) ReleaseRaygun();
+        if (Input.GetButtonDown("js10")) { // A button on the joystick
+            ReleaseRaygun();
+        }
     }
 
     void HandleFlashlightState()
@@ -141,7 +141,9 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
             lineRenderer.SetPosition(1, rayOrigin + cameraTransform.forward * rayLength);
         }
 
-        if (Input.GetKeyDown(KeyCode.Q)) ReleaseFlashlight();
+        if (Input.GetButtonDown("js10")) { // A button on the joystick
+            ReleaseFlashlight();
+        }
     }
 
     void HandleGrabbedState()
@@ -174,8 +176,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.Q)) 
-            {
+            if (Input.GetButtonDown("js10")) { // A button on the joystick
                 ReleaseObject();
             }
         }
@@ -206,8 +207,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
         {
             HighlightObject(hit.collider.transform);
             ButtonDescriptionss.text = " \t B: Push the switch";
-            if (Input.GetKeyDown(KeyCode.B))
-            {
+            if (Input.GetButtonDown("js2")) { // X button on the joystick
                 AKLightSwitch lightSwitch = hit.collider.GetComponent<AKLightSwitch>();
                 if (lightSwitch != null)
                 {
@@ -239,13 +239,15 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
                     if (sandClockManager.IsSolved && !sandClockManager.ClueManager.isFadeIn)
                     {
                         sancdclockButtonDescriptions = " \t B: show Combonation";
-                        if (Input.GetKeyDown(KeyCode.B))
+                        if (Input.GetButtonDown("js2")) { // X button on the joystick
                             sandClockManager.ClueManager.StartFadeSequence(2);
+                        }
                     }
                     else if (sandClockManager != null)
                     {
-                        if (Input.GetKeyDown(KeyCode.B))
+                        if (Input.GetButtonDown("js2")) { // X button on the joystick
                             sandClockManager.FlipSandClock();
+                        }
                     }
                 }
             }
@@ -264,8 +266,9 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
     private void handlepuzzle2Drawerlock(RaycastHit hit) {
     if (isGrabbing) return;
     AKpuzzle2Start puzzle1StartLocker = hit.collider.GetComponent<AKpuzzle2Start>();
-    if (Input.GetKeyDown(KeyCode.B))
+    if (Input.GetButtonDown("js2")) { // X button on the joystick
         puzzle1StartLocker?.startPuzzle();
+    }
     }
     
     private void handleSandClock(RaycastHit hit) {
@@ -275,8 +278,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
             ButtonDescriptionss.text = " \t B: show Combonation";
         else
             ButtonDescriptionss.text = " \t B: Flip SandClock";
-        if (Input.GetKeyDown(KeyCode.B))
-        {
+        if (Input.GetButtonDown("js2")) { // X button on the joystick
             if (sandClockManager.IsSolved && !sandClockManager.ClueManager.isFadeIn)
             {
                 sandClockManager.ClueManager.StartFadeSequence(2);
@@ -303,8 +305,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
             Outline outline = hit.collider.GetComponent<Outline>();
             if (outline == null)
                 throw new System.Exception("Outline component is missing from locker one object.");
-            if (Input.GetKeyDown(KeyCode.B))
-            {
+            if (Input.GetButtonDown("js2")) { // X button on the joystick
                 if (hit.collider.name == "Puzzle1DrawerLocker")
                 {
                     outline.enabled = true;
@@ -327,16 +328,16 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
         {
             HighlightObject(hit.collider.transform);
 
-            if (Input.GetKeyDown(KeyCode.B) && !isGrabbing)
+            if (Input.GetButtonDown("js2") && !isGrabbing) { // X button on the joystick
                 GrabObject(hit.collider.transform);
+            }
         }
         else if (hit.collider.CompareTag("Drawer"))
         {
             // Debug.Log("Drawer hit"); // Debug log to confirm the hit
             HighlightObject(hit.collider.transform);
 
-            if (Input.GetKeyDown(KeyCode.B))
-            {
+            if (Input.GetButtonDown("js2")) { // X button on the joystick
                 DrawerController drawerController = hit.collider.GetComponent<DrawerController>();
                 if (drawerController != null)
                 {
@@ -357,8 +358,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
         {
             HighlightObject(hit.collider.transform);
 
-            if (Input.GetKeyDown(KeyCode.B))
-            {
+            if (Input.GetButtonDown("js2")) { // X button on the joystick
                 Debug.Log("Door hit"); // Debug log to confirm the hit
                 Door door = hit.collider.GetComponent<Door>();
                 if (door != null)
@@ -371,8 +371,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
         {
             HighlightObject(hit.collider.transform);
 
-            if (Input.GetKeyDown(KeyCode.B) && !isGrabbing)
-            {
+            if (Input.GetButtonDown("js2") && !isGrabbing) { // X button on the joystick
                 GrabObject(hit.collider.transform);
             }
         }

@@ -29,16 +29,14 @@ public class SettingMenuManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow)) {
-        //if (Input.GetAxis("Vertical") > 0) {
+        if (Input.GetAxis("Vertical") > 0) {
             selectedIndex--;
             if (selectedIndex < 0) {
                 selectedIndex = settingButtons.Length - 1;
             }
             EventSystem.current.SetSelectedGameObject(settingButtons[selectedIndex]);
         }
-        else if (Input.GetKeyDown(KeyCode.DownArrow)) {
-        //else if (Input.GetAxis("Vertical") < 0) {
+        else if (Input.GetAxis("Vertical") < 0) {
             selectedIndex++;
             if (selectedIndex > settingButtons.Length - 1) {
                 selectedIndex = 0;
@@ -46,10 +44,8 @@ public class SettingMenuManager : MonoBehaviour
             EventSystem.current.SetSelectedGameObject(settingButtons[selectedIndex]);
         }
 
-        if (Input.GetKeyDown(KeyCode.B)) {
-            Debug.Log("button pressed B");
-        //if (Input.GetButtonDown("js1")) {
-            //Debug.Log($"Button pressed {EventSystem.current.currentSelectedGameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text}");
+        if (Input.GetButtonDown("js2")) { // X button on the joystick
+            Debug.Log("button pressed X");
             EventSystem.current.currentSelectedGameObject.GetComponent<Button>().onClick.Invoke();
         }
     }

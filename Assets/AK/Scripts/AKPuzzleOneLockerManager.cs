@@ -30,7 +30,7 @@ public class AKPuzzleOneLockerManager : MonoBehaviour
     {
         if (!isPlayingPuzzle1)
             return;
-        if (Input.GetKeyDown(KeyCode.Backspace)){
+        if (Input.GetButtonDown("js11")) { // Three lines button on the joystick
             DrawerOneLocker.SetActive(true);
             DialPad.SetActive(false);
             characterMovement.enabled = true; // Enable character movement when the script is disabled

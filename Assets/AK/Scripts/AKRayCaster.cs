@@ -75,7 +75,7 @@ public class AKRayCaster : MonoBehaviourPunCallbacks
         {
             lineRenderer.SetPosition(1, hit.point);
 
-            if (Input.GetKeyDown(KeyCode.Y) && hit.collider.CompareTag("Ground"))
+            if (Input.GetButtonDown("js3") && hit.collider.CompareTag("Ground")) // Y button on the joystick
             {
                 // Debug.Log("Teleporting to: " + hit.point); // Debug log to confirm the teleportation
                 this.transform.position = new Vector3(hit.point.x, hit.point.y + 1f, hit.point.z);
@@ -86,7 +86,8 @@ public class AKRayCaster : MonoBehaviourPunCallbacks
             lineRenderer.SetPosition(1, rayOrigin + cameraTransform.forward * rayLength);
         }
 
-        if (Input.GetKeyDown(KeyCode.Q)) ReleaseRaygun();
+        if (Input.GetButtonDown("js10")) // A button on the joystick
+            ReleaseRaygun();
     }
 
     void HandleGrabbedState()
@@ -104,7 +105,7 @@ public class AKRayCaster : MonoBehaviourPunCallbacks
                 pv.RPC("SyncGrabbedPosition", RpcTarget.Others, newPosition, grabbedObject.rotation);
             }
 
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetButtonDown("js10")) // A button on the joystick
             {
                 ReleaseObject();
             }
@@ -134,10 +135,8 @@ public class AKRayCaster : MonoBehaviourPunCallbacks
             Outline outline = hit.collider.GetComponent<Outline>();
             outline.enabled = true;
             AKDigitButton button = hit.collider.GetComponent<AKDigitButton>();
-            if (button != null && Input.GetKeyDown(KeyCode.E))
-            {
-                    button.Interact();
-            }
+            if (button != null && Input.GetButtonDown("js2")) // X button on the joystick
+                button.Interact();
             outline.enabled = false;
         }
     }
@@ -148,7 +147,7 @@ public class AKRayCaster : MonoBehaviourPunCallbacks
         {
             HighlightObject(hit.collider.transform);
 
-            if (Input.GetKeyDown(KeyCode.B) && !isGrabbing)
+            if (Input.GetButtonDown("js2") && !isGrabbing) // X button on the joystick
                 GrabObject(hit.collider.transform);
         }
         else if (hit.collider.CompareTag("Drawer"))
@@ -156,7 +155,7 @@ public class AKRayCaster : MonoBehaviourPunCallbacks
             // Debug.Log("Drawer hit"); // Debug log to confirm the hit
             HighlightObject(hit.collider.transform);
 
-            if (Input.GetKeyDown(KeyCode.B))
+            if (Input.GetButtonDown("js2")) // X button on the joystick
             {
                 DrawerController drawerController = hit.collider.GetComponent<DrawerController>();
                 if (drawerController != null)
@@ -169,7 +168,7 @@ public class AKRayCaster : MonoBehaviourPunCallbacks
         {
             HighlightObject(hit.collider.transform);
 
-            if (Input.GetKeyDown(KeyCode.B))
+            if (Input.GetButtonDown("js2")) // X button on the joystick
             {
                 PickUpRaygun(hit.collider.transform);
             }
@@ -178,7 +177,7 @@ public class AKRayCaster : MonoBehaviourPunCallbacks
         {
             HighlightObject(hit.collider.transform);
 
-            if (Input.GetKeyDown(KeyCode.B))
+            if (Input.GetButtonDown("js2")) // X button on the joystick
             {
                 Debug.Log("Door hit"); // Debug log to confirm the hit
                 hit.collider.GetComponent<Door>().OpenDoor();

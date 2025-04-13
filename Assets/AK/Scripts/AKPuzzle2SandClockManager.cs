@@ -18,15 +18,11 @@ public class AKPuzzle2SandClockManager : MonoBehaviour
     }
     public void CheckSolver()
     {
-        if (!RoomLight.enabled && flashLigth.isOn && !IsSolved && ClueManager.IsHoldingFlashLigth)
+        if (!RoomLight.enabled && flashLigth.isOn && !IsSolved)
         {
-            Debug.Log(" Puzzle 2 sandclock clue revealed");
+            Debug.Log("Puzzle 2 sandclock clue revealed");
             IsSolved = true;
             ClueManager.StartFadeSequence(4);
-        }
-        else
-        {
-            Debug.Log(" Puzzle 2 sandclock clue not revealed");
         }
     }
     public void FlipSandClock()

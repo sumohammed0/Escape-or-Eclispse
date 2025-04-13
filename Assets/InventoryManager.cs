@@ -119,37 +119,30 @@ public class InventoryManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftArrow)) {
-            Debug.Log("left arrow pressed");
-        //if (Input.GetAxis("Vertical") > 0) {
+        if (Input.GetAxis("Horizontal") < 0) {
+            Debug.Log("left movement on joystick");
             selectedIndex -= 1;
-            //selectedIndex =  (selectedIndex - 1 + inventoryButtons.Length) % inventoryButtons.Length;
             if (selectedIndex < 0) {
                 selectedIndex = inventoryButtons.Length - 1;
             }
             EventSystem.current.SetSelectedGameObject(inventoryButtons[selectedIndex]);
         }
-        else if (Input.GetKeyDown(KeyCode.RightArrow)) {
-            Debug.Log("right arrow pressed");
-        //else if (Input.GetAxis("Vertical") < 0) {
+        else if (Input.GetAxis("Horizontal") > 0) {
+            Debug.Log("right movement on joystick");
             selectedIndex += 1;
-            //selectedIndex = (selectedIndex + 1) % inventoryButtons.Length;
             if (selectedIndex > inventoryButtons.Length - 1) {
                 selectedIndex = 0;
             }
             EventSystem.current.SetSelectedGameObject(inventoryButtons[selectedIndex]);
         }
 
-
-        if (Input.GetKeyDown(KeyCode.B)) {
-            Debug.Log("button pressed B");
-        //if (Input.GetButtonDown("js1")) {
-            //Debug.Log($"Button pressed {EventSystem.current.currentSelectedGameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text}");
+        if (Input.GetButtonDown("js2")) { // X button on the joystick
+            Debug.Log("button pressed X");
             EventSystem.current.currentSelectedGameObject.GetComponent<Button>().onClick.Invoke();
         }
 
-        if (Input.GetKeyDown(KeyCode.M)) {
-            Debug.Log("close inventory: m clicked");
+        if (Input.GetButtonDown("js5")) { // B button on the joystick
+            Debug.Log("close inventory: B button pressed");
             CloseInventory();
         }
     }

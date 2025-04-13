@@ -34,7 +34,7 @@ public class AK_DrawerInteraction : MonoBehaviour
 
     private void Update()
     {
-        if (isPlayerNearby && Input.GetKeyDown(KeyCode.T))
+        if (isPlayerNearby && Input.GetButtonDown("js2")) // X button on the joystick
         {
             drawer.ToggleDrawer();
         }

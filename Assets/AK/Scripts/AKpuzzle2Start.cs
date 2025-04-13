@@ -12,7 +12,7 @@ public class AKpuzzle2Start : MonoBehaviour
     }
     private void Update()
     {
-        if ((puzzle2Manager.isplaingPuzzle2 && Input.GetKeyDown(KeyCode.L))  
+        if ((puzzle2Manager.isplaingPuzzle2 && Input.GetButtonDown("js11"))  // Three lines button on the joystick
                                 | puzzle2Manager.IsSolved)
         {
             puzzle2Manager.ButtonDescriptionss.text = "";
@@ -51,11 +51,6 @@ public class AKpuzzle2Start : MonoBehaviour
         }
         transform.localPosition = pressedPosition;
 
-    }
-    private void Ondisable()
-    {
-       puzzlelocker.SetActive(false);// Disable the locker manager when the script is disabled
-       characterMovement.enabled = true;// Disable character movement
     }
 }
 
