@@ -7676,6 +7676,7 @@ MonoBehaviour:
   puzzlelocker: {fileID: 4230274482400952288}
   puzzle2Manager: {fileID: 4925517884811707088}
   characterMovement: {fileID: 1779873651}
+  ButtonDescriptionss: {fileID: 947317101}
 --- !u!1 &1147265110 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8259905789688560641, guid: fb1818858455d0642ae5a531b2f94afd, type: 3}

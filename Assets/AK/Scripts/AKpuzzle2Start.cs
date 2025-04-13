@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using TMPro;
 public class AKpuzzle2Start : MonoBehaviour
 {
     public GameObject puzzlelocker;// Reference to the locker manager object
@@ -13,14 +13,16 @@ public class AKpuzzle2Start : MonoBehaviour
     private void Update()
     {
         if (puzzle2Manager.isplaingPuzzle2 && Input.GetKeyDown(KeyCode.L))
+        {
             ButtonDescriptionss.text = "";
             stopPuzzle();
-    }}
+        }
+    }
     public void startPuzzle()
     {
 
         characterMovement.enabled = false;// Disable character movement
-        ButtonDescriptionss.text = "";
+        ButtonDescriptionss.text = "\t 8 : rotate +\t \n 4: move right \t 6: move left \n \t2: rotate-";
 
         AnimateLocker1Drawer();
         puzzle2Manager.isplaingPuzzle2 = true;// Set the puzzle manager to playing state
