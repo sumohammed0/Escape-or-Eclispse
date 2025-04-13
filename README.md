@@ -1,5 +1,4 @@
-# Escape-or-Eclispse
-# Escape or Eclipse
+# Escape-or-Eclipse
 
 ## Team Members
 - Safa Mohammed
