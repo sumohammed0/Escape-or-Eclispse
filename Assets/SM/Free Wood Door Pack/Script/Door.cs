@@ -42,17 +42,6 @@ namespace DoorScript
         }
 
         [PunRPC]
-        public void RPC_NotifyMoonstonePlaced()
-        {
-            placedMoonstones++;
-            Debug.Log($"RPC Received! Moonstones: {placedMoonstones} (IsMine: {photonView.IsMine})");
-
-            if (placedMoonstones >= 2 && !isInteractable)
-            {
-                isInteractable = true;
-                Debug.Log("Door is now interactable!");
-            }
-        }
         public void increaseNumberOfMoonstones()
         {
             placedMoonstones++;
@@ -63,9 +52,16 @@ namespace DoorScript
                 Debug.Log("Door is now interactable!");
             }
         }
+
+        [PunRPC]
+        public void RPC_NotifyMoonstonePlaced()
+        {
+            increaseNumberOfMoonstones();
+        }
+
         public void NotifyMoonstonePlaced()
         {
-            photonView.RPC("RPC_NotifyMoonstonePlaced", RpcTarget.AllBuffered);
+            photonView.RPC("increaseNumberOfMoonstones", RpcTarget.AllBuffered);
         }
 
         public int PlacedMoonstonesCount => placedMoonstones; // Getter for placedMoonstones count

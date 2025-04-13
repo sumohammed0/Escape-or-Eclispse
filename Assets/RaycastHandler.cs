@@ -1,4 +1,4 @@
- using UnityEngine;
+using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
@@ -460,7 +460,6 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
                     Door door = FindFirstObjectByType<Door>();
                     if (door != null)
                     {
-                        door.increaseNumberOfMoonstones();
                         door.photonView.RPC("RPC_NotifyMoonstonePlaced", RpcTarget.AllBuffered);
                     }
                 }
