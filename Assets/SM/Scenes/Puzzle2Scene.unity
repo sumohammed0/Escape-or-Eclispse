@@ -1368,7 +1368,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &177866247
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3209,6 +3209,10 @@ PrefabInstance:
     - target: {fileID: 7334207487154556021, guid: 7c59692ea6b9b5341868a871390ad29e, type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7334207487154556021, guid: 7c59692ea6b9b5341868a871390ad29e, type: 3}
+      propertyPath: m_TagString
+      value: Puzzle2
       objectReference: {fileID: 0}
     - target: {fileID: 7941772456319528732, guid: 7c59692ea6b9b5341868a871390ad29e, type: 3}
       propertyPath: m_IsActive
@@ -5758,7 +5762,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6476292117562117519, guid: ccad23e97f419ce458a240f9e441fb92, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7782940535413241582, guid: ccad23e97f419ce458a240f9e441fb92, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11386,7 +11390,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1529431139
 MonoBehaviour:
   m_ObjectHideFlags: 0
