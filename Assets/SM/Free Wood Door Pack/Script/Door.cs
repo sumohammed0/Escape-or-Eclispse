@@ -28,6 +28,7 @@ namespace DoorScript
 
         void Update()
         {
+            //Debug.Log("the number of MOON STONES PLACED"+ placedMoonstones);
             if (open)
             {
                 var target = Quaternion.Euler(0, DoorOpenAngle, 0);
@@ -52,7 +53,16 @@ namespace DoorScript
                 Debug.Log("Door is now interactable!");
             }
         }
-
+        public void increaseNumberOfMoonstones()
+        {
+            placedMoonstones++;
+            Debug.Log($"Placed Moonstones: {placedMoonstones} (IsMine: {photonView.IsMine})");
+            if (placedMoonstones >= 2 && !isInteractable)
+            {
+                isInteractable = true;
+                Debug.Log("Door is now interactable!");
+            }
+        }
         public void NotifyMoonstonePlaced()
         {
             photonView.RPC("RPC_NotifyMoonstonePlaced", RpcTarget.AllBuffered);
