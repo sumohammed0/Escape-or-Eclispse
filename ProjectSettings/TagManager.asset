@@ -26,6 +26,7 @@ TagManager:
   - glowingOrb
   - flashlight
   - SolveManager
+  - LightSwitch
   layers:
   - Default
   - TransparentFX

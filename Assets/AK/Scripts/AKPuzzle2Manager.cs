@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class AKPuzzle2Manager : MonoBehaviour
 {
@@ -10,10 +11,16 @@ public class AKPuzzle2Manager : MonoBehaviour
     private AKPuzzle2DiaPlaceHolders activeDial;
     private int currentDial;
     private bool isRotating = false;
-
+    public bool isplaingPuzzle2 = false;
+    public bool IsSolved = false;
+    public TextMeshProUGUI ButtonDescriptionss;
+    public GameObject moonstone;
+    public GameObject sunStone;
 
     public void Start()
     {
+        sunStone.SetActive(false);
+        moonstone.SetActive(false);
         currentDial =  0;
         activeDial = Dials[currentDial];
         Vector3 tempPos = activeDial.transform.position;
@@ -21,6 +28,10 @@ public class AKPuzzle2Manager : MonoBehaviour
     }
     void Update()
     {
+        if (!isplaingPuzzle2) return;
+        //ButtonDescriptionss.color = Color.yellow;
+        ButtonDescriptionss.fontSize = 20; 
+        ButtonDescriptionss.text = "\t X : rotate ++\t \n A: move right    Y: move left \n \tB: rotate--";
         isUnlocked();
         handleInput();
 
@@ -59,6 +70,8 @@ public class AKPuzzle2Manager : MonoBehaviour
             }
         }
         Debug.Log("Unlocked");
+        IsSolved = true;
+        isplaingPuzzle2 = false;
         StartCoroutine(Unlock());
     }
     void RotateDialSmooth(int direction)
@@ -95,6 +108,8 @@ public class AKPuzzle2Manager : MonoBehaviour
     {
         Debug.Log("Correct sequence entered. Unlocking...");
         yield return new WaitForSeconds(1f);
+        sunStone.SetActive(true);
+        moonstone.SetActive(true);
         gameObject.SetActive(false);
     }
 }

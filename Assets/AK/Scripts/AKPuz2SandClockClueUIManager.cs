@@ -9,6 +9,8 @@ public class AKPuz2SandClockClueUIManager : MonoBehaviour
     public float fadeDuration = 1f;
     //public float waitDuration = 4f;
     public bool isFadeIn = false;
+    public bool IsHoldingFlashLigth = false;
+
 
     public void StartFadeSequence(float waitDuration)
     {

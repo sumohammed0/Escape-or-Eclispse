@@ -5,10 +5,12 @@ using System.Collections;
 using DoorScript; 
 using UnityEngine.UI;
 using System.Collections.Generic;
+using TMPro;
 
 public class RaycastHandler : MonoBehaviourPunCallbacks
 {
     [Header("Raycast Settings")]
+    [SerializeField] TextMeshProUGUI ButtonDescriptionss;
     public float rayLength = 5f;
     public Color rayColor = Color.green;
     public LayerMask interactableLayer;
@@ -33,7 +35,8 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
     bool puzzle4Solved = false;
     private Transform nearbyEngraving; // Tracks the nearby Engraver object
     private Transform raygunParent; // Store the grabbed object GameObject
-    private Transform flashlightParent; // Store the grabbed flashlight GameObject
+    private Transform flashlightParent; // Store the grabbed flashlight GameObject]
+    private string sancdclockButtonDescriptions = "B: Flip SandClock";
     void Start()
     {
         view = GetComponent<PhotonView>();
@@ -58,12 +61,13 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
             {
                 HandleRaygunState();
             }
-            else if (isHoldingFlashlight)
+            else 
+            //else if (isHoldingFlashlight)
             {
                 HandleFlashlightState();
-            }
-            else
-            {
+            //}
+            //else
+            //{
                 Vector3 rayOrigin = cameraTransform.position - cameraTransform.up * 0.3f;
                 Ray ray = new Ray(rayOrigin, cameraTransform.forward);
                 lineRenderer.SetPosition(0, rayOrigin);
@@ -114,7 +118,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
     void HandleFlashlightState()
     {
         if (!flashlightObject) return;
-
+        if (!isHoldingFlashlight) return;
         flashlightObject.position = cameraTransform.position + cameraTransform.right * 0.1f + cameraTransform.forward * 0.3f;
         flashlightObject.rotation = cameraTransform.rotation;
 
@@ -126,7 +130,6 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
         if (Physics.Raycast(ray, out hit, rayLength, interactableLayer))
         {
             lineRenderer.SetPosition(1, hit.point);
-
             // if (Input.GetKeyDown(KeyCode.Y) && hit.collider.CompareTag("Ground"))
             // {
             //     // Debug.Log("Teleporting to: " + hit.point); // Debug log to confirm the teleportation
@@ -187,10 +190,34 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
             HandleLocker1Interactions(hit);
             handlePuzzle2(hit);
             HandleInteractableHit(hit);
+            handleLightSiwtch(hit);
+
         }
         else
         {
+            ButtonDescriptionss.text = "";
             lineRenderer.SetPosition(1, rayOrigin + cameraTransform.forward * rayLength);
+            RemoveHighlight();
+        }
+    }
+    void handleLightSiwtch( RaycastHit hit)
+    {
+        if (isGrabbing) return;
+        if (hit.collider.CompareTag("LightSwitch"))
+        {
+            HighlightObject(hit.collider.transform);
+            ButtonDescriptionss.text = " \t B: Push the switch";
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                AKLightSwitch lightSwitch = hit.collider.GetComponent<AKLightSwitch>();
+                if (lightSwitch != null)
+                {
+                    lightSwitch.interact();
+                }
+            }
+        }
+        else
+        {
             RemoveHighlight();
         }
     }
@@ -202,44 +229,64 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
             HighlightObject(hit.collider.transform);
             if (hit.collider.name == "glass_holder")
             {
-                if (Input.GetKeyDown(KeyCode.B))
+                ButtonDescriptionss.text = sancdclockButtonDescriptions;
+
                 {
                     AKPuzzle2SandClockManager sandClockManager = hit.collider.GetComponent<AKPuzzle2SandClockManager>();
-                    if (sandClockManager.IsSolved && !sandClockManager.ClueManager.isFadeIn) 
-                        sandClockManager.ClueManager.StartFadeSequence(2);
-                    else if  (sandClockManager != null)
-                        sandClockManager.FlipSandClock();
+                    if (isHoldingFlashlight)
+                        sandClockManager.ClueManager.IsHoldingFlashLigth = true;
+                    else
+                        sandClockManager.ClueManager.IsHoldingFlashLigth = false;
+                    if (sandClockManager.IsSolved && !sandClockManager.ClueManager.isFadeIn)
+                    {
+                        sancdclockButtonDescriptions = " \t B: show Combonation";
+                        if (Input.GetKeyDown(KeyCode.B))
+                            sandClockManager.ClueManager.StartFadeSequence(2);
+                    }
+                    else if (sandClockManager != null)
+                    {
+                        if (Input.GetKeyDown(KeyCode.B))
+                            sandClockManager.FlipSandClock();
+                    }
                 }
+            }
+            else if (hit.collider.name == "drawerluck2")
+            {
+                ButtonDescriptionss.text = " \t B: Open lock";
+                handlepuzzle2Drawerlock(hit);
             }
         }
         else
+        {
+            ButtonDescriptionss.text = "";
             RemoveHighlight();
+        }
     }
 
     private void handlepuzzle2Drawerlock(RaycastHit hit) {
     if (isGrabbing) return;
-        AKpuzzle2Start puzzle1StartLocker = hit.collider.GetComponent<AKpuzzle2Start>();
-        if (Input.GetKeyDown(KeyCode.B))
-            puzzle1StartLocker?.startPuzzle();
+    AKpuzzle2Start puzzle1StartLocker = hit.collider.GetComponent<AKpuzzle2Start>();
+    if (Input.GetKeyDown(KeyCode.B))
+        puzzle1StartLocker?.startPuzzle();
     }
     
     private void handleSandClock(RaycastHit hit) {
             if (isGrabbing) return;
         AKPuzzle2SandClockManager sandClockManager = hit.collider.GetComponent<AKPuzzle2SandClockManager>();
-        // if (sandClockManager.IsSolved)
-        //     ButtonDescriptionss.text = " \t B: show Combonation";
-        // else
-        //     ButtonDescriptionss.text = " \t B: Flip SandClock";
-        // if (Input.GetKeyDown(KeyCode.B))
-        // {
-        //     if (sandClockManager.IsSolved && !sandClockManager.ClueManager.isFadeIn)
-        //     {
-        //         sandClockManager.ClueManager.StartFadeSequence(2);
-        //         ButtonDescriptionss.text = "";
-        //     }
-        //     else if (sandClockManager != null)
-        //         sandClockManager.FlipSandClock();
-        // }
+        if (sandClockManager.IsSolved)
+            ButtonDescriptionss.text = " \t B: show Combonation";
+        else
+            ButtonDescriptionss.text = " \t B: Flip SandClock";
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            if (sandClockManager.IsSolved && !sandClockManager.ClueManager.isFadeIn)
+            {
+                sandClockManager.ClueManager.StartFadeSequence(2);
+                ButtonDescriptionss.text = "";
+            }
+            else if (sandClockManager != null)
+                sandClockManager.FlipSandClock();
+        }
     }
     
     private void HandleLocker1Interactions(RaycastHit hit)

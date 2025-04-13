@@ -18,7 +18,7 @@ public class AKPuzzle2SandClockManager : MonoBehaviour
     }
     public void CheckSolver()
     {
-        if (!RoomLight.enabled && flashLigth.isOn && !IsSolved)
+        if (!RoomLight.enabled && flashLigth.isOn && !IsSolved && ClueManager.IsHoldingFlashLigth)
         {
             Debug.Log(" Puzzle 2 sandclock clue revealed");
             IsSolved = true;
