@@ -6030,7 +6030,7 @@ Transform:
   m_GameObject: {fileID: 888387153}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.9080372, z: -0, w: 0.41888964}
-  m_LocalPosition: {x: -0.047, y: 0.44, z: 1.063}
+  m_LocalPosition: {x: 0.205, y: 0.44, z: 1.339}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7979,7 +7979,7 @@ Transform:
   m_GameObject: {fileID: 1168280592}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.83, y: 0.44, z: 0.81}
+  m_LocalPosition: {x: -1.081, y: 0.44, z: 0.81}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9755,8 +9755,31 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5453633668376869692, guid: 890be463989aa6c7f8e2d5b587e9763e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1383251287}
   m_SourcePrefab: {fileID: 100100000, guid: 890be463989aa6c7f8e2d5b587e9763e, type: 3}
+--- !u!1 &1383251286 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5453633668376869692, guid: 890be463989aa6c7f8e2d5b587e9763e, type: 3}
+  m_PrefabInstance: {fileID: 1383251285}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1383251287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1383251286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18b51ed8b7f9d4c579838b970b80a020, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orb: {fileID: 567038649}
+  isOrbAboveChild: 0
+  solvedPuzzleManagerScript: {fileID: 318765262}
 --- !u!1001 &1392700614
 PrefabInstance:
   m_ObjectHideFlags: 0
