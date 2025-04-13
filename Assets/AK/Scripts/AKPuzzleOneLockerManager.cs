@@ -2,8 +2,8 @@ using UnityEngine;
 using TMPro;
 public class AKPuzzleOneLockerManager : MonoBehaviour
 {
-    public int maxDigits = 4; // Set the required sequence length
-    public string correctSequence = "1234"; // Set the correct sequence
+    public int maxDigits = 8; // Set the required sequence length
+    public string correctSequence = "21678543"; // Set the correct sequence
     public GameObject lockedObject; // Assign the object to be unlocked
     private string currentInput = ""; // Stores the current input string
     [SerializeField] private  TMP_Text displayText; // Base class for both UI and 3D text
@@ -82,8 +82,10 @@ public class AKPuzzleOneLockerManager : MonoBehaviour
     {
         DrawerOneLocker.SetActive(false);
         Debug.Log("Correct sequence entered. Unlocking...");
-        if (lockedObject != null)
-            lockedObject.SetActive(false); // Example action
+        if (lockedObject != null) {
+            Debug.Log("changing layer");
+            lockedObject.layer = LayerMask.NameToLayer("Interactable");; // Example action
+        }
         yield return new WaitForSeconds(1f);
         gameObject.SetActive(false);
     }

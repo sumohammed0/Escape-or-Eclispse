@@ -2435,7 +2435,7 @@ GameObject:
   - component: {fileID: 567038651}
   m_Layer: 3
   m_Name: GlowingOrb
-  m_TagString: glowingOrb
+  m_TagString: Interactable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2448,12 +2448,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 567038649}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.981, y: 0.049, z: 0.702}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalRotation: {x: -0, y: -1, z: -0.00000008146035, w: 0.000000059604645}
+  m_LocalPosition: {x: -0.032, y: 0, z: 0.345}
+  m_LocalScale: {x: 0.09111526, y: 0.09111527, z: 0.09111526}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1306150206}
+  m_Father: {fileID: 1377675964}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &567038651
 SphereCollider:
@@ -2470,12 +2470,12 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 0.8600558
+  m_Center: {x: -0.13959505, y: 0.330071, z: -0.24420922}
 --- !u!23 &567038652
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -8755,6 +8755,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1958286195524496205, guid: 216d8d1ce1cd1e545bc0c7b9c2ebda7d, type: 3}
+      propertyPath: maxDigits
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1958286195524496205, guid: 216d8d1ce1cd1e545bc0c7b9c2ebda7d, type: 3}
+      propertyPath: lockedObject
+      value: 
+      objectReference: {fileID: 701165409}
+    - target: {fileID: 1958286195524496205, guid: 216d8d1ce1cd1e545bc0c7b9c2ebda7d, type: 3}
+      propertyPath: correctSequence
+      value: 21678543
+      objectReference: {fileID: 0}
     - target: {fileID: 2330798457942368690, guid: 216d8d1ce1cd1e545bc0c7b9c2ebda7d, type: 3}
       propertyPath: m_Name
       value: PuzzleOne
@@ -8837,17 +8849,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 4228541001068075912, guid: 216d8d1ce1cd1e545bc0c7b9c2ebda7d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 567038650}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 216d8d1ce1cd1e545bc0c7b9c2ebda7d, type: 3}
---- !u!4 &1306150206 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4228541001068075912, guid: 216d8d1ce1cd1e545bc0c7b9c2ebda7d, type: 3}
-  m_PrefabInstance: {fileID: 1306150205}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1317442693 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4423434241120654740, guid: fb1818858455d0642ae5a531b2f94afd, type: 3}
@@ -9428,6 +9432,30 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6303994845655850536, guid: 00e5c0945f7a8b0439135711f7f02840, type: 3}
+      propertyPath: m_Size.y
+      value: 0.04279257
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303994845655850536, guid: 00e5c0945f7a8b0439135711f7f02840, type: 3}
+      propertyPath: m_Size.z
+      value: 0.43080553
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303994845655850536, guid: 00e5c0945f7a8b0439135711f7f02840, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303994845655850536, guid: 00e5c0945f7a8b0439135711f7f02840, type: 3}
+      propertyPath: m_Center.x
+      value: 0.0005314694
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303994845655850536, guid: 00e5c0945f7a8b0439135711f7f02840, type: 3}
+      propertyPath: m_Center.y
+      value: -0.023217298
+      objectReference: {fileID: 0}
+    - target: {fileID: 6303994845655850536, guid: 00e5c0945f7a8b0439135711f7f02840, type: 3}
+      propertyPath: m_Center.z
+      value: 0.21540135
+      objectReference: {fileID: 0}
     - target: {fileID: 8309633406182142118, guid: 00e5c0945f7a8b0439135711f7f02840, type: 3}
       propertyPath: m_Name
       value: (Prb)Desk
@@ -9486,7 +9514,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 1966072174321514377, guid: 00e5c0945f7a8b0439135711f7f02840, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 567038650}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1917785883183148513, guid: 00e5c0945f7a8b0439135711f7f02840, type: 3}
       insertIndex: -1
@@ -9507,6 +9538,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 551683686}
   m_SourcePrefab: {fileID: 100100000, guid: 00e5c0945f7a8b0439135711f7f02840, type: 3}
+--- !u!4 &1377675964 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1966072174321514377, guid: 00e5c0945f7a8b0439135711f7f02840, type: 3}
+  m_PrefabInstance: {fileID: 1377675963}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1380119898 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1607500582923434340, guid: 00e5c0945f7a8b0439135711f7f02840, type: 3}
