@@ -7,7 +7,7 @@
 - Alireza Khatami
 
 ## 🎮 Key Features
-| Feature | Status |
+| Feature | 
 |---------|--------|
 | Avatars & Animation | 
 | **Photon Networking** (Multiplayer) | 
