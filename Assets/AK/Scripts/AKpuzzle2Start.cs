@@ -1,18 +1,33 @@
 using UnityEngine;
 
-public class AKPuzzelOneStart : MonoBehaviour
+public class AKpuzzle2Start : MonoBehaviour
 {
     public GameObject puzzlelocker;// Reference to the locker manager object
+    public AKPuzzle2Manager puzzle2Manager;
+    [SerializeField] CharacterMovement characterMovement;
 
     void Start()
     {
         puzzlelocker.SetActive(false);// Disable the locker manager at the start
     }
+    private void Update()
+    {
+        if (puzzle2Manager.isplaingPuzzle2 && Input.GetKeyDown(KeyCode.L))
+            stopPuzzle();
+    }
     public void startPuzzle()
     {
+
+        characterMovement.enabled = false;// Disable character movement
         AnimateLocker1Drawer();
+        puzzle2Manager.isplaingPuzzle2 = true;// Set the puzzle manager to playing state
         puzzlelocker.SetActive(true);// Enable the locker manager
-        gameObject.SetActive(false);// Disable the current game object
+    }
+    public void stopPuzzle()
+    {
+        puzzle2Manager.isplaingPuzzle2 = false;// Set the puzzle manager to not playing state
+        puzzlelocker.SetActive(false);// Disable the locker manager
+        characterMovement.enabled = true;// Disable character movement
     }
 
     System.Collections.IEnumerator AnimateLocker1Drawer()
@@ -32,4 +47,11 @@ public class AKPuzzelOneStart : MonoBehaviour
         transform.localPosition = pressedPosition;
 
     }
+    private void Ondisable()
+    {
+       puzzlelocker.SetActive(false);// Disable the locker manager when the script is disabled
+       characterMovement.enabled = true;// Disable character movement
+    }
 }
+
+

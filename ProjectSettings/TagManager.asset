@@ -23,9 +23,13 @@ TagManager:
   - inventoryItem
   - Moonstone
   - Engraving
+<<<<<<< HEAD
   - glowingOrb
   - flashlight
   - SolveManager
+=======
+  - LightSwitch
+>>>>>>> 2e336e725357a039be49cc22fae6790abaa75a02
   layers:
   - Default
   - TransparentFX
