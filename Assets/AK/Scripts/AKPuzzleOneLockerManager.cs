@@ -10,11 +10,9 @@ public class AKPuzzleOneLockerManager : MonoBehaviour
     [SerializeField] private AudioSource pressAudioSource;
     [SerializeField] private GameObject DrawerOneLocker;
     [SerializeField] private GameObject DialPad;
-    [SerializeField] CharacterMovement characterMovement;
-    private void OnDisable()
-    {
-        //characterMovement.enabled = true; // Enable character movement when the script is disabled
-    }
+    public CharacterMovement characterMovement;
+    public bool isPlayingPuzzle1 = false; // Flag to check if the puzzle is being played
+
     public void Start()
     {
         displayText.text = ""; // Clear the text at the start
@@ -30,9 +28,13 @@ public class AKPuzzleOneLockerManager : MonoBehaviour
 
     public void Update()
     {
+        if (!isPlayingPuzzle1)
+            return;
         if (Input.GetKeyDown(KeyCode.Backspace)){
             DrawerOneLocker.SetActive(true);
             DialPad.SetActive(false);
+            characterMovement.enabled = true; // Enable character movement when the script is disabled
+            isPlayingPuzzle1 = false;
         }
 
         currentInput = displayText.text; // Update the input sequence from the GUItextmeshpro
@@ -91,6 +93,7 @@ public class AKPuzzleOneLockerManager : MonoBehaviour
             lockedObject.layer = LayerMask.NameToLayer("Interactable");; // Example action
         }
         yield return new WaitForSeconds(1f);
+        characterMovement.enabled = true; // Enable character movement when the script is disabled
         gameObject.SetActive(false);
     }
 }
