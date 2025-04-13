@@ -12,11 +12,11 @@ public class AKpuzzle2Start : MonoBehaviour
     }
     private void Update()
     {
-        if (puzzle2Manager.isplaingPuzzle2 && Input.GetKeyDown(KeyCode.L))
-        {
-            ButtonDescriptionss.text = "";
-            stopPuzzle();
-        }
+        // if (puzzle2Manager.isplaingPuzzle2 && Input.GetKeyDown(KeyCode.L))
+        // {
+        //     ButtonDescriptionss.text = "";
+        //     stopPuzzle();
+        // }
     }
     public void startPuzzle()
     {
@@ -25,12 +25,12 @@ public class AKpuzzle2Start : MonoBehaviour
         ButtonDescriptionss.text = "\t 8 : rotate +\t \n 4: move right \t 6: move left \n \t2: rotate-";
 
         AnimateLocker1Drawer();
-        puzzle2Manager.isplaingPuzzle2 = true;// Set the puzzle manager to playing state
+        //puzzle2Manager.isplaingPuzzle2 = true;// Set the puzzle manager to playing state
         puzzlelocker.SetActive(true);// Enable the locker manager
     }
     public void stopPuzzle()
     {
-        puzzle2Manager.isplaingPuzzle2 = false;// Set the puzzle manager to not playing state
+        //puzzle2Manager.isplaingPuzzle2 = false;// Set the puzzle manager to not playing state
         puzzlelocker.SetActive(false);// Disable the locker manager
         characterMovement.enabled = true;// Disable character movement
     }

@@ -14,7 +14,7 @@ public class AKPuzzleOneLockerManager : MonoBehaviour
     private void OnDisable()
     {
         //characterMovement.enabled = true; // Enable character movement when the script is disabled
-
+    }
     public void Start()
     {
         displayText.text = ""; // Clear the text at the start

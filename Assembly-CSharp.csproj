@@ -112,6 +112,7 @@
     <Compile Include="Assets/BC/Scripts/EnhancedPhotonRigidbodySync.cs" />
     <Compile Include="Assets/AK/Scripts/AKPuzzle2SandClockManager.cs" />
     <Compile Include="Assets/SettingMenuManager.cs" />
+    <Compile Include="Assets/AK/Scripts/AKpuzzle2Start.cs" />
     <Compile Include="Assets/Photon/PhotonChat/Demos/Common/OnStartDelete.cs" />
     <Compile Include="Assets/Samples/Google Cardboard XR Plugin for Unity/1.19.0/Hello Cardboard/Scripts/XRCardboard/XRCardboardController.cs" />
     <Compile Include="Assets/AK/Scripts/AKDigitButton.cs" />
