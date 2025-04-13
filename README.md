@@ -82,8 +82,6 @@ Mapped to keyboard equivalents for ease of debugging and testing.
 
 ## Links
 - 🔗 GitHub: [Escape-or-Eclispse](https://github.com/sumohammed0/Escape-or-Eclispse)  
-- 📺 YouTube: *(Link not provided in the document — consider adding)*
+- 📺 YouTube: 
 
 ---
-
-Let me know if you want this saved as a `README.md` file directly, or want help filling in any missing sections (like YouTube link or control mappings for PC).
