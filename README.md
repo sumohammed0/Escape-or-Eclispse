@@ -7,8 +7,6 @@
 - Alireza Khatami
 
 ## 🎮 Key Features
-| Feature | 
-|---------|--------|
 | Avatars & Animation | 
 | **Photon Networking** (Multiplayer) | 
 | Escape Room Scene System | 
