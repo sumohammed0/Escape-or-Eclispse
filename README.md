@@ -63,6 +63,3 @@ graph TD
     D --> E[Light/Hourglass Puzzle]
     E --> F[Sun/Moon Stone Placement]
     F --> G[Door Unlocks]
-    G --> H{Time Remaining?}
-    H -->|Yes| I[Win]
-    H -->|No| J[Game Over]
