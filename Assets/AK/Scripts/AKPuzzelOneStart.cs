@@ -2,16 +2,16 @@ using UnityEngine;
 
 public class AKPuzzelOneStart : MonoBehaviour
 {
-    public GameObject puzzlelocker;// Reference to the locker manager object
+    public GameObject puzzleOnelocker;// Reference to the locker manager object
 
     void Start()
     {
-        puzzlelocker.SetActive(false);// Disable the locker manager at the start
+        puzzleOnelocker.SetActive(false);// Disable the locker manager at the start
     }
-    public void startPuzzle()
+    public void startPuzzleOne()
     {
         AnimateLocker1Drawer();
-        puzzlelocker.SetActive(true);// Enable the locker manager
+        puzzleOnelocker.SetActive(true);// Enable the locker manager
         gameObject.SetActive(false);// Disable the current game object
     }
 

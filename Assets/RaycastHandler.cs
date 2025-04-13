@@ -5,12 +5,10 @@ using System.Collections;
 using DoorScript; 
 using UnityEngine.UI;
 using System.Collections.Generic;
-using TMPro;
 
 public class RaycastHandler : MonoBehaviourPunCallbacks
 {
     [Header("Raycast Settings")]
-    [SerializeField]  TextMeshProUGUI ButtonDescriptionss;
     public float rayLength = 5f;
     public Color rayColor = Color.green;
     public LayerMask interactableLayer;
@@ -36,7 +34,6 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
     private Transform nearbyEngraving; // Tracks the nearby Engraver object
     private Transform raygunParent; // Store the grabbed object GameObject
     private Transform flashlightParent; // Store the grabbed flashlight GameObject
-    
     void Start()
     {
         view = GetComponent<PhotonView>();
@@ -174,7 +171,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetKeyDown(KeyCode.Q)) 
             {
                 ReleaseObject();
             }
@@ -184,35 +181,16 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
 
     void HandleDefaultState(Ray ray, Vector3 rayOrigin)
     {
-        ButtonDescriptionss.text = "";
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, rayLength, interactableLayer))
         {
             HandleLocker1Interactions(hit);
             handlePuzzle2(hit);
             HandleInteractableHit(hit);
-            handleLightSwitch(hit);
         }
         else
         {
             lineRenderer.SetPosition(1, rayOrigin + cameraTransform.forward * rayLength);
-            RemoveHighlight();
-        }
-    }
-    void handleLightSwitch(RaycastHit hit)
-    {
-        if (hit.collider.CompareTag("LightSwitch"))
-        {
-            ButtonDescriptionss.text = " \t B : Toggle \t";
-            HighlightObject(hit.collider.transform);
-            if (Input.GetKeyDown(KeyCode.B))
-            {
-                AKLightSwitch lightSwitch = hit.collider.GetComponent<AKLightSwitch>();
-                lightSwitch?.interact();
-            }
-        }
-        else
-        {
             RemoveHighlight();
         }
     }
@@ -222,70 +200,43 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
         if (hit.collider.CompareTag("Puzzle2"))
         {
             HighlightObject(hit.collider.transform);
-
             if (hit.collider.name == "glass_holder")
             {
-                ButtonDescriptionss.text = " \t B : Flipp \t";
-                handleSandClock(hit);
-            }
-            else if (hit.collider.name == "drawerluck2")
-            {
-                ButtonDescriptionss.text = " \t B : Open Lock \t";
-                handlepuzzle2Drawerlock(hit);
+                if (Input.GetKeyDown(KeyCode.B))
+                {
+                    AKPuzzle2SandClockManager sandClockManager = hit.collider.GetComponent<AKPuzzle2SandClockManager>();
+                    if (sandClockManager.IsSolved && !sandClockManager.ClueManager.isFadeIn) 
+                        sandClockManager.ClueManager.StartFadeSequence(2);
+                    else if  (sandClockManager != null)
+                        sandClockManager.FlipSandClock();
+                }
             }
         }
         else
             RemoveHighlight();
     }
 
-    private void handlepuzzle2Drawerlock(RaycastHit hit) {
-    if (isGrabbing) return;
-        AKpuzzle2Start puzzle1StartLocker = hit.collider.GetComponent<AKpuzzle2Start>();
-        if (Input.GetKeyDown(KeyCode.B))
-            puzzle1StartLocker?.startPuzzle();
-    }
-    
-    private void handleSandClock(RaycastHit hit) {
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            if (isGrabbing) return;
-            {
-                AKPuzzle2SandClockManager sandClockManager = hit.collider.GetComponent<AKPuzzle2SandClockManager>();
-                if (sandClockManager.IsSolved && !sandClockManager.ClueManager.isFadeIn)
-                {
-                    sandClockManager.ClueManager.StartFadeSequence(2);
-                    ButtonDescriptionss.text = "";
-                }
-                else if (sandClockManager != null)
-                    sandClockManager.FlipSandClock();
-            }
-        }
-    }
-    
-    private void HandleLocker1Interactions(RaycastHit hit)
-     { 
+
+    void HandleLocker1Interactions(RaycastHit hit)
+    {
         if (isGrabbing) return;
         if (hit.collider.CompareTag("Locker1"))
         {
-            if (hit.collider.name == "Puzzle1DrawerLocker")
+            if (Input.GetKeyDown(KeyCode.B))
             {
-                ButtonDescriptionss.text = " \t B : Open Lock \t";
-                if (Input.GetKeyDown(KeyCode.B))
-                    hit.collider.GetComponent<AKPuzzelOneStart>().startPuzzle();
-
-            }
-            else
-            {
-                ButtonDescriptionss.text = " \t B : Press DialButton \t";
-                if (Input.GetKeyDown(KeyCode.B))
+                if (hit.collider.name == "Puzzle1DrawerLocker")
                 {
-                    Outline outline = hit.collider.GetComponent<Outline>();
-                    outline.enabled = true;
-                    AKDigitButton button = hit.collider.GetComponent<AKDigitButton>();
-                    if (button != null)
-                        button.Interact();
-                    outline.enabled = false;
+                    hit.collider.GetComponent<AKPuzzelOneStart>().startPuzzleOne();
+                    return;
                 }
+                Outline outline = hit.collider.GetComponent<Outline>();
+                outline.enabled = true;
+                AKDigitButton button = hit.collider.GetComponent<AKDigitButton>();
+                if (button != null)
+                {
+                    button.Interact();
+                }
+                outline.enabled = false;
             }
         }
     }
