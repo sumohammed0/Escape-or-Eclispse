@@ -187,11 +187,10 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, rayLength, interactableLayer))
         {
-            HandleLocker1Interactions(hit);
             handlePuzzle2(hit);
             HandleInteractableHit(hit);
             handleLightSiwtch(hit);
-
+            HandleLocker1Interactions(hit);
         }
         else
         {
@@ -255,12 +254,11 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
                 ButtonDescriptionss.text = " \t B: Open lock";
                 handlepuzzle2Drawerlock(hit);
             }
+            else
+                ButtonDescriptionss.text = "";
         }
         else
-        {
-            ButtonDescriptionss.text = "";
             RemoveHighlight();
-        }
     }
 
     private void handlepuzzle2Drawerlock(RaycastHit hit) {
@@ -282,11 +280,11 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
             if (sandClockManager.IsSolved && !sandClockManager.ClueManager.isFadeIn)
             {
                 sandClockManager.ClueManager.StartFadeSequence(2);
-                ButtonDescriptionss.text = "";
             }
             else if (sandClockManager != null)
                 sandClockManager.FlipSandClock();
         }
+
     }
     
     private void HandleLocker1Interactions(RaycastHit hit)
@@ -294,22 +292,30 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
         if (isGrabbing) return;
         if (hit.collider.CompareTag("Locker1"))
         {
+            string lockerName = hit.collider.name;
+            if(lockerName == "Puzzle1DrawerLocker" )
+                ButtonDescriptionss.text = " \t B: Open lock";
+            else if (lockerName.Contains("button"))
+                ButtonDescriptionss.text = " \t B: press Buttons";
+            else
+                ButtonDescriptionss.text = "";
+
+            Outline outline = hit.collider.GetComponent<Outline>();
+            if (outline == null)
+                throw new System.Exception("Outline component is missing from locker one object.");
             if (Input.GetKeyDown(KeyCode.B))
             {
                 if (hit.collider.name == "Puzzle1DrawerLocker")
                 {
+                    outline.enabled = true;
                     hit.collider.GetComponent<AKPuzzelOneStart>().startPuzzleOne();
                     return;
                 }
-                Outline outline = hit.collider.GetComponent<Outline>();
-                outline.enabled = true;
                 AKDigitButton button = hit.collider.GetComponent<AKDigitButton>();
-                if (button != null)
-                {
-                    button.Interact();
-                }
-                outline.enabled = false;
+                button?.Interact();
             }
+            else
+                outline.enabled = false;
         }
     }
     
