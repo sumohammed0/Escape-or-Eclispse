@@ -52,7 +52,6 @@
 **Android** (Optimized for Google Cardboard)
 
 ## 🔗 Links
-- [GitHub Repository](https://github.com/sumohammed0/Escape-or-Eclispse)
 - [YouTube Demo](INSERT_YOUTUBE_LINK_HERE)
 
 ## 🧩 Puzzle Flowchart
