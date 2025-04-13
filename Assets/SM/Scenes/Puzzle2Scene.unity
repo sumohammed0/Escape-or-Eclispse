@@ -5733,6 +5733,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6476292117562117519, guid: ccad23e97f419ce458a240f9e441fb92, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7782940535413241582, guid: ccad23e97f419ce458a240f9e441fb92, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.045
@@ -10249,6 +10253,9 @@ MonoBehaviour:
   orb: {fileID: 567038649}
   isOrbAboveChild: 0
   solvedPuzzleManagerScript: {fileID: 318765262}
+  acceptableRange: 0.3
+  targetTransform: {fileID: 0}
+  raycastHandlerScript: {fileID: 796749526}
 --- !u!1001 &1392700614
 PrefabInstance:
   m_ObjectHideFlags: 0
