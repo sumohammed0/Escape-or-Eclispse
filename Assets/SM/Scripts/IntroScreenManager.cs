@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement; // Import the Unity Scene Management namespace
 
 public class IntroScreenManager : MonoBehaviour
 {
@@ -62,10 +63,11 @@ public class IntroScreenManager : MonoBehaviour
 
     public void StartGame() {
         Debug.Log("Start Game button pressed");
+        SceneManager.LoadScene("LoadingScene"); // Load the Loading Scene
         //charMoveScript.enabled = true; // Enable the character controller script
-        startGameCanvas.SetActive(true);
-        player.GetComponent<RaycastHandler>().enabled = true; // Enable the raycast handler script
-        player.GetComponent<CharacterMovement>().enabled = true; // Disable the intro screen manager script
+        // startGameCanvas.SetActive(true);
+        // player.GetComponent<RaycastHandler>().enabled = true; // Enable the raycast handler script
+        // player.GetComponent<CharacterMovement>().enabled = true; // Disable the intro screen manager script
         this.gameObject.SetActive(false);
     }
     

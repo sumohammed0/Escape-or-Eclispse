@@ -1,11 +1,10 @@
-using UnityEngine;
+ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
 using DoorScript; 
 using UnityEngine.UI;
 using System.Collections.Generic;
-
 
 public class RaycastHandler : MonoBehaviourPunCallbacks
 {
@@ -336,13 +335,11 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
                 Transform closestEngraving = FindNearbyEngraving(grabbedObject.position, 0.5f, StonIdentifier.moon_identifier);
                 if (closestEngraving != null)
                 {
-                    // Use nearbyEngraving directly
                     grabbedObject.SetParent(closestEngraving);
                     grabbedObject.position = closestEngraving.position;
                     grabbedObject.rotation = closestEngraving.rotation;
-
                     MoonstoneScript ms = grabbedObject.GetComponent<MoonstoneScript>();
-                    if (ms != null)
+                    if (ms)
                     {
                         ms.photonView.RPC("SyncPlacement", RpcTarget.AllBuffered,
                             closestEngraving.position,
@@ -350,8 +347,6 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
                             closestEngraving.GetComponent<PhotonView>().ViewID
                         );
                     }
-
-                    // Notify the door via RPC
                     Door door = FindFirstObjectByType<Door>();
                     if (door != null)
                     {
@@ -368,7 +363,6 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
             }
             else
             {
-                // Default release for non-Moonstone objects
                 if (rb) rb.isKinematic = false;
                 if (col) col.enabled = true;
                 grabbedObject.SetParent(null);
