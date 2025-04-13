@@ -5,7 +5,7 @@ using System.Collections;
 using DoorScript; 
 using UnityEngine.UI;
 using System.Collections.Generic;
-using DoorScript;
+
 
 public class RaycastHandler : MonoBehaviourPunCallbacks
 {
@@ -355,8 +355,15 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
                     Door door = FindFirstObjectByType<Door>();
                     if (door != null)
                     {
+                        door.increaseNumberOfMoonstones();
                         door.photonView.RPC("RPC_NotifyMoonstonePlaced", RpcTarget.AllBuffered);
                     }
+                }
+                else 
+                {
+                    if (rb) rb.isKinematic = false;
+                    if (col) col.enabled = true;
+                    grabbedObject.SetParent(null);
                 }
             }
             else
