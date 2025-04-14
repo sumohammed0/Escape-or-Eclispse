@@ -17,13 +17,13 @@ public class AKLightSwitch : MonoBehaviour
         }
     }
 
-    // void Update()
-    // {
-    //     if (Input.GetButtonDown("js2")) // X button on the joystick
-    //     {
-    //         interact(); // Call the interact method to toggle the light
-    //     }
-    // }
+    void Update()
+    {
+        if (Input.GetButtonDown("js2")) // X button on the joystick
+        {
+            interact(); // Call the interact method to toggle the light
+        }
+    }
 
     // Call this to toggle light and push the switch
     public void interact()

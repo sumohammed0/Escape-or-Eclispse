@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1521.6
     height: 758.4
   m_ShowMode: 4
-  m_Title: Game
+  m_Title: Project
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -119,7 +119,7 @@ MonoBehaviour:
   m_MinSize: {x: 300, y: 100}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 129
+  controlID: 103
   draggingID: 0
 --- !u!114 &6
 MonoBehaviour:
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 71
+  controlID: 55
   draggingID: 0
 --- !u!114 &7
 MonoBehaviour:
@@ -167,11 +167,11 @@ MonoBehaviour:
     x: 0
     y: 0
     width: 1187.2
-    height: 522.4
+    height: 288
   m_MinSize: {x: 200, y: 50}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 72
+  controlID: 46
   draggingID: 0
 --- !u!114 &8
 MonoBehaviour:
@@ -191,7 +191,7 @@ MonoBehaviour:
     x: 0
     y: 0
     width: 313.6
-    height: 522.4
+    height: 288
   m_MinSize: {x: 201, y: 226}
   m_MaxSize: {x: 4001, y: 4026}
   m_ActualView: {fileID: 13}
@@ -217,7 +217,7 @@ MonoBehaviour:
     x: 313.6
     y: 0
     width: 873.6
-    height: 522.4
+    height: 288
   m_MinSize: {x: 52, y: 76}
   m_MaxSize: {x: 4002, y: 4026}
   m_ActualView: {fileID: 14}
@@ -242,9 +242,9 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 522.4
+    y: 288
     width: 1187.2
-    height: 180
+    height: 414.40002
   m_MinSize: {x: 231, y: 276}
   m_MaxSize: {x: 10001, y: 10026}
   m_ActualView: {fileID: 16}
@@ -301,9 +301,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 7.2000003
-    y: 564
+    y: 608.8
     width: 1186.2
-    height: 198.80002
+    height: 154
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -339,7 +339,7 @@ MonoBehaviour:
     x: 0
     y: 24
     width: 312.6
-    height: 496.40002
+    height: 262
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -356,7 +356,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 0099ffff1eb6ffff06c4ffffa0ddffff88ebffff12fbffff
+      m_ExpandedIDs: 12fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -405,7 +405,7 @@ MonoBehaviour:
     x: 314.6
     y: 24
     width: 871.6
-    height: 496.40002
+    height: 262
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -932,9 +932,9 @@ MonoBehaviour:
   m_AudioPlay: 0
   m_DebugDrawModesUseInteractiveLightBakingData: 0
   m_Position:
-    m_Target: {x: -0.5204845, y: 4.236016, z: -7.0448785}
+    m_Target: {x: 6.385962, y: 4.511148, z: -4.7503214}
     speed: 2
-    m_Value: {x: -0.5204845, y: 4.236016, z: -7.0448785}
+    m_Value: {x: 6.385962, y: 4.511148, z: -4.7503214}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -980,13 +980,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: 0.006317422, y: 0.9913112, z: -0.12225749, w: 0.050908625}
+    m_Target: {x: -0.08989274, y: -0.7020972, z: 0.08997399, w: -0.7008379}
     speed: 2
-    m_Value: {x: 0.0063174223, y: 0.9913112, z: -0.12225749, w: 0.050908625}
+    m_Value: {x: 0.08989274, y: 0.7020972, z: -0.08997399, w: 0.7008379}
   m_Size:
-    m_Target: 2.9542284
+    m_Target: 1.6492972
     speed: 2
-    m_Value: 2.9542284
+    m_Value: 1.6492972
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -1140,9 +1140,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 546.4
+    y: 312
     width: 1186.2
-    height: 154
+    height: 388.40002
   m_SerializedDataModeController:
     m_DataMode: 0
     m_PreferredDataMode: 0
@@ -1165,7 +1165,7 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/SM/Scenes
+    - Assets
     m_Globs: []
     m_ProductIds: 
     m_AnyWithAssetOrigin: 0
@@ -1175,15 +1175,15 @@ MonoBehaviour:
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/SM/Scenes
+  - Assets
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\bryan\OneDrive\Documents\GitHub\Escape-or-Eclispse
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 590}
-    m_SelectedIDs: 88c10000
-    m_LastClickedID: 49544
+    scrollPos: {x: 0, y: 0}
+    m_SelectedIDs: f2b10000
+    m_LastClickedID: 45554
     m_ExpandedIDs: 00000000f2b10000f4b10000f6b10000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -1241,7 +1241,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c6230000ac90000000000000f601000024b40000a0a50000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
