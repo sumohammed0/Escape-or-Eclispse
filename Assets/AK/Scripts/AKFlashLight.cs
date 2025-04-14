@@ -4,7 +4,7 @@ public class AKFlashLight : MonoBehaviour
 { 
     [SerializeField] private Light flashlightSpot; // Assign the spotlight here
     public bool isOn = true;
-    [SerializeField] private KeyCode toggleKey = KeyCode.F;
+    // [SerializeField] private KeyCode toggleKey = KeyCode.F;
 
     [Header("Light Settings")]
     [SerializeField] private float intensity = 2f;
