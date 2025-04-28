@@ -332,7 +332,6 @@ MonoBehaviour:
   isHoldingFlashlight: 0
   inventoryManagerScript: {fileID: 7822608620669698137}
   inventoryCanvas: {fileID: 9056067398411090572}
-  puzzle1Solved: 1
 --- !u!95 &5801524416129600761
 Animator:
   serializedVersion: 7

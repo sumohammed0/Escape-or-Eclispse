@@ -27,6 +27,7 @@ TagManager:
   - flashlight
   - SolveManager
   - LightSwitch
+  - Puzzle1
   layers:
   - Default
   - TransparentFX

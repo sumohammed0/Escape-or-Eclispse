@@ -398,7 +398,7 @@ GameObject:
   - component: {fileID: 59793780}
   m_Layer: 7
   m_Name: moon phase 6
-  m_TagString: Untagged
+  m_TagString: Puzzle1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -799,7 +799,7 @@ GameObject:
   - component: {fileID: 75360603}
   m_Layer: 7
   m_Name: MoonCalendarPainting
-  m_TagString: Untagged
+  m_TagString: Puzzle1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1989,29 +1989,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7815985229603118886, guid: 48f149f77027bea45ab6b8d00db66cec, type: 3}
   m_PrefabInstance: {fileID: 1035407820}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &327183241 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1186356198760307504, guid: 216d8d1ce1cd1e545bc0c7b9c2ebda7d, type: 3}
-  m_PrefabInstance: {fileID: 1306150205}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &327183247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 327183241}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMode: 0
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 2
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
 --- !u!1001 &350335095
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3182,6 +3159,10 @@ PrefabInstance:
       propertyPath: ButtonDescriptionss
       value: 
       objectReference: {fileID: 1528993012}
+    - target: {fileID: 4925517884329688276, guid: 7c59692ea6b9b5341868a871390ad29e, type: 3}
+      propertyPath: solvedPuzzleManagerScript
+      value: 
+      objectReference: {fileID: 318765262}
     - target: {fileID: 5179064247540110396, guid: 7c59692ea6b9b5341868a871390ad29e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.72
@@ -3218,7 +3199,8 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2047946384379095797, guid: 7c59692ea6b9b5341868a871390ad29e, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -5243,7 +5225,6 @@ MonoBehaviour:
   isHoldingFlashlight: 0
   inventoryManagerScript: {fileID: 0}
   inventoryCanvas: {fileID: 0}
-  puzzle1Solved: 1
 --- !u!1 &799747428
 GameObject:
   m_ObjectHideFlags: 0
@@ -6299,7 +6280,7 @@ GameObject:
   - component: {fileID: 888387154}
   m_Layer: 7
   m_Name: moon phase 8
-  m_TagString: Untagged
+  m_TagString: Puzzle1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8372,7 +8353,7 @@ GameObject:
   - component: {fileID: 1168280593}
   m_Layer: 7
   m_Name: 'moon phase 1 '
-  m_TagString: Untagged
+  m_TagString: Puzzle1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9348,10 +9329,7 @@ PrefabInstance:
     - {fileID: 3594806430511747153, guid: 216d8d1ce1cd1e545bc0c7b9c2ebda7d, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1186356198760307504, guid: 216d8d1ce1cd1e545bc0c7b9c2ebda7d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 327183247}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 216d8d1ce1cd1e545bc0c7b9c2ebda7d, type: 3}
 --- !u!1 &1317442693 stripped
 GameObject:
@@ -10572,7 +10550,7 @@ GameObject:
   - component: {fileID: 1422736980}
   m_Layer: 7
   m_Name: moon phase 3
-  m_TagString: Untagged
+  m_TagString: Puzzle1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12548,7 +12526,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1723204910
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13123,7 +13101,7 @@ GameObject:
   - component: {fileID: 1763545286}
   m_Layer: 7
   m_Name: moon phase 7
-  m_TagString: Untagged
+  m_TagString: Puzzle1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14947,7 +14925,7 @@ GameObject:
   - component: {fileID: 2023758578}
   m_Layer: 7
   m_Name: moon phase 2
-  m_TagString: Untagged
+  m_TagString: Puzzle1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15056,7 +15034,7 @@ GameObject:
   - component: {fileID: 2025547629}
   m_Layer: 7
   m_Name: moon phase 5
-  m_TagString: Untagged
+  m_TagString: Puzzle1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -15622,7 +15600,7 @@ GameObject:
   - component: {fileID: 2107984806}
   m_Layer: 7
   m_Name: moon phase 4
-  m_TagString: Untagged
+  m_TagString: Puzzle1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -16,6 +16,7 @@ public class AKPuzzle2Manager : MonoBehaviour
     public TextMeshProUGUI ButtonDescriptionss;
     public GameObject moonstone;
     public GameObject sunStone;
+    public SolvedPuzzleManager solvedPuzzleManagerScript; // Add this line
 
     public void Start()
     {
@@ -110,6 +111,7 @@ public class AKPuzzle2Manager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         sunStone.SetActive(true);
         moonstone.SetActive(true);
+        solvedPuzzleManagerScript.solvedPuzzle2();
         gameObject.SetActive(false);
     }
 }

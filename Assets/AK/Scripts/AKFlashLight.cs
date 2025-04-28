@@ -22,7 +22,7 @@ public class AKFlashLight : MonoBehaviour
 
         void Update()
         {
-            if (Input.GetKeyDown(toggleKey))
+            if (Input.GetKeyDown(KeyCode.B))
                 ToggleFlashlight();
             ApplySettings();
         }
