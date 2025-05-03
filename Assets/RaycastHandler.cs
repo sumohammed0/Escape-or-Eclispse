@@ -362,6 +362,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
 
             grabbedObject = obj;
             isGrabbing = true;
+            Debug.Log("grabbed obj");
 
             Rigidbody rb = obj.GetComponent<Rigidbody>();
             if (rb != null)
@@ -383,6 +384,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
         }
         else
         {
+            Debug.Log("grabbed obj");
             // Handle objects without PhotonView
             grabbedObject = obj;
             isGrabbing = true;
@@ -439,7 +441,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
                 grabbedObject.SetParent(null);
             }
         }
-
+        Debug.Log("Released object: " + grabbedObject.name); // Debug log to confirm the release
         grabbedObject = null;
         isGrabbing = false;
     }

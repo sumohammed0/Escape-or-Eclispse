@@ -10664,6 +10664,9 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9c15518714fb81f46bb19ee0e16a96cd, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1441231439}
     - targetCorrespondingSourceObject: {fileID: 4917504297501685353, guid: 9c15518714fb81f46bb19ee0e16a96cd, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1441231437}
@@ -10691,6 +10694,29 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!1 &1441231438 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9c15518714fb81f46bb19ee0e16a96cd, type: 3}
+  m_PrefabInstance: {fileID: 1441231435}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1441231439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1441231438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18b51ed8b7f9d4c579838b970b80a020, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  orb: {fileID: 567038649}
+  isOrbAboveChild: 0
+  solvedPuzzleManagerScript: {fileID: 318765262}
+  acceptableRange: 2.5
+  targetTransform: {fileID: 0}
+  raycastHandlerScript: {fileID: 796749526}
 --- !u!1001 &1448727942
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -5,7 +5,7 @@ public class OrbInteraction : MonoBehaviour
     public GameObject orb;
     public bool isOrbAboveChild = false;
     public SolvedPuzzleManager solvedPuzzleManagerScript;
-    public float acceptableRange = 0.3f;
+    public float acceptableRange = 2.5f;
     public Transform targetTransform;
     public RaycastHandler raycastHandlerScript;
 
@@ -13,14 +13,16 @@ public class OrbInteraction : MonoBehaviour
     void Start()
     {
         solvedPuzzleManagerScript = GameObject.FindGameObjectWithTag("SolveManager").GetComponent<SolvedPuzzleManager>();
-        targetTransform = this.transform.GetChild(0).GetChild(0);
-        Debug.Log("white image position: " + targetTransform.position);
+        targetTransform = this.transform.GetChild(1).transform;
+        // Debug.Log("white image position: " + targetTransform.position);
     }
 
     // Update is called once per frame
     void Update()
     {
         float distance = Vector3.Distance(orb.transform.position, targetTransform.position);
+        // Debug.Log("Distance between orb and target: " + distance + " | Acceptable range: " + acceptableRange);
+        // Debug.Log("grabbing: " + raycastHandlerScript.isGrabbing);
 
         if (distance <= acceptableRange && !raycastHandlerScript.isGrabbing)
         {
