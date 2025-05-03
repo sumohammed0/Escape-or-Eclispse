@@ -11471,8 +11471,8 @@ MonoBehaviour:
   playerPrefab: {fileID: 6476292117562117519, guid: ccad23e97f419ce458a240f9e441fb92, type: 3}
   minX: -2.613
   maxX: -0.263
-  minY: 4.373
-  maxY: 4.373
+  minY: 1.1
+  maxY: 1.1
   minZ: -4.295
   maxZ: -4.47
 --- !u!4 &1529431140
