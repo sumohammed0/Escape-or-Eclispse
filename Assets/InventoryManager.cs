@@ -15,6 +15,8 @@ public class InventoryManager : MonoBehaviour
     public GameObject player;
     public GameObject flashlight;
     public GameObject raygun;
+    private float horizontalInputCooldown = 0.2f; // seconds
+    private float horizontalTimer = 0f;
     // public SpawnPlayers spawnPlayersScript; 
 
 
@@ -119,37 +121,32 @@ public class InventoryManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftArrow)) {
-            Debug.Log("left arrow pressed");
-        //if (Input.GetAxis("Vertical") > 0) {
+        horizontalTimer -= Time.deltaTime;
+
+        float axis = Input.GetAxis("Horizontal");
+
+        if (Input.GetKeyDown(KeyCode.LeftArrow) || (axis < -0.5f && horizontalTimer <= 0f)) {
             selectedIndex -= 1;
-            //selectedIndex =  (selectedIndex - 1 + inventoryButtons.Length) % inventoryButtons.Length;
             if (selectedIndex < 0) {
                 selectedIndex = inventoryButtons.Length - 1;
             }
             EventSystem.current.SetSelectedGameObject(inventoryButtons[selectedIndex]);
+            horizontalTimer = horizontalInputCooldown;
         }
-        else if (Input.GetKeyDown(KeyCode.RightArrow)) {
-            Debug.Log("right arrow pressed");
-        //else if (Input.GetAxis("Vertical") < 0) {
+        else if (Input.GetKeyDown(KeyCode.RightArrow) || (axis > 0.5f && horizontalTimer <= 0f)) {
             selectedIndex += 1;
-            //selectedIndex = (selectedIndex + 1) % inventoryButtons.Length;
             if (selectedIndex > inventoryButtons.Length - 1) {
                 selectedIndex = 0;
             }
             EventSystem.current.SetSelectedGameObject(inventoryButtons[selectedIndex]);
+            horizontalTimer = horizontalInputCooldown;
         }
 
-
-        if (Input.GetKeyDown(KeyCode.B)) {
-            Debug.Log("button pressed B");
-        //if (Input.GetButtonDown("js1")) {
-            //Debug.Log($"Button pressed {EventSystem.current.currentSelectedGameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text}");
+        if (Input.GetKeyDown(KeyCode.B) || Input.GetButtonDown("jsX_mine") || Input.GetButtonDown("jsX_partner")) {
             EventSystem.current.currentSelectedGameObject.GetComponent<Button>().onClick.Invoke();
         }
 
-        if (Input.GetKeyDown(KeyCode.M)) {
-            Debug.Log("close inventory: m clicked");
+        if (Input.GetKeyDown(KeyCode.M) || Input.GetButtonDown("jsB_mine") || Input.GetButtonDown("jsB_partner")) {
             CloseInventory();
         }
     }

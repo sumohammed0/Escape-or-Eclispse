@@ -40,25 +40,21 @@ public class AKPuzzle2Manager : MonoBehaviour
     private void handleInput()
     {
         if (isRotating) return;
-        if (Input.GetKeyDown(KeyCode.Keypad2))
+        if (Input.GetKeyDown(KeyCode.Keypad2) || Input.GetButtonDown("jsA_mine") || Input.GetButtonDown("jsA_partner"))
         {
             RotateDialSmooth(1);
         }
-        if (Input.GetKeyDown(KeyCode.Keypad8))
-        {
-            RotateDialSmooth(-1);
-        }
 
-        if (Input.GetKeyDown(KeyCode.Keypad6))
+        if (Input.GetKeyDown(KeyCode.Keypad6) || Input.GetButtonDown("jsY_mine") || Input.GetButtonDown("jsY_partner"))
         {
             currentDial = (currentDial + 1) % totalNumberOfDials;
             activeDial = Dials[currentDial];
         }
-        if (Input.GetKeyDown(KeyCode.Keypad4))
-        {
-            currentDial = (currentDial - 1 + totalNumberOfDials) % totalNumberOfDials;
-            activeDial = Dials[currentDial];
-        }
+        // if (Input.GetKeyDown(KeyCode.Keypad4))
+        // {
+        //     currentDial = (currentDial - 1 + totalNumberOfDials) % totalNumberOfDials;
+        //     activeDial = Dials[currentDial];
+        // }
         CuberIndicator.transform.position = activeDial.transform.position;
     }
     private void isUnlocked()

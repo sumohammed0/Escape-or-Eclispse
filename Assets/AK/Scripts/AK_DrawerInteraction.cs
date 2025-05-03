@@ -7,10 +7,6 @@ public class AK_DrawerInteraction : MonoBehaviour
 
     private bool isPlayerNearby = false;
 
-    //private void Start()
-    //{
-    //}
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -34,7 +30,7 @@ public class AK_DrawerInteraction : MonoBehaviour
 
     private void Update()
     {
-        if (isPlayerNearby && Input.GetKeyDown(KeyCode.T))
+        if (isPlayerNearby && Input.GetKeyDown(KeyCode.B) || Input.GetButtonDown("jsX_mine") || Input.GetButtonDown("jsX_partner"))
         {
             drawer.ToggleDrawer();
         }

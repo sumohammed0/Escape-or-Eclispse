@@ -33,7 +33,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
     private Transform nearbyEngraving; // Tracks the nearby Engraver object
     private Transform raygunParent; // Store the grabbed object GameObject
     private Transform flashlightParent; // Store the grabbed flashlight GameObject]
-    private string sancdclockButtonDescriptions = "B: Flip SandClock";
+    private string sancdclockButtonDescriptions = "B(Keyboard), X(Joystick): Flip SandClock";
     void Start()
     {
         view = GetComponent<PhotonView>();
@@ -75,9 +75,9 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
             // if (puzzle2Solved) {
             //     Debug.Log("Puzzle 2 solved"); // Debug log to confirm the puzzle is solved
             // }
-            if (Input.GetKeyDown(KeyCode.M)) {
-                Debug.Log("open inventory: m clicked");
-                inventoryCanvas.SetActive(true); // open the inventory
+
+            if (Input.GetKeyDown(KeyCode.M) || Input.GetButtonDown("jsB_mine") || Input.GetButtonDown("jsB_partner")) {
+                inventoryCanvas.SetActive(true);
             }
         }
     }
@@ -98,7 +98,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
         {
             lineRenderer.SetPosition(1, hit.point);
 
-            if (Input.GetKeyDown(KeyCode.Y) && hit.collider.CompareTag("Ground"))
+            if (Input.GetKeyDown(KeyCode.Y) || Input.GetButtonDown("jsY_mine") || Input.GetButtonDown("jsY_partner") && hit.collider.CompareTag("Ground"))
             {
                 // Debug.Log("Teleporting to: " + hit.point); // Debug log to confirm the teleportation
                 this.transform.position = new Vector3(hit.point.x, hit.point.y + 1f, hit.point.z);
@@ -109,7 +109,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
             lineRenderer.SetPosition(1, rayOrigin + cameraTransform.forward * rayLength);
         }
 
-        if (Input.GetKeyDown(KeyCode.Q)) ReleaseRaygun();
+        if (Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown("jsA_mine") || Input.GetButtonDown("jsA_partner")) ReleaseRaygun();
     }
 
     void HandleFlashlightState()
@@ -138,7 +138,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
             lineRenderer.SetPosition(1, rayOrigin + cameraTransform.forward * rayLength);
         }
 
-        if (Input.GetKeyDown(KeyCode.Q)) ReleaseFlashlight();
+        if (Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown("jsA_mine") || Input.GetButtonDown("jsA_partner")) ReleaseFlashlight();
     }
 
     void HandleGrabbedState()
@@ -171,7 +171,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.Q)) 
+            if (Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown("jsA_mine") || Input.GetButtonDown("jsA_partner")) 
             {
                 ReleaseObject();
             }
@@ -223,8 +223,8 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
         if (hit.collider.CompareTag("LightSwitch"))
         {
             HighlightObject(hit.collider.transform, Color.yellow);
-            ButtonDescriptionss.text = " \t B: Push the switch";
-            if (Input.GetKeyDown(KeyCode.B))
+            ButtonDescriptionss.text = " \t B(Keyboard), X(Joystick): Push the switch";
+            if (Input.GetKeyDown(KeyCode.B) || Input.GetButtonDown("jsX_mine") || Input.GetButtonDown("jsX_partner"))
             {
                 AKLightSwitch lightSwitch = hit.collider.GetComponent<AKLightSwitch>();
                 if (lightSwitch != null)
@@ -253,19 +253,19 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
                 sandClockManager.ClueManager.IsHoldingFlashLigth = false;
             if (sandClockManager.IsSolved && !sandClockManager.ClueManager.isFadeIn)
             {
-                sancdclockButtonDescriptions = " \t B: show Combonation";
-                if (Input.GetKeyDown(KeyCode.B))
+                sancdclockButtonDescriptions = " \t B(Keyboard), X(Joystick): show Combination";
+                if (Input.GetKeyDown(KeyCode.B) || Input.GetButtonDown("jsX_mine") || Input.GetButtonDown("jsX_partner"))
                     sandClockManager.ClueManager.StartFadeSequence(2);
             }
             else if (sandClockManager != null)
             {
-                if (Input.GetKeyDown(KeyCode.B))
+                if (Input.GetKeyDown(KeyCode.B) || Input.GetButtonDown("jsX_mine") || Input.GetButtonDown("jsX_partner"))
                     sandClockManager.FlipSandClock();
             }
         }
         else if (hit.collider.name == "drawerluck2")
         {
-            ButtonDescriptionss.text = " \t B: Open lock";
+            ButtonDescriptionss.text = " \t B(Keyboard), X(Joystick): Open lock";
             handlepuzzle2Drawerlock(hit);
         }
         else
@@ -275,7 +275,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
     private void handlepuzzle2Drawerlock(RaycastHit hit) {
     if (isGrabbing) return;
     AKpuzzle2Start puzzle1StartLocker = hit.collider.GetComponent<AKpuzzle2Start>();
-    if (Input.GetKeyDown(KeyCode.B))
+    if (Input.GetKeyDown(KeyCode.B) || Input.GetButtonDown("jsX_mine") || Input.GetButtonDown("jsX_partner"))
         puzzle1StartLocker?.startPuzzle();
     }
     
@@ -286,7 +286,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
             ButtonDescriptionss.text = " \t B: show Combonation";
         else
             ButtonDescriptionss.text = " \t B: Flip SandClock";
-        if (Input.GetKeyDown(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.B) || Input.GetButtonDown("jsX_mine") || Input.GetButtonDown("jsX_partner"))
         {
             if (sandClockManager.IsSolved && !sandClockManager.ClueManager.isFadeIn)
             {
@@ -303,9 +303,9 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
         if (isGrabbing) return;
 
         HighlightObject(hit.collider.transform, Color.blue);
-        ButtonDescriptionss.text = " \t B: Interact";
+        ButtonDescriptionss.text = " \t B(Keyboard), X(Joystick): Interact";
 
-        if (Input.GetKeyDown(KeyCode.B))
+        if (Input.GetKeyDown(KeyCode.B) || Input.GetButtonDown("jsX_mine") || Input.GetButtonDown("jsX_partner"))
         {
             if (hit.collider.name == "Puzzle1DrawerLocker")
             {
@@ -326,7 +326,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
         {
             HighlightObject(hit.collider.transform, Color.white);
 
-            if (Input.GetKeyDown(KeyCode.B) && !isGrabbing)
+            if (Input.GetKeyDown(KeyCode.B) || Input.GetButtonDown("jsX_mine") || Input.GetButtonDown("jsX_partner") && !isGrabbing)
                 GrabObject(hit.collider.transform);
         }
         else if (hit.collider.CompareTag("Drawer"))
@@ -334,7 +334,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
             // Debug.Log("Drawer hit"); // Debug log to confirm the hit
             HighlightObject(hit.collider.transform, Color.white);
 
-            if (Input.GetKeyDown(KeyCode.B))
+            if (Input.GetKeyDown(KeyCode.B) || Input.GetButtonDown("jsX_mine") || Input.GetButtonDown("jsX_partner"))
             {
                 DrawerController drawerController = hit.collider.GetComponent<DrawerController>();
                 if (drawerController != null)
@@ -356,7 +356,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
         {
             HighlightObject(hit.collider.transform, Color.white);
 
-            if (Input.GetKeyDown(KeyCode.B))
+            if (Input.GetKeyDown(KeyCode.B) || Input.GetButtonDown("jsX_mine") || Input.GetButtonDown("jsX_partner"))
             {
                 Debug.Log("Door hit"); // Debug log to confirm the hit
                 Door door = hit.collider.GetComponent<Door>();
@@ -370,7 +370,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
         {
             HighlightObject(hit.collider.transform, Color.white);
 
-            if (Input.GetKeyDown(KeyCode.B) && !isGrabbing)
+            if (Input.GetKeyDown(KeyCode.B) || Input.GetButtonDown("jsX_mine") || Input.GetButtonDown("jsX_partner") && !isGrabbing)
             {
                 GrabObject(hit.collider.transform);
             }
