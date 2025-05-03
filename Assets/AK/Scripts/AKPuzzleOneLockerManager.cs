@@ -12,7 +12,7 @@ public class AKPuzzleOneLockerManager : MonoBehaviour
     [SerializeField] private GameObject DialPad;
     public CharacterMovement characterMovement;
     public bool isPlayingPuzzle1 = false; // Flag to check if the puzzle is being played
-
+    public orbHandler orbHandlerScript;
     public void Start()
     {
         displayText.text = ""; // Clear the text at the start
@@ -94,6 +94,6 @@ public class AKPuzzleOneLockerManager : MonoBehaviour
         }
         yield return new WaitForSeconds(1f);
         characterMovement.enabled = true; // Enable character movement when the script is disabled
-        gameObject.SetActive(false);
-    }
+        orbHandlerScript.isPuzzle1Solved = true; // Set the puzzle solved flag
+        gameObject.SetActive(false);    }
 }

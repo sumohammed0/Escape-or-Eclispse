@@ -2668,7 +2668,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &567038650
 Transform:
   m_ObjectHideFlags: 0
@@ -9230,6 +9230,10 @@ PrefabInstance:
       value: 21678543
       objectReference: {fileID: 0}
     - target: {fileID: 1958286195524496205, guid: 216d8d1ce1cd1e545bc0c7b9c2ebda7d, type: 3}
+      propertyPath: orbHandlerScript
+      value: 
+      objectReference: {fileID: 1377675965}
+    - target: {fileID: 1958286195524496205, guid: 216d8d1ce1cd1e545bc0c7b9c2ebda7d, type: 3}
       propertyPath: characterMovement
       value: 
       objectReference: {fileID: 417765508}
@@ -10012,6 +10016,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1917785883183148513, guid: 00e5c0945f7a8b0439135711f7f02840, type: 3}
       insertIndex: -1
       addedObject: {fileID: 701165414}
+    - targetCorrespondingSourceObject: {fileID: 1917785883183148513, guid: 00e5c0945f7a8b0439135711f7f02840, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1377675965}
     - targetCorrespondingSourceObject: {fileID: 3198309350071241817, guid: 00e5c0945f7a8b0439135711f7f02840, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1646473346}
@@ -10033,6 +10040,19 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1966072174321514377, guid: 00e5c0945f7a8b0439135711f7f02840, type: 3}
   m_PrefabInstance: {fileID: 1377675963}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1377675965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 701165409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96e24ab8dbb0441d389e6174b515bdee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isPuzzle1Solved: 0
 --- !u!1 &1380119898 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1607500582923434340, guid: 00e5c0945f7a8b0439135711f7f02840, type: 3}
