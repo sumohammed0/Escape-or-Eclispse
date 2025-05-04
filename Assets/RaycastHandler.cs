@@ -2,7 +2,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
-using DoorScript; 
+using DoorScript;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using TMPro;
@@ -34,6 +34,8 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
     private Transform raygunParent; // Store the grabbed object GameObject
     private Transform flashlightParent; // Store the grabbed flashlight GameObject]
     private string sancdclockButtonDescriptions = "B(Keyboard), X(Joystick): Flip SandClock";
+
+    public OrbInteraction orbInteractionScript; // Reference to the OrbInteraction script
     void Start()
     {
         view = GetComponent<PhotonView>();
@@ -75,8 +77,8 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
                 RotateCharacterToFaceRay();
             }
 
-            if (Input.GetKeyDown(KeyCode.P) || 
-                Input.GetButtonDown("jsmenu_mine") || 
+            if (Input.GetKeyDown(KeyCode.P) ||
+                Input.GetButtonDown("jsmenu_mine") ||
                 Input.GetButtonDown("jsmenu_partner"))
             {
                 animator.SetTrigger("Wave");
@@ -86,7 +88,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
             {
                 HandleRaygunState();
             }
-            else 
+            else
             {
                 HandleFlashlightState();
                 Vector3 rayOrigin = cameraTransform.position - cameraTransform.up * 0.3f;
@@ -96,7 +98,8 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
                 if (isGrabbing) HandleGrabbedState();
                 else HandleDefaultState(ray, rayOrigin);
             }
-            if (Input.GetKeyDown(KeyCode.M) || Input.GetButtonDown("jsB_mine") || Input.GetButtonDown("jsB_partner")) {
+            if (Input.GetKeyDown(KeyCode.M) || Input.GetButtonDown("jsB_mine") || Input.GetButtonDown("jsB_partner"))
+            {
                 inventoryCanvas.SetActive(true);
             }
         }
@@ -186,7 +189,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown("jsA_mine") || Input.GetButtonDown("jsA_partner")) 
+            if (Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown("jsA_mine") || Input.GetButtonDown("jsA_partner"))
             {
                 ReleaseObject();
             }
@@ -197,13 +200,13 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
     {
         // Always update the raycast line first
         lineRenderer.SetPosition(0, rayOrigin);
-        
+
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, rayLength, interactableLayer))
         {
             // Update raycast end point to hit point
             lineRenderer.SetPosition(1, hit.point);
-            
+
             // Handle interactions in priority order
             if (hit.collider.CompareTag("LightSwitch"))
             {
@@ -213,7 +216,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
             {
                 handlePuzzle2(hit);
             }
-            else if (hit.collider.CompareTag("Locker1") || 
+            else if (hit.collider.CompareTag("Locker1") ||
                     hit.collider.gameObject.layer == LayerMask.NameToLayer("puzzle1"))
             {
                 HandleLocker1Interactions(hit);
@@ -232,7 +235,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
         }
     }
 
-    void handleLightSiwtch( RaycastHit hit)
+    void handleLightSiwtch(RaycastHit hit)
     {
         if (isGrabbing) return;
         if (hit.collider.CompareTag("LightSwitch"))
@@ -253,7 +256,6 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
             RemoveHighlight();
         }
     }
-
     void handlePuzzle2(RaycastHit hit)
     {
         HighlightObject(hit.collider.transform, Color.yellow);
@@ -287,11 +289,12 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
             ButtonDescriptionss.text = "";
     }
 
-    private void handlepuzzle2Drawerlock(RaycastHit hit) {
-    if (isGrabbing) return;
-    AKpuzzle2Start puzzle1StartLocker = hit.collider.GetComponent<AKpuzzle2Start>();
-    if (Input.GetKeyDown(KeyCode.B) || Input.GetButtonDown("jsX_mine") || Input.GetButtonDown("jsX_partner"))
-        puzzle1StartLocker?.startPuzzle();
+    private void handlepuzzle2Drawerlock(RaycastHit hit)
+    {
+        if (isGrabbing) return;
+        AKpuzzle2Start puzzle1StartLocker = hit.collider.GetComponent<AKpuzzle2Start>();
+        if (Input.GetKeyDown(KeyCode.B) || Input.GetButtonDown("jsX_mine") || Input.GetButtonDown("jsX_partner"))
+            puzzle1StartLocker?.startPuzzle();
     }
 
     private void HandleLocker1Interactions(RaycastHit hit)
@@ -314,7 +317,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
             }
         }
     }
-    
+
 
     void HandleInteractableHit(RaycastHit hit)
     {
@@ -408,7 +411,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
 
             obj.SetParent(cameraTransform);
 
-            objectPhotonView.RPC("SyncInitialGrab", RpcTarget.OthersBuffered, 
+            objectPhotonView.RPC("SyncInitialGrab", RpcTarget.OthersBuffered,
                 obj.position,
                 obj.rotation,
                 view.ViewID);
@@ -459,7 +462,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
                         door.photonView.RPC("RPC_NotifyMoonstonePlaced", RpcTarget.AllBuffered);
                     }
                 }
-                else 
+                else
                 {
                     if (rb) rb.isKinematic = false;
                     if (col) col.enabled = true;
@@ -482,10 +485,10 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
     {
         // Skip if we're already highlighting this object
         if (lastHighlightedObject == obj) return;
-        
+
         // Clear previous highlight
         RemoveHighlight();
-        
+
         // Store new highlight
         lastHighlightedObject = obj;
 
@@ -574,7 +577,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
             {
                 AKengravingIdentifier engravingIdentifier = col.GetComponent<AKengravingIdentifier>();
                 if (!engravingIdentifier) return null;
-                if (stoneIdentifier +  engravingIdentifier.moon_identifier == 1)
+                if (stoneIdentifier + engravingIdentifier.moon_identifier == 1)
                 {
                     return col.transform;
                 }

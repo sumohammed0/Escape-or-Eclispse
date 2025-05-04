@@ -31,6 +31,7 @@ TagManager:
   - Puzzle1Canvas
   - Puzzle2Canvas
   - Puzzle4Canvas
+  - pillar
   layers:
   - Default
   - TransparentFX

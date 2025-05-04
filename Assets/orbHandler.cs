@@ -19,7 +19,7 @@ public class orbHandler : MonoBehaviour
             // Check if the orb is not already active
             orb.SetActive(true);
             Debug.Log("Orb activated");
-            
+            this.enabled = false; // Disable this script to prevent further updates
         }
     }
 }
