@@ -11,6 +11,8 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
 {
     [Header("Raycast Settings")]
     [SerializeField] TextMeshProUGUI ButtonDescriptionss;
+    [SerializeField] private Transform characterBody; // Assign your model's root body in Inspector
+    [SerializeField] private Animator animator; // Drag your Animator component here
     public float rayLength = 5f;
     public Color rayColor = Color.green;
     public LayerMask interactableLayer;
@@ -46,11 +48,39 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
         lineRenderer.startColor = lineRenderer.endColor = rayColor;
     }
 
+    void RotateCharacterToFaceRay()
+    {
+        Vector3 forward = cameraTransform.forward;
+        forward.y = 0; // prevent tilting up/down
+        if (forward != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(forward);
+            characterBody.rotation = Quaternion.Slerp(characterBody.rotation, targetRotation, Time.deltaTime * 5f); // smooth rotation
+        }
+    }
+
+    void PlayInteractAnimation()
+    {
+        animator.SetTrigger("Interact");
+    }
+
     void Update()
     {
         if (view.IsMine)
         {
             if (!cameraTransform) return;
+
+            if (isHoldingRaygun || isHoldingFlashlight || !isGrabbing)
+            {
+                RotateCharacterToFaceRay();
+            }
+
+            if (Input.GetKeyDown(KeyCode.P) || 
+                Input.GetButtonDown("jsmenu_mine") || 
+                Input.GetButtonDown("jsmenu_partner"))
+            {
+                animator.SetTrigger("Wave");
+            }
 
             if (isHoldingRaygun)
             {
@@ -273,6 +303,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
 
         if (Input.GetKeyDown(KeyCode.B) || Input.GetButtonDown("jsX_mine") || Input.GetButtonDown("jsX_partner"))
         {
+            PlayInteractAnimation();
             if (hit.collider.name == "Puzzle1DrawerLocker")
             {
                 hit.collider.GetComponent<AKPuzzelOneStart>()?.startPuzzleOne();
@@ -389,6 +420,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
             grabbedObject = obj;
             isGrabbing = true;
         }
+        PlayInteractAnimation();
     }
 
     public void ReleaseObject()
