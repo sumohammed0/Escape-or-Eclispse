@@ -5901,7 +5901,7 @@ GameObject:
   - component: {fileID: 864557701}
   m_Layer: 9
   m_Name: puzzle4canvas (1)
-  m_TagString: Untagged
+  m_TagString: Puzzle4Canvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12523,8 +12523,8 @@ GameObject:
   - component: {fileID: 1723204911}
   - component: {fileID: 1723204910}
   m_Layer: 0
-  m_Name: Canvas
-  m_TagString: Untagged
+  m_Name: Puzzle1Canvas
+  m_TagString: Puzzle1Canvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13440,7 +13440,7 @@ GameObject:
   - component: {fileID: 1801849557}
   m_Layer: 8
   m_Name: puzzle2canvas
-  m_TagString: Untagged
+  m_TagString: Puzzle2Canvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

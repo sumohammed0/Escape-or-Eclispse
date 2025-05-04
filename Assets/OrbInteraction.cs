@@ -22,12 +22,11 @@ public class OrbInteraction : MonoBehaviour
     {
         float distance = Vector3.Distance(orb.transform.position, targetTransform.position);
         // Debug.Log("Distance between orb and target: " + distance + " | Acceptable range: " + acceptableRange);
-        // Debug.Log("grabbing: " + raycastHandlerScript.isGrabbing);
+        Debug.Log("grabbing = " + raycastHandlerScript.isGrabbing);
 
         if (distance <= acceptableRange && !raycastHandlerScript.isGrabbing)
         {
             Debug.Log("Sphere is placed within the acceptable range.");
-            // You can trigger logic here, e.g., set a flag or play an animation
             isOrbAboveChild = true;
             solvedPuzzleManagerScript.solvedPuzzle1();
         }

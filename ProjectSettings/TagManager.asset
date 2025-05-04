@@ -28,6 +28,9 @@ TagManager:
   - SolveManager
   - LightSwitch
   - Puzzle1
+  - Puzzle1Canvas
+  - Puzzle2Canvas
+  - Puzzle4Canvas
   layers:
   - Default
   - TransparentFX
