@@ -5227,6 +5227,7 @@ MonoBehaviour:
   isHoldingFlashlight: 0
   inventoryManagerScript: {fileID: 0}
   inventoryCanvas: {fileID: 0}
+  orbInteractionScript: {fileID: 0}
 --- !u!1 &799747428
 GameObject:
   m_ObjectHideFlags: 0
@@ -7946,6 +7947,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4934079345739507868, guid: e0a309163f5d1ef4e81367371dba0804, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1425051404}
+    - targetCorrespondingSourceObject: {fileID: 4934079345739507868, guid: e0a309163f5d1ef4e81367371dba0804, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1425051406}
+    - targetCorrespondingSourceObject: {fileID: 4934079345739507868, guid: e0a309163f5d1ef4e81367371dba0804, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1425051405}
   m_SourcePrefab: {fileID: 100100000, guid: e0a309163f5d1ef4e81367371dba0804, type: 3}
 --- !u!1 &1089222773
 GameObject:
@@ -10572,6 +10579,41 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!114 &1425051405
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1425051402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e79d13ba9a0784a438d9e9297653ffe5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1425051406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1425051402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 1
+  OwnershipTransfer: 1
+  observableSearch: 2
+  ObservedComponents:
+  - {fileID: 1425051405}
+  sceneViewId: 6
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1428930898 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7120243725397257365, guid: b538b989a2a135e41b18a21ed2147576, type: 3}

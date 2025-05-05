@@ -7,7 +7,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using TMPro;
 
-public class RaycastHandler : MonoBehaviourPunCallbacks
+public class RaycastHandler : MonoBehaviourPunCallbacks, IPunObservable
 {
     [Header("Raycast Settings")]
     [SerializeField] TextMeshProUGUI ButtonDescriptionss;
@@ -36,10 +36,21 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
     private string sancdclockButtonDescriptions = "B(Keyboard), X(Joystick): Flip SandClock";
 
     public OrbInteraction orbInteractionScript; // Reference to the OrbInteraction script
+
+    Vector3 networkedEuler;
+    Quaternion networkedRotation;
+
+    // Animation sync variables
+    private float lastInteractTime;
+    private bool interactTriggered;
+    private float currentSpeed;
+    private Vector3 previousPosition;
+
     void Start()
     {
         view = GetComponent<PhotonView>();
         SetupLineRenderer();
+        previousPosition = transform.position;
     }
 
     void SetupLineRenderer()
@@ -64,12 +75,37 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
     void PlayInteractAnimation()
     {
         animator.SetTrigger("Interact");
+        interactTriggered = true;
+        
+        if (view.IsMine)
+        {
+            photonView.RPC("RPC_PlayInteractAnimation", RpcTarget.Others);
+        }
+    }
+
+    [PunRPC]
+    void RPC_PlayInteractAnimation()
+    {
+        // Only play if we haven't already played one very recently
+        if (Time.time - lastInteractTime > 0.1f)
+        {
+            animator.SetTrigger("Interact");
+            lastInteractTime = Time.time;
+        }
     }
 
     void Update()
     {
         if (view.IsMine)
         {
+            // Calculate movement speed
+            float movement = Vector3.Distance(transform.position, previousPosition);
+            currentSpeed = movement / Time.deltaTime;
+            previousPosition = transform.position;
+
+            // Update animator
+            animator.SetFloat("Speed", currentSpeed);
+
             if (!cameraTransform) return;
 
             if (isHoldingRaygun || isHoldingFlashlight || !isGrabbing)
@@ -82,6 +118,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
                 Input.GetButtonDown("jsmenu_partner"))
             {
                 animator.SetTrigger("Wave");
+                view.RPC("PlayWaveAnimation", RpcTarget.Others); // Notify others
             }
 
             if (isHoldingRaygun)
@@ -584,5 +621,47 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
             }
         }
         return null;
+    }
+
+    [PunRPC]
+    void PlayWaveAnimation()
+    {
+        animator.SetTrigger("Wave"); // Trigger animation for remote clients
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            // Send our rotation and animation states
+            stream.SendNext(characterBody.rotation);
+            stream.SendNext(currentSpeed);
+            stream.SendNext(interactTriggered);
+            
+            if (interactTriggered)
+            {
+                interactTriggered = false; // Reset after sending
+            }
+        }
+        else
+        {
+            // Receive rotation and animation states
+            networkedRotation = (Quaternion)stream.ReceiveNext();
+            currentSpeed = (float)stream.ReceiveNext();
+            bool remoteInteract = (bool)stream.ReceiveNext();
+            
+            // Update character rotation
+            characterBody.rotation = Quaternion.Slerp(characterBody.rotation, 
+                networkedRotation, Time.deltaTime * 10f);
+            
+            // Update animator parameters
+            animator.SetFloat("Speed", currentSpeed);
+            
+            if (remoteInteract && Time.time - lastInteractTime > 0.1f)
+            {
+                animator.SetTrigger("Interact");
+                lastInteractTime = Time.time;
+            }
+        }
     }
 }
