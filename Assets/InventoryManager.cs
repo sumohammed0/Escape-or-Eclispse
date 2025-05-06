@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
+using Photon.Pun; // Add this namespace for PhotonView
 
 public class InventoryManager : MonoBehaviour
 {
@@ -19,43 +20,13 @@ public class InventoryManager : MonoBehaviour
     private float horizontalTimer = 0f;
     // public SpawnPlayers spawnPlayersScript; 
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //flashlight = GameObject.FindGameObjectsWithTag("flashlight")[0];
-
-        // solvedPuzzleManagerScript = GameObject.FindGameObjectWithTag("SolveManager").GetComponent<SolvedPuzzleManager>();
-        // player.GetComponent<CharacterMovement>().enabled = false; // Disable the intro screen manager script
-        // EventSystem.current.SetSelectedGameObject(inventoryFirstSelected); // highlight first selected button
-        // inventoryButtons = GameObject.FindGameObjectsWithTag("inventoryButton"); // get all buttons for inventory
-        // Debug.Log("Inventory opened");
-        
-        // if (solvedPuzzleManagerScript.puzzle1Solved) {
-        //     AddItemToInventory(raycastHandlerScript.raygunObj.gameObject); // add the raygun to the inventory index = 0
-        //     AddItemToInventory(flashlight);
-        // }
-
-        // // Debug.Log("Inventory here");
-
-
-        // selectedIndex = 0;
-        // // for every item in the inventory put its image inside of the inventory
-        // foreach (GameObject item in inventoryItems) {
-        //     if(inventoryButtons[selectedIndex].transform.GetChild(0) == null) {
-        //         Debug.Log("No button child found");
-        //     }
-        //     if (item.transform.parent.GetComponent<Image>() == null) {
-        //         Debug.Log("No image found");
-        //     }
-
-        //     inventoryButtons[selectedIndex].transform.GetChild(0).GetComponent<Image>().sprite = item.transform.parent.GetComponent<Image>().sprite;
-
-        //     selectedIndex++;
-        // }
-
-        // this.selectedIndex = 0; // reset selected index to 0
-        //EventSystem.current.SetSelectedGameObject(inventoryButtons[selectedIndex]);
+        // Register InventoryManager PhotonView ID so others can call RPC on it
+        int viewID = GetComponent<PhotonView>().ViewID;
+        ExitGames.Client.Photon.Hashtable props = new ExitGames.Client.Photon.Hashtable();
+        props["InventoryManagerViewID"] = viewID;
+        PhotonNetwork.LocalPlayer.SetCustomProperties(props);
     }
 
     void OnEnable()
@@ -95,17 +66,6 @@ public class InventoryManager : MonoBehaviour
         }
 
         this.selectedIndex = 0; // reset selected index to 0
-
-        // if (raycastHandlerScript.isGrabbing && raycastHandlerScript.isHoldingRaygun) {
-        //     Debug.Log("Raygun is currently being held so highlighting this button");
-        //     this.selectedIndex = 0;
-        //     EventSystem.current.SetSelectedGameObject(inventoryButtons[selectedIndex]);
-        // }
-        // else if (raycastHandlerScript.isGrabbing && raycastHandlerScript.isHoldingFlashlight) {
-        //     Debug.Log("flashlight is currently being held so highlighting this button");
-        //     this.selectedIndex = 1;
-        //     EventSystem.current.SetSelectedGameObject(inventoryButtons[selectedIndex]);
-        // }
     }
     
     void OnDisable() {
@@ -196,5 +156,13 @@ public class InventoryManager : MonoBehaviour
         player.GetComponent<RaycastHandler>().enabled = true; // Enable the raycast handler script
         player.GetComponent<CharacterMovement>().enabled = true; // Disable the intro screen manager script
         this.gameObject.SetActive(false);
+    }
+
+    public void RPC_AddPuzzle1ItemsToInventory()
+    {
+        if (!inventoryItems.Contains(raygun))
+            AddItemToInventory(raygun);
+        if (!inventoryItems.Contains(flashlight))
+            AddItemToInventory(flashlight);
     }
 }

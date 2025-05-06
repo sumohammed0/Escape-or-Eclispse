@@ -23,7 +23,7 @@ MonoBehaviour:
     Server: 
     Port: 0
     ProxyServer: 
-    Protocol: 5
+    Protocol: 0
     EnableProtocolFallback: 1
     AuthMode: 0
     EnableLobbyStatistics: 0
@@ -57,6 +57,13 @@ MonoBehaviour:
   - SyncTurningState
   - PlayInteractAnimation
   - RPC_PlayInteractAnimation
+  - ActivateOrb
+  - MakeLockInteractable
+  - PuzzleOneSolved
+  - OnPuzzleOneSolved
+  - RPC_PuzzleOneSolved
+  - RPC_AddPuzzle1ItemsToInventory
+  - RPC_OrbPlaced
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

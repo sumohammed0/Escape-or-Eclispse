@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
+
 public class DesktopCameraLook : MonoBehaviour
 {
     // This script is responsible for controlling the camera's look direction using mouse input, for the desktop version of the game.
@@ -48,4 +50,12 @@ public class DesktopCameraLook : MonoBehaviour
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         playerBody.Rotate(Vector3.up * mouseX);
     }
+
+    void OnDisable()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
 }
+
+#endif

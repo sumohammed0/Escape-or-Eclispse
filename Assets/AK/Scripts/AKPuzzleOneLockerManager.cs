@@ -1,72 +1,47 @@
 using UnityEngine;
 using TMPro;
-public class AKPuzzleOneLockerManager : MonoBehaviour
+using Photon.Pun;
+
+public class AKPuzzleOneLockerManager : MonoBehaviourPun
 {
-    public int maxDigits = 8; // Set the required sequence length
-    public string correctSequence = "21678543"; // Set the correct sequence
-    public GameObject lockedObject; // Assign the object to be unlocked
-    private string currentInput = ""; // Stores the current input string
-    [SerializeField] private  TMP_Text displayText; // Base class for both UI and 3D text
+    public int maxDigits = 8;
+    public string correctSequence = "21678543";
+    public GameObject lockedObject;
+    private string currentInput = "";
+
+    [SerializeField] private TMP_Text displayText;
     [SerializeField] private AudioSource pressAudioSource;
     [SerializeField] private GameObject DrawerOneLocker;
     [SerializeField] private GameObject DialPad;
+
     public CharacterMovement characterMovement;
-    public bool isPlayingPuzzle1 = false; // Flag to check if the puzzle is being played
+    public bool isPlayingPuzzle1 = false;
     public orbHandler orbHandlerScript;
+
+    private bool puzzleAlreadySolved = false;
+
     public void Start()
     {
-        displayText.text = ""; // Clear the text at the start
+        displayText.text = "";
         if (correctSequence.Length != maxDigits)
-            throw new System.Exception("Correct sequence length does not match the required sequence length.");
-
+            throw new System.Exception("Correct sequence length mismatch.");
         foreach (char c in correctSequence)
-        {
             if (!char.IsDigit(c))
-                throw new System.Exception("Correct sequence contains invalid characters. Only digits (0-9) are allowed.");
-        }
+                throw new System.Exception("Correct sequence must be digits.");
     }
 
     public void Update()
     {
-        if (!isPlayingPuzzle1)
-            return;
-        if (Input.GetKeyDown(KeyCode.Backspace) || Input.GetButtonDown("jsmenu_mine") || Input.GetButtonDown("jsmenu_partner")){
-            DrawerOneLocker.SetActive(true);
-            DialPad.SetActive(false);
-            characterMovement.enabled = true; // Enable character movement when the script is disabled
-            isPlayingPuzzle1 = false;
+        if (!isPlayingPuzzle1 || puzzleAlreadySolved) return;
+
+        if (Input.GetKeyDown(KeyCode.Backspace) || Input.GetButtonDown("jsmenu_mine") || Input.GetButtonDown("jsmenu_partner"))
+        {
+            ExitPuzzle();
         }
 
-        currentInput = displayText.text; // Update the input sequence from the GUItextmeshpro
+        currentInput = displayText.text;
         CheckSequence(currentInput);
     }
-
-    public void CheckSequence(string enteredSequence)
-    {
-        if (enteredSequence == correctSequence)
-             StartCoroutine(Unlock());
-    }
-
-
-
-    public void DeleteLastDigit()
-    {
-        if (currentInput.Length > 0)
-        {
-            currentInput = currentInput.Substring(0, currentInput.Length - 1);
-            UpdateDisplay();
-        }
-        else
-        {
-            Debug.Log("No digits to delete.");
-        }
-    }
-
-    private void UpdateDisplay()
-    {
-        displayText.text = currentInput;
-    }
-
 
     public void AddDigit(int digit)
     {
@@ -77,23 +52,54 @@ public class AKPuzzleOneLockerManager : MonoBehaviour
             if (pressAudioSource)
                 pressAudioSource.Play();
         }
-        else
-        {
-            Debug.Log("Maximum input length reached.");
-        }
-
     }
 
-    System.Collections.IEnumerator Unlock()
+    public void DeleteLastDigit()
     {
-        DrawerOneLocker.SetActive(false);
-        Debug.Log("Correct sequence entered. Unlocking...");
-        if (lockedObject != null) {
-            Debug.Log("changing layer");
-            lockedObject.layer = LayerMask.NameToLayer("Interactable");; // Example action
+        if (currentInput.Length > 0)
+        {
+            currentInput = currentInput.Substring(0, currentInput.Length - 1);
+            UpdateDisplay();
         }
-        yield return new WaitForSeconds(1f);
-        characterMovement.enabled = true; // Enable character movement when the script is disabled
-        orbHandlerScript.isPuzzle1Solved = true; // Set the puzzle solved flag
-        gameObject.SetActive(false);    }
+    }
+
+    private void UpdateDisplay()
+    {
+        displayText.text = currentInput;
+    }
+
+    public void CheckSequence(string enteredSequence)
+    {
+        if (enteredSequence == correctSequence && !puzzleAlreadySolved)
+        {
+            puzzleAlreadySolved = true;
+            photonView.RPC("RPC_PuzzleOneSolved", RpcTarget.AllBuffered);
+        }
+    }
+
+    private void ExitPuzzle()
+    {
+        DrawerOneLocker.SetActive(true);
+        DialPad.SetActive(false);
+        characterMovement.enabled = true;
+        isPlayingPuzzle1 = false;
+    }
+
+    [PunRPC]
+    public void RPC_PuzzleOneSolved()
+    {
+        Debug.Log("Puzzle 1 solved. Syncing to all players.");
+        if (lockedObject != null)
+            lockedObject.layer = LayerMask.NameToLayer("Interactable");
+
+        orbHandlerScript.isPuzzle1Solved = true;
+
+        // Call local inventory update
+        InventoryManager inventory = FindFirstObjectByType<InventoryManager>();
+        if (inventory != null)
+            inventory.RPC_AddPuzzle1ItemsToInventory();
+
+        ExitPuzzle();
+        gameObject.SetActive(false);
+    }
 }

@@ -1,6 +1,7 @@
 using UnityEngine;
+using Photon.Pun;
 
-public class OrbInteraction : MonoBehaviour
+public class OrbInteraction : MonoBehaviourPun
 {
     public GameObject orb;
     public bool isOrbAboveChild = false;
@@ -9,24 +10,15 @@ public class OrbInteraction : MonoBehaviour
     public Transform targetTransform;
     public RaycastHandler raycastHandlerScript;
 
+    private bool hasBeenPlaced = false; // Prevent multiple triggers
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        // Debug.Log("Start called for OrbInteraction script");
         solvedPuzzleManagerScript = GameObject.FindGameObjectWithTag("SolveManager").GetComponent<SolvedPuzzleManager>();
         targetTransform = this.transform.GetChild(1).transform;
         isOrbAboveChild = false;
-        // Debug.Log("white image position: " + targetTransform.position);
     }
-
-    // void Awake() 
-    // {
-    //     Debug.Log("Awake called for OrbInteraction script");
-    //     if (raycastHandlerScript == null)
-    //     {
-    //         raycastHandlerScript = GameObject.FindGameObjectWithTag("RaycastHandler").GetComponent<RaycastHandler>();
-    //     }
-    // }
 
     // Update is called once per frame
     void Update()
@@ -35,16 +27,24 @@ public class OrbInteraction : MonoBehaviour
         {
             raycastHandlerScript = GameObject.FindGameObjectWithTag("Player").GetComponent<RaycastHandler>();
         }
+
         float distance = Vector3.Distance(orb.transform.position, targetTransform.position);
-        // Debug.Log("Distance between orb and target: " + distance + " | Acceptable range: " + acceptableRange);
-        // Debug.Log("grabbing = " + raycastHandlerScript.isGrabbing);
 
-        if (distance <= acceptableRange && !raycastHandlerScript.isGrabbing)
+        if (distance <= acceptableRange && !raycastHandlerScript.isGrabbing && !hasBeenPlaced)
         {
-            Debug.Log("Sphere is placed within the acceptable range.");
+            hasBeenPlaced = true;
             isOrbAboveChild = true;
-            solvedPuzzleManagerScript.solvedPuzzle1();
-        }
 
+            Debug.Log("Sphere is placed within the acceptable range. Sending RPC.");
+            photonView.RPC("RPC_OrbPlaced", RpcTarget.AllBuffered); // Sync across all players
+        }
+    }
+
+    [PunRPC]
+    public void RPC_OrbPlaced()
+    {
+        Debug.Log("RPC_OrbPlaced called on all players.");
+        isOrbAboveChild = true;
+        solvedPuzzleManagerScript.solvedPuzzle1(); // Now this runs for all
     }
 }
