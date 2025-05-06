@@ -496,7 +496,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   cameraObj: {fileID: 6102715551374009398}
-  joyStickMode: 0
+  joyStickMode: 1
 --- !u!136 &4491695033253830494
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -973,7 +973,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7287137020755404948, guid: 186741bf17cbb0e4fa3ef06daa1f190f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5994654852384453085}
   m_SourcePrefab: {fileID: 100100000, guid: 186741bf17cbb0e4fa3ef06daa1f190f, type: 3}
 --- !u!4 &6102715551374009388 stripped
 Transform:
@@ -990,6 +993,20 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7287137020755404948, guid: 186741bf17cbb0e4fa3ef06daa1f190f, type: 3}
   m_PrefabInstance: {fileID: 3571407243270098082}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5994654852384453085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6102715551374009398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daf89af99db4b5141ade55716bb9fe84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mouseSensitivity: 100
+  playerBody: {fileID: 7782940535413241582}
 --- !u!4 &6102715551760648499 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7287137019966064017, guid: 186741bf17cbb0e4fa3ef06daa1f190f, type: 3}
