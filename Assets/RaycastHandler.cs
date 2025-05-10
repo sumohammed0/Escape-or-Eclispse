@@ -1,23 +1,25 @@
- using UnityEngine;
+using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
-using DoorScript; 
+using DoorScript;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using TMPro;
 
-public class RaycastHandler : MonoBehaviourPunCallbacks
+public class RaycastHandler : MonoBehaviourPunCallbacks, IPunObservable
 {
     [Header("Raycast Settings")]
+    [SerializeField] TextMeshProUGUI ButtonDescriptionss;
+    [SerializeField] private Transform characterBody; // Assign your model's root body in Inspector
+    [SerializeField] private Animator animator; // Drag your Animator component here
     public float rayLength = 5f;
     public Color rayColor = Color.green;
     public LayerMask interactableLayer;
     public Transform cameraTransform;
     private LineRenderer lineRenderer;
     private Transform lastHighlightedObject, grabbedObject;
-    private Color originalObjectColor;
     public bool isGrabbing;
-    // private bool isGrabbing;
     private Transform raygunObject;
     private Transform flashlightObject;
 
@@ -28,16 +30,27 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
     // public List<GameObject> inventoryItems = new List<GameObject>(); // keep track of the items in the inventory
     public InventoryManager inventoryManagerScript; // Reference to the inventory manager script
     public GameObject inventoryCanvas; // Reference to the inventory canvas
-    public bool puzzle1Solved = true;
-    bool puzzle2Solved = false;
-    bool puzzle4Solved = false;
     private Transform nearbyEngraving; // Tracks the nearby Engraver object
     private Transform raygunParent; // Store the grabbed object GameObject
-    private Transform flashlightParent; // Store the grabbed flashlight GameObject
+    private Transform flashlightParent; // Store the grabbed flashlight GameObject]
+    private string sancdclockButtonDescriptions = "B(Keyboard), X(Joystick): Flip SandClock";
+
+    public OrbInteraction orbInteractionScript; // Reference to the OrbInteraction script
+
+    Vector3 networkedEuler;
+    Quaternion networkedRotation;
+
+    // Animation sync variables
+    private float lastInteractTime;
+    private bool interactTriggered;
+    private float currentSpeed;
+    private Vector3 previousPosition;
+
     void Start()
     {
         view = GetComponent<PhotonView>();
         SetupLineRenderer();
+        previousPosition = transform.position;
     }
 
     void SetupLineRenderer()
@@ -48,22 +61,73 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
         lineRenderer.startColor = lineRenderer.endColor = rayColor;
     }
 
+    void RotateCharacterToFaceRay()
+    {
+        Vector3 forward = cameraTransform.forward;
+        forward.y = 0; // prevent tilting up/down
+        if (forward != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(forward);
+            characterBody.rotation = Quaternion.Slerp(characterBody.rotation, targetRotation, Time.deltaTime * 5f); // smooth rotation
+        }
+    }
+
+    void PlayInteractAnimation()
+    {
+        animator.SetTrigger("Interact");
+        interactTriggered = true;
+        
+        if (view.IsMine)
+        {
+            photonView.RPC("RPC_PlayInteractAnimation", RpcTarget.Others);
+        }
+    }
+
+    [PunRPC]
+    void RPC_PlayInteractAnimation()
+    {
+        // Only play if we haven't already played one very recently
+        if (Time.time - lastInteractTime > 0.1f)
+        {
+            animator.SetTrigger("Interact");
+            lastInteractTime = Time.time;
+        }
+    }
+
     void Update()
     {
         if (view.IsMine)
         {
+            // Calculate movement speed
+            float movement = Vector3.Distance(transform.position, previousPosition);
+            currentSpeed = movement / Time.deltaTime;
+            previousPosition = transform.position;
+
+            // Update animator
+            animator.SetFloat("Speed", currentSpeed);
+
             if (!cameraTransform) return;
+
+            if (isHoldingRaygun || isHoldingFlashlight || !isGrabbing)
+            {
+                RotateCharacterToFaceRay();
+            }
+
+            if (Input.GetKeyDown(KeyCode.P) ||
+                Input.GetButtonDown("jsmenu_mine") ||
+                Input.GetButtonDown("jsmenu_partner"))
+            {
+                animator.SetTrigger("Wave");
+                view.RPC("PlayWaveAnimation", RpcTarget.Others); // Notify others
+            }
 
             if (isHoldingRaygun)
             {
                 HandleRaygunState();
             }
-            else if (isHoldingFlashlight)
-            {
-                HandleFlashlightState();
-            }
             else
             {
+                HandleFlashlightState();
                 Vector3 rayOrigin = cameraTransform.position - cameraTransform.up * 0.3f;
                 Ray ray = new Ray(rayOrigin, cameraTransform.forward);
                 lineRenderer.SetPosition(0, rayOrigin);
@@ -71,12 +135,9 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
                 if (isGrabbing) HandleGrabbedState();
                 else HandleDefaultState(ray, rayOrigin);
             }
-            // if (puzzle2Solved) {
-            //     Debug.Log("Puzzle 2 solved"); // Debug log to confirm the puzzle is solved
-            // }
-            if (Input.GetKeyDown(KeyCode.M)) {
-                Debug.Log("open inventory: m clicked");
-                inventoryCanvas.SetActive(true); // open the inventory
+            if (Input.GetKeyDown(KeyCode.M) || Input.GetButtonDown("jsB_mine") || Input.GetButtonDown("jsB_partner"))
+            {
+                inventoryCanvas.SetActive(true);
             }
         }
     }
@@ -97,7 +158,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
         {
             lineRenderer.SetPosition(1, hit.point);
 
-            if (Input.GetKeyDown(KeyCode.Y) && hit.collider.CompareTag("Ground"))
+            if (Input.GetKeyDown(KeyCode.Y) || Input.GetButtonDown("jsY_mine") || Input.GetButtonDown("jsY_partner") && hit.collider.CompareTag("Ground"))
             {
                 // Debug.Log("Teleporting to: " + hit.point); // Debug log to confirm the teleportation
                 this.transform.position = new Vector3(hit.point.x, hit.point.y + 1f, hit.point.z);
@@ -108,13 +169,13 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
             lineRenderer.SetPosition(1, rayOrigin + cameraTransform.forward * rayLength);
         }
 
-        if (Input.GetKeyDown(KeyCode.Q)) ReleaseRaygun();
+        if (Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown("jsA_mine") || Input.GetButtonDown("jsA_partner")) ReleaseRaygun();
     }
 
     void HandleFlashlightState()
     {
         if (!flashlightObject) return;
-
+        if (!isHoldingFlashlight) return;
         flashlightObject.position = cameraTransform.position + cameraTransform.right * 0.1f + cameraTransform.forward * 0.3f;
         flashlightObject.rotation = cameraTransform.rotation;
 
@@ -126,19 +187,13 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
         if (Physics.Raycast(ray, out hit, rayLength, interactableLayer))
         {
             lineRenderer.SetPosition(1, hit.point);
-
-            // if (Input.GetKeyDown(KeyCode.Y) && hit.collider.CompareTag("Ground"))
-            // {
-            //     // Debug.Log("Teleporting to: " + hit.point); // Debug log to confirm the teleportation
-            //     this.transform.position = new Vector3(hit.point.x, hit.point.y + 1f, hit.point.z);
-            // }
         }
         else
         {
             lineRenderer.SetPosition(1, rayOrigin + cameraTransform.forward * rayLength);
         }
 
-        if (Input.GetKeyDown(KeyCode.Q)) ReleaseFlashlight();
+        if (Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown("jsA_mine") || Input.GetButtonDown("jsA_partner")) ReleaseFlashlight();
     }
 
     void HandleGrabbedState()
@@ -171,93 +226,152 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.Q)) 
+            if (Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown("jsA_mine") || Input.GetButtonDown("jsA_partner"))
             {
                 ReleaseObject();
             }
         }
     }
 
-
     void HandleDefaultState(Ray ray, Vector3 rayOrigin)
     {
+        // Always update the raycast line first
+        lineRenderer.SetPosition(0, rayOrigin);
+
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, rayLength, interactableLayer))
         {
-            HandleLocker1Interactions(hit);
-            handlePuzzle2(hit);
-            HandleInteractableHit(hit);
-        }
-        else
-        {
-            lineRenderer.SetPosition(1, rayOrigin + cameraTransform.forward * rayLength);
-            RemoveHighlight();
-        }
-    }
+            // Update raycast end point to hit point
+            lineRenderer.SetPosition(1, hit.point);
 
-    void handlePuzzle2(RaycastHit hit)
-    {
-        if (hit.collider.CompareTag("Puzzle2"))
-        {
-            HighlightObject(hit.collider.transform);
-            if (hit.collider.name == "glass_holder")
+            // Handle interactions in priority order
+            if (hit.collider.CompareTag("LightSwitch"))
             {
-                if (Input.GetKeyDown(KeyCode.B))
-                {
-                    AKPuzzle2SandClockManager sandClockManager = hit.collider.GetComponent<AKPuzzle2SandClockManager>();
-                    if (sandClockManager.IsSolved && !sandClockManager.ClueManager.isFadeIn) 
-                        sandClockManager.ClueManager.StartFadeSequence(2);
-                    else if  (sandClockManager != null)
-                        sandClockManager.FlipSandClock();
-                }
+                handleLightSiwtch(hit);
+            }
+            else if (hit.collider.CompareTag("Puzzle2"))
+            {
+                handlePuzzle2(hit);
+            }
+            else if (hit.collider.CompareTag("Locker1") ||
+                    hit.collider.gameObject.layer == LayerMask.NameToLayer("puzzle1"))
+            {
+                HandleLocker1Interactions(hit);
+            }
+            else
+            {
+                HandleInteractableHit(hit);
             }
         }
         else
+        {
+            // No hit - extend ray to full length
+            lineRenderer.SetPosition(1, rayOrigin + cameraTransform.forward * rayLength);
+            ButtonDescriptionss.text = "";
             RemoveHighlight();
+        }
     }
 
-
-    void HandleLocker1Interactions(RaycastHit hit)
+    void handleLightSiwtch(RaycastHit hit)
     {
         if (isGrabbing) return;
-        if (hit.collider.CompareTag("Locker1"))
+        if (hit.collider.CompareTag("LightSwitch"))
         {
-            if (Input.GetKeyDown(KeyCode.B))
+            HighlightObject(hit.collider.transform, Color.yellow);
+            ButtonDescriptionss.text = " \t B(Keyboard), X(Joystick): Push the switch";
+            if (Input.GetKeyDown(KeyCode.B) || Input.GetButtonDown("jsX_mine") || Input.GetButtonDown("jsX_partner"))
             {
-                if (hit.collider.name == "Puzzle1DrawerLocker")
+                AKLightSwitch lightSwitch = hit.collider.GetComponent<AKLightSwitch>();
+                if (lightSwitch != null)
                 {
-                    hit.collider.GetComponent<AKPuzzelOneStart>().startPuzzleOne();
-                    return;
+                    lightSwitch.interact();
                 }
-                Outline outline = hit.collider.GetComponent<Outline>();
-                outline.enabled = true;
-                AKDigitButton button = hit.collider.GetComponent<AKDigitButton>();
-                if (button != null)
-                {
-                    button.Interact();
-                }
-                outline.enabled = false;
+            }
+        }
+        else
+        {
+            RemoveHighlight();
+        }
+    }
+    void handlePuzzle2(RaycastHit hit)
+    {
+        HighlightObject(hit.collider.transform, Color.yellow);
+        if (hit.collider.name == "glass_holder")
+        {
+            ButtonDescriptionss.text = sancdclockButtonDescriptions;
+
+            AKPuzzle2SandClockManager sandClockManager = hit.collider.GetComponent<AKPuzzle2SandClockManager>();
+            if (isHoldingFlashlight)
+                sandClockManager.ClueManager.IsHoldingFlashLigth = true;
+            else
+                sandClockManager.ClueManager.IsHoldingFlashLigth = false;
+            if (sandClockManager.IsSolved && !sandClockManager.ClueManager.isFadeIn)
+            {
+                sancdclockButtonDescriptions = " \t B(Keyboard), X(Joystick): show Combination";
+                if (Input.GetKeyDown(KeyCode.B) || Input.GetButtonDown("jsX_mine") || Input.GetButtonDown("jsX_partner"))
+                    sandClockManager.ClueManager.StartFadeSequence(2);
+            }
+            else if (sandClockManager != null)
+            {
+                if (Input.GetKeyDown(KeyCode.B) || Input.GetButtonDown("jsX_mine") || Input.GetButtonDown("jsX_partner"))
+                    sandClockManager.FlipSandClock();
+            }
+        }
+        else if (hit.collider.name == "drawerluck2")
+        {
+            ButtonDescriptionss.text = " \t B(Keyboard), X(Joystick): Open lock";
+            handlepuzzle2Drawerlock(hit);
+        }
+        else
+            ButtonDescriptionss.text = "";
+    }
+
+    private void handlepuzzle2Drawerlock(RaycastHit hit)
+    {
+        if (isGrabbing) return;
+        AKpuzzle2Start puzzle1StartLocker = hit.collider.GetComponent<AKpuzzle2Start>();
+        if (Input.GetKeyDown(KeyCode.B) || Input.GetButtonDown("jsX_mine") || Input.GetButtonDown("jsX_partner"))
+            puzzle1StartLocker?.startPuzzle();
+    }
+
+    private void HandleLocker1Interactions(RaycastHit hit)
+    {
+        if (isGrabbing) return;
+
+        HighlightObject(hit.collider.transform, Color.blue);
+        ButtonDescriptionss.text = " \t B(Keyboard), X(Joystick): Interact";
+
+        if (Input.GetKeyDown(KeyCode.B) || Input.GetButtonDown("jsX_mine") || Input.GetButtonDown("jsX_partner"))
+        {
+            PlayInteractAnimation();
+            if (hit.collider.name == "Puzzle1DrawerLocker")
+            {
+                hit.collider.GetComponent<AKPuzzelOneStart>()?.startPuzzleOne();
+            }
+            else
+            {
+                hit.collider.GetComponent<AKDigitButton>()?.Interact();
             }
         }
     }
-    
+
 
     void HandleInteractableHit(RaycastHit hit)
     {
         lineRenderer.SetPosition(1, hit.point);
         if (hit.collider.CompareTag("Interactable"))
         {
-            HighlightObject(hit.collider.transform);
+            HighlightObject(hit.collider.transform, Color.white);
 
-            if (Input.GetKeyDown(KeyCode.B) && !isGrabbing)
+            if (Input.GetKeyDown(KeyCode.B) || Input.GetButtonDown("jsX_mine") || Input.GetButtonDown("jsX_partner") && !isGrabbing)
                 GrabObject(hit.collider.transform);
         }
         else if (hit.collider.CompareTag("Drawer"))
         {
             // Debug.Log("Drawer hit"); // Debug log to confirm the hit
-            HighlightObject(hit.collider.transform);
+            HighlightObject(hit.collider.transform, Color.white);
 
-            if (Input.GetKeyDown(KeyCode.B))
+            if (Input.GetKeyDown(KeyCode.B) || Input.GetButtonDown("jsX_mine") || Input.GetButtonDown("jsX_partner"))
             {
                 DrawerController drawerController = hit.collider.GetComponent<DrawerController>();
                 if (drawerController != null)
@@ -266,20 +380,11 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
                 }
             }
         }
-        // else if (hit.collider.CompareTag("Raygun"))
-        // {
-        //     HighlightObject(hit.collider.transform);
-
-        //     if (Input.GetKeyDown(KeyCode.B))
-        //     {
-        //         PickUpRaygun(hit.collider.transform);
-        //     }
-        // }
         else if (hit.collider.CompareTag("door"))
         {
-            HighlightObject(hit.collider.transform);
+            HighlightObject(hit.collider.transform, Color.white);
 
-            if (Input.GetKeyDown(KeyCode.B))
+            if (Input.GetKeyDown(KeyCode.B) || Input.GetButtonDown("jsX_mine") || Input.GetButtonDown("jsX_partner"))
             {
                 Debug.Log("Door hit"); // Debug log to confirm the hit
                 Door door = hit.collider.GetComponent<Door>();
@@ -291,9 +396,9 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
         }
         else if (hit.collider.CompareTag("Moonstone"))
         {
-            HighlightObject(hit.collider.transform);
+            HighlightObject(hit.collider.transform, Color.white);
 
-            if (Input.GetKeyDown(KeyCode.B) && !isGrabbing)
+            if (Input.GetKeyDown(KeyCode.B) || Input.GetButtonDown("jsX_mine") || Input.GetButtonDown("jsX_partner") && !isGrabbing)
             {
                 GrabObject(hit.collider.transform);
             }
@@ -328,6 +433,7 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
 
             grabbedObject = obj;
             isGrabbing = true;
+            Debug.Log("grabbed obj");
 
             Rigidbody rb = obj.GetComponent<Rigidbody>();
             if (rb != null)
@@ -342,17 +448,19 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
 
             obj.SetParent(cameraTransform);
 
-            objectPhotonView.RPC("SyncInitialGrab", RpcTarget.OthersBuffered, 
+            objectPhotonView.RPC("SyncInitialGrab", RpcTarget.OthersBuffered,
                 obj.position,
                 obj.rotation,
                 view.ViewID);
         }
         else
         {
+            Debug.Log("grabbed obj");
             // Handle objects without PhotonView
             grabbedObject = obj;
             isGrabbing = true;
         }
+        PlayInteractAnimation();
     }
 
     public void ReleaseObject()
@@ -388,11 +496,10 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
                     Door door = FindFirstObjectByType<Door>();
                     if (door != null)
                     {
-                        door.increaseNumberOfMoonstones();
                         door.photonView.RPC("RPC_NotifyMoonstonePlaced", RpcTarget.AllBuffered);
                     }
                 }
-                else 
+                else
                 {
                     if (rb) rb.isKinematic = false;
                     if (col) col.enabled = true;
@@ -406,25 +513,32 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
                 grabbedObject.SetParent(null);
             }
         }
-
+        Debug.Log("Released object: " + grabbedObject.name); // Debug log to confirm the release
         grabbedObject = null;
         isGrabbing = false;
     }
 
-    void HighlightObject(Transform obj)
+    void HighlightObject(Transform obj, Color outlineColor)
     {
+        // Skip if we're already highlighting this object
         if (lastHighlightedObject == obj) return;
+
+        // Clear previous highlight
         RemoveHighlight();
+
+        // Store new highlight
         lastHighlightedObject = obj;
 
-        // Add or enable the Outline component
+        // Get or add outline component
         var outline = obj.GetComponent<Outline>();
         if (!outline)
         {
             outline = obj.gameObject.AddComponent<Outline>();
-            outline.OutlineColor = Color.white;
             outline.OutlineWidth = 5f;
         }
+
+        // Apply outline settings
+        outline.OutlineColor = outlineColor;
         outline.enabled = true;
     }
 
@@ -432,7 +546,6 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
     {
         if (!lastHighlightedObject) return;
 
-        // Disable the Outline component
         var outline = lastHighlightedObject.GetComponent<Outline>();
         if (outline)
         {
@@ -468,7 +581,6 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
         if (raygunObject)
         {
             raygunObject.SetParent(raygunParent);
-            //raygunObject.SetParent(null);
             raygunObject.gameObject.SetActive(false); // should be stored in the inventory so set inactive until selected again
             raygunObject = null;
         }
@@ -502,12 +614,54 @@ public class RaycastHandler : MonoBehaviourPunCallbacks
             {
                 AKengravingIdentifier engravingIdentifier = col.GetComponent<AKengravingIdentifier>();
                 if (!engravingIdentifier) return null;
-                if ((stoneIdentifier +  engravingIdentifier.moon_identifier == 1))
+                if (stoneIdentifier + engravingIdentifier.moon_identifier == 1)
                 {
                     return col.transform;
                 }
             }
         }
         return null;
+    }
+
+    [PunRPC]
+    void PlayWaveAnimation()
+    {
+        animator.SetTrigger("Wave"); // Trigger animation for remote clients
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            // Send our rotation and animation states
+            stream.SendNext(characterBody.rotation);
+            stream.SendNext(currentSpeed);
+            stream.SendNext(interactTriggered);
+            
+            if (interactTriggered)
+            {
+                interactTriggered = false; // Reset after sending
+            }
+        }
+        else
+        {
+            // Receive rotation and animation states
+            networkedRotation = (Quaternion)stream.ReceiveNext();
+            currentSpeed = (float)stream.ReceiveNext();
+            bool remoteInteract = (bool)stream.ReceiveNext();
+            
+            // Update character rotation
+            characterBody.rotation = Quaternion.Slerp(characterBody.rotation, 
+                networkedRotation, Time.deltaTime * 10f);
+            
+            // Update animator parameters
+            animator.SetFloat("Speed", currentSpeed);
+            
+            if (remoteInteract && Time.time - lastInteractTime > 0.1f)
+            {
+                animator.SetTrigger("Interact");
+                lastInteractTime = Time.time;
+            }
+        }
     }
 }

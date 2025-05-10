@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine.EventSystems;
+using Photon.Pun; // Add this namespace for PhotonView
 
 public class InventoryManager : MonoBehaviour
 {
@@ -15,45 +16,17 @@ public class InventoryManager : MonoBehaviour
     public GameObject player;
     public GameObject flashlight;
     public GameObject raygun;
+    private float horizontalInputCooldown = 0.2f; // seconds
+    private float horizontalTimer = 0f;
     // public SpawnPlayers spawnPlayersScript; 
 
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //flashlight = GameObject.FindGameObjectsWithTag("flashlight")[0];
-
-        // solvedPuzzleManagerScript = GameObject.FindGameObjectWithTag("SolveManager").GetComponent<SolvedPuzzleManager>();
-        // player.GetComponent<CharacterMovement>().enabled = false; // Disable the intro screen manager script
-        // EventSystem.current.SetSelectedGameObject(inventoryFirstSelected); // highlight first selected button
-        // inventoryButtons = GameObject.FindGameObjectsWithTag("inventoryButton"); // get all buttons for inventory
-        // Debug.Log("Inventory opened");
-        
-        // if (solvedPuzzleManagerScript.puzzle1Solved) {
-        //     AddItemToInventory(raycastHandlerScript.raygunObj.gameObject); // add the raygun to the inventory index = 0
-        //     AddItemToInventory(flashlight);
-        // }
-
-        // // Debug.Log("Inventory here");
-
-
-        // selectedIndex = 0;
-        // // for every item in the inventory put its image inside of the inventory
-        // foreach (GameObject item in inventoryItems) {
-        //     if(inventoryButtons[selectedIndex].transform.GetChild(0) == null) {
-        //         Debug.Log("No button child found");
-        //     }
-        //     if (item.transform.parent.GetComponent<Image>() == null) {
-        //         Debug.Log("No image found");
-        //     }
-
-        //     inventoryButtons[selectedIndex].transform.GetChild(0).GetComponent<Image>().sprite = item.transform.parent.GetComponent<Image>().sprite;
-
-        //     selectedIndex++;
-        // }
-
-        // this.selectedIndex = 0; // reset selected index to 0
-        //EventSystem.current.SetSelectedGameObject(inventoryButtons[selectedIndex]);
+        // Register InventoryManager PhotonView ID so others can call RPC on it
+        int viewID = GetComponent<PhotonView>().ViewID;
+        ExitGames.Client.Photon.Hashtable props = new ExitGames.Client.Photon.Hashtable();
+        props["InventoryManagerViewID"] = viewID;
+        PhotonNetwork.LocalPlayer.SetCustomProperties(props);
     }
 
     void OnEnable()
@@ -93,17 +66,6 @@ public class InventoryManager : MonoBehaviour
         }
 
         this.selectedIndex = 0; // reset selected index to 0
-
-        // if (raycastHandlerScript.isGrabbing && raycastHandlerScript.isHoldingRaygun) {
-        //     Debug.Log("Raygun is currently being held so highlighting this button");
-        //     this.selectedIndex = 0;
-        //     EventSystem.current.SetSelectedGameObject(inventoryButtons[selectedIndex]);
-        // }
-        // else if (raycastHandlerScript.isGrabbing && raycastHandlerScript.isHoldingFlashlight) {
-        //     Debug.Log("flashlight is currently being held so highlighting this button");
-        //     this.selectedIndex = 1;
-        //     EventSystem.current.SetSelectedGameObject(inventoryButtons[selectedIndex]);
-        // }
     }
     
     void OnDisable() {
@@ -119,37 +81,32 @@ public class InventoryManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftArrow)) {
-            Debug.Log("left arrow pressed");
-        //if (Input.GetAxis("Vertical") > 0) {
+        horizontalTimer -= Time.deltaTime;
+
+        float axis = Input.GetAxis("Horizontal");
+
+        if (Input.GetKeyDown(KeyCode.LeftArrow) || (axis < -0.5f && horizontalTimer <= 0f)) {
             selectedIndex -= 1;
-            //selectedIndex =  (selectedIndex - 1 + inventoryButtons.Length) % inventoryButtons.Length;
             if (selectedIndex < 0) {
                 selectedIndex = inventoryButtons.Length - 1;
             }
             EventSystem.current.SetSelectedGameObject(inventoryButtons[selectedIndex]);
+            horizontalTimer = horizontalInputCooldown;
         }
-        else if (Input.GetKeyDown(KeyCode.RightArrow)) {
-            Debug.Log("right arrow pressed");
-        //else if (Input.GetAxis("Vertical") < 0) {
+        else if (Input.GetKeyDown(KeyCode.RightArrow) || (axis > 0.5f && horizontalTimer <= 0f)) {
             selectedIndex += 1;
-            //selectedIndex = (selectedIndex + 1) % inventoryButtons.Length;
             if (selectedIndex > inventoryButtons.Length - 1) {
                 selectedIndex = 0;
             }
             EventSystem.current.SetSelectedGameObject(inventoryButtons[selectedIndex]);
+            horizontalTimer = horizontalInputCooldown;
         }
 
-
-        if (Input.GetKeyDown(KeyCode.B)) {
-            Debug.Log("button pressed B");
-        //if (Input.GetButtonDown("js1")) {
-            //Debug.Log($"Button pressed {EventSystem.current.currentSelectedGameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text}");
+        if (Input.GetKeyDown(KeyCode.B) || Input.GetButtonDown("jsX_mine") || Input.GetButtonDown("jsX_partner")) {
             EventSystem.current.currentSelectedGameObject.GetComponent<Button>().onClick.Invoke();
         }
 
-        if (Input.GetKeyDown(KeyCode.M)) {
-            Debug.Log("close inventory: m clicked");
+        if (Input.GetKeyDown(KeyCode.M) || Input.GetButtonDown("jsB_mine") || Input.GetButtonDown("jsB_partner")) {
             CloseInventory();
         }
     }
@@ -199,5 +156,13 @@ public class InventoryManager : MonoBehaviour
         player.GetComponent<RaycastHandler>().enabled = true; // Enable the raycast handler script
         player.GetComponent<CharacterMovement>().enabled = true; // Disable the intro screen manager script
         this.gameObject.SetActive(false);
+    }
+
+    public void RPC_AddPuzzle1ItemsToInventory()
+    {
+        if (!inventoryItems.Contains(raygun))
+            AddItemToInventory(raygun);
+        if (!inventoryItems.Contains(flashlight))
+            AddItemToInventory(flashlight);
     }
 }

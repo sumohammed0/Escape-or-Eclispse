@@ -50,6 +50,20 @@ MonoBehaviour:
   - SyncRelease
   - SyncPlacement
   - RPC_NotifyMoonstonePlaced
+  - increaseNumberOfMoonstones
+  - PlayWaveAnimation
+  - PlayInteractAnimationRPC
+  - PlayTurnAnimation
+  - SyncTurningState
+  - PlayInteractAnimation
+  - RPC_PlayInteractAnimation
+  - ActivateOrb
+  - MakeLockInteractable
+  - PuzzleOneSolved
+  - OnPuzzleOneSolved
+  - RPC_PuzzleOneSolved
+  - RPC_AddPuzzle1ItemsToInventory
+  - RPC_OrbPlaced
   DisableAutoOpenWizard: 1
-  ShowSettings: 0
+  ShowSettings: 1
   DevRegionSetOnce: 1

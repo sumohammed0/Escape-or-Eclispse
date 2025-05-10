@@ -3,6 +3,7 @@ using UnityEngine;
 public class AKPuzzelOneStart : MonoBehaviour
 {
     public GameObject puzzleOnelocker;// Reference to the locker manager object
+    [SerializeField] AKPuzzleOneLockerManager puzzle1LockManager;
 
     void Start()
     {
@@ -10,6 +11,8 @@ public class AKPuzzelOneStart : MonoBehaviour
     }
     public void startPuzzleOne()
     {
+        puzzle1LockManager.characterMovement.enabled = false; // Disable the locker manager at the start
+        puzzle1LockManager.isPlayingPuzzle1 = true;
         AnimateLocker1Drawer();
         puzzleOnelocker.SetActive(true);// Enable the locker manager
         gameObject.SetActive(false);// Disable the current game object
